@@ -136,3 +136,41 @@ export const Data1 =
       value: 48,
     },
   ];
+
+  export const Data3 = [
+    {
+      year: '1Q',
+      value: 38,
+    },
+    {
+      year: '2Q',
+      value: 52,
+    },
+    {
+      year: '3Q',
+      value: 61,
+    },
+    {
+      year: '4Q',
+      value: 145,
+    },
+  ];
+
+  export const Data4 = [
+    {
+      year: '25week',
+      value: 38,
+    },
+    {
+      year: '26week',
+      value: 52,
+    },
+    {
+      year: '27week',
+      value: 61,
+    },
+    {
+      year: '28week',
+      value: 145,
+    },
+  ];

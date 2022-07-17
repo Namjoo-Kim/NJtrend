@@ -111,14 +111,18 @@ import {
 } from '@ant-design/icons';
 
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu } from 'antd';
-import React, { useState }  from 'react';
+import { Breadcrumb, Layout, Menu, Select } from 'antd';
+import { Card, Col, Row } from 'antd';
+
+import React, { useState, useEffect }  from 'react';
 
 import DemoBar from './component/DemoBar';
 import PercentPlot from './component/PercentPlot';
 
 import {CsvToJSON} from './component/Example'
-import {Data1, Data2} from './data/Data'
+import {Data1, Data2, Data3, Data4} from './data/Data'
+
+const { Option } = Select;
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -178,46 +182,82 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
   },
 );
 
-const SomeCom = () => {
 
-  const handleFile = (e: { target: { result: any; }; }) => {
-    const content = e.target.result;
-    // console.log('file content',  content)
-
-    const string_csv = content.toString();
-    const arr_json = CsvToJSON(string_csv);
-
-    console.log(arr_json)
-
-    // You can set content in state and show it in render.
-  };
-
-  const handleChangeFile = (file: any) => {
-    let fileData : any = new FileReader();
-    fileData.onloadend = handleFile;
-    fileData.readAsText(file);
-  };
-
-  return(
-    <div>
-        <input type="file" accept=".csv" onChange={e  => 
-            handleChangeFile(e.target.files![0])} /> 
-    </div>
-  )
-};
 
 
 const App: React.FC = () => { 
+
+  
   const [collapsed, setCollapsed] = useState(false);
   const [text, setText] = useState("hello");
-  const [datetemp, setDatetemp] = useState(Data1);
+  const [datetemp, setDatetemp] = useState(Data2);
+
+  const [xField, setXField] = useState("value");
+  const [yField, setYField] = useState("year");
+  const [seriesField, setSeriesField] = useState("year");
+
+  const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
+
+  
+  useEffect(() => {
+    if (! datetemp) {
+      return ;
+    }
+
+  });
+
+
+
+
+  const SomeCom = () => {
+
+    const handleFile = (e: { target: { result: any; }; }) => {
+      const content = e.target.result;
+      // console.log('file content',  content)
+  
+      const string_csv = content.toString();
+      const arr_json = CsvToJSON(string_csv);
+  
+      console.log(arr_json)
+      // setDatetemp(arr_json)
+      // setXField("kinds")
+      // setYField("cnt")
+      // setSeriesField("cnt")
+      // You can set content in state and show it in render.
+    };
+  
+    const handleChangeFile = (file: any) => {
+      let fileData : any = new FileReader();
+      fileData.onloadend = handleFile;
+      fileData.readAsText(file);
+    };
+  
+    return(
+      <div>
+          <input type="file" accept=".csv" onChange={e  => 
+              handleChangeFile(e.target.files![0])} /> 
+      </div>
+    )
+  };
 
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e.key);
     setText(e.key)
-
-    // console.log(Data1)
+        // console.log(Data1)
   };
+
+
+  const handleChange = (value: string) => {
+    // console.log(`selected ${value}`);
+    if ( value === "year") {
+      setDatetemp(Data2)
+    } else if  ( value === "quarter") {
+      setDatetemp(Data3)
+    } else {
+      setDatetemp(Data4)
+    }
+  };
+
 
   return (
   <Layout style={{ minHeight: '100vh' }}>
@@ -237,35 +277,73 @@ const App: React.FC = () => {
           onClick = {onClick}
         />
       </Sider>
+
+
+
       <Layout className="site-layout"  style={{ padding: '0 24px 24px' }}>
 
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
-      </Breadcrumb>
-      <Content
-        className="site-layout-background"
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: 280,
-        }}
-      >
-        <SomeCom />
-        <DemoBar data={Data2} Field = {{xField :"value", yField: "year", seriesField: 'year'}}/>
-        <PercentPlot data={datetemp} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
-      </Content>
-      <Content style={{ margin: '0 16px' }}>
+      {/* <Content
+          className="site-layout-color-none"
+          style={{ overflow: 'scroll' }}
+          // style={{
+          //   padding: 24,
+          //   margin: 0,
+          //   minHeight: 280,
+          // }}
+        > */}
+
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>User</Breadcrumb.Item>
-          <Breadcrumb.Item>{text}</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-          Bill is a cat.
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>List</Breadcrumb.Item>
+          <Breadcrumb.Item>App</Breadcrumb.Item>
+        </Breadcrumb>      
+
+        <div className="site-card-wrapper">
+          <Row gutter={16} className="row-spacing"  >
+          <Col span={24}>
+              
+              <Card  style={card_style} >
+                <Select defaultValue="year" style={{ width: 120 }} onChange={handleChange} >
+                  <Option value="year">년</Option>
+                  <Option value="quarter">분기</Option>
+                  <Option value="week">주기</Option>
+                </Select>
+              </Card>
+            </Col>
+          </Row>
+          매출 Top5 카테고리
+          <Row gutter={16} className="row-spacing">
+            <Col span={12}>
+              <Card style={card_style}  >
+                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
+-              </Card>
+            </Col>
+            <Col span={12}>
+              <Card style={card_style} >
+                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
+-              </Card>
+            </Col>
+
+          </Row>
+          <Row gutter={16} className="row-spacing">
+          <Col span={24}>
+              <Card style={card_style} >
+-                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+              </Card>
+            </Col>
+          </Row>
+          <Row gutter={16} className="row-spacing">
+          <Col span={24}>
+              <Card style={card_style} >
+-                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+              </Card>
+            </Col>
+          </Row>
         </div>
-      </Content>
-    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+
+        {/* </Content> */}
+
+      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
   </Layout>
 </Layout>
