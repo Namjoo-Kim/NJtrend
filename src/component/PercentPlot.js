@@ -11,7 +11,7 @@ const PercentPlot = (props) => {
   //   }
   // }, [props, props.Field]);
 
-  // 
+  
   const config = {
     data: props.data,
     xField: props.Field.xField,
