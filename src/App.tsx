@@ -118,7 +118,7 @@ import DemoBar from './component/DemoBar';
 import PercentPlot from './component/PercentPlot';
 
 import {CsvToJSON} from './component/Example'
-import {Data1} from './data/Data'
+import {Data1, Data2} from './data/Data'
 
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -187,7 +187,6 @@ const SomeCom = () => {
     const string_csv = content.toString();
     const arr_json = CsvToJSON(string_csv);
 
-    
     console.log(arr_json)
 
     // You can set content in state and show it in render.
@@ -254,7 +253,7 @@ const App: React.FC = () => {
         }}
       >
         <SomeCom />
-        <DemoBar />
+        <DemoBar data={Data2} Field = {{xField :"value", yField: "year", seriesField: 'year'}}/>
         <PercentPlot data={datetemp} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
       </Content>
       <Content style={{ margin: '0 16px' }}>
