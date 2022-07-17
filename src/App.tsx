@@ -301,8 +301,9 @@ const App: React.FC = () => {
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
-              
               <Card  style={card_style} >
+                보기
+                <div/>
                 <Select defaultValue="year" style={{ width: 120 }} onChange={handleChange} >
                   <Option value="year">년</Option>
                   <Option value="quarter">분기</Option>
@@ -324,13 +325,6 @@ const App: React.FC = () => {
 -              </Card>
             </Col>
 
-          </Row>
-          <Row gutter={16} className="row-spacing">
-          <Col span={24}>
-              <Card style={card_style} >
--                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
-              </Card>
-            </Col>
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
