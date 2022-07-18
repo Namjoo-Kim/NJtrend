@@ -108,10 +108,11 @@ import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
+  SearchOutlined ,
 } from '@ant-design/icons';
 
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, Select } from 'antd';
+import { Breadcrumb, Layout, Menu, Select, Button } from 'antd';
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect }  from 'react';
@@ -258,6 +259,22 @@ const App: React.FC = () => {
     }
   };
 
+  const Temp = () => {
+
+    return(
+    <div className="form-group">
+      <p className="label">집계기준</p>
+      <div className="form">
+        <Select defaultValue="year" className="select-layout"  onChange={handleChange} >
+          <Option className="select-layout-option" value="year">년</Option>
+          <Option value="quarter">분기</Option>
+          <Option value="week">주기</Option>
+        </Select>
+      </div>
+    </div>
+
+)
+}
 
   return (
   <Layout style={{ minHeight: '100vh' }}>
@@ -265,7 +282,7 @@ const App: React.FC = () => {
       <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
     </Header>
-    <Layout>
+    <Layout className="site-layout">
       <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={200} className="site-layout-background">
       <Menu
           mode="inline"
@@ -280,7 +297,7 @@ const App: React.FC = () => {
 
 
 
-      <Layout className="site-layout"  style={{ padding: '0 24px 24px' }}>
+      <Layout className="site-layout-background"  style={{ padding: '0 24px 24px' }}>
 
       {/* <Content
           className="site-layout-color-none"
@@ -297,18 +314,23 @@ const App: React.FC = () => {
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb>      
-
+    
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
               <Card  style={card_style} >
-                보기
-                <div/>
-                <Select defaultValue="year" style={{ width: 120 }} onChange={handleChange} >
+              <Temp></Temp>
+                <p >집계기준</p>
+                <Select defaultValue="year"   onChange={handleChange} >
                   <Option value="year">년</Option>
                   <Option value="quarter">분기</Option>
                   <Option value="week">주기</Option>
                 </Select>
+
+
+              <Button icon={<SearchOutlined />} size="middle"  >
+                Search
+              </Button>
               </Card>
             </Col>
           </Row>
@@ -337,7 +359,7 @@ const App: React.FC = () => {
 
         {/* </Content> */}
 
-      <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer  className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
   </Layout>
 </Layout>
