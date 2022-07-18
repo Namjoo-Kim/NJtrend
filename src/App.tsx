@@ -247,7 +247,6 @@ const App: React.FC = () => {
         // console.log(Data1)
   };
 
-
   const handleChange = (value: string) => {
     // console.log(`selected ${value}`);
     if ( value === "year") {
@@ -266,7 +265,7 @@ const App: React.FC = () => {
       <p className="label">집계기준</p>
       <div className="form">
         <Select defaultValue="year" className="select-layout"  onChange={handleChange} >
-          <Option className="select-layout-option" value="year">년</Option>
+          <Option value="year">년</Option>
           <Option value="quarter">분기</Option>
           <Option value="week">주기</Option>
         </Select>
@@ -320,13 +319,6 @@ const App: React.FC = () => {
           <Col span={24}>
               <Card  style={card_style} >
               <Temp></Temp>
-                <p >집계기준</p>
-                <Select defaultValue="year"   onChange={handleChange} >
-                  <Option value="year">년</Option>
-                  <Option value="quarter">분기</Option>
-                  <Option value="week">주기</Option>
-                </Select>
-
 
               <Button icon={<SearchOutlined />} size="middle"  >
                 Search
