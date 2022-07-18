@@ -13,6 +13,15 @@ code {
 }
 
 
+#header {
+  position:fixed;
+  width:100%;
+  left:0;
+  top:0;
+  right: 0;
+  z-index: 1000;
+}
+
 @import '~antd/dist/antd.css';
 
 .logo {
@@ -40,11 +49,43 @@ code {
   margin-bottom: 35px;
 }
 
-#header {
-  position:fixed;
-  width:100%;
-  left:0;
-  top:0;
-  right: 0;
-  z-index: 1000;
+.select-layout {
+  width: 120px;
+}
+
+
+/* form */
+.form-wrap .form-group {
+	width: 100%;
+	padding: 10px;
+}
+
+.form-group+.form-group {
+	margin-top: 15px;
+}
+
+.form-group .form {
+	width: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.form-group .form>* {
+	margin-left: 5px;
+}
+
+.form-group .form>*:first-child {
+	margin-left: 0;
+}
+
+.form-group .label {
+	color: #727272;
+	font-weight: 400;
+	font-size: 13px;
+	margin-bottom: 7px;
+}
+
+.form-group .label.asterisk::after {
+	content: '*';
+	color: #fe5b2c;
 }
