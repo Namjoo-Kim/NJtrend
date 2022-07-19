@@ -184,7 +184,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 );
 
 
-
+const apiURL = "http://localhost:3000";
 
 const App: React.FC = () => { 
 
@@ -205,8 +205,7 @@ const App: React.FC = () => {
       return ;
     }
 
-  });
-
+  },[]);
 
 
 
