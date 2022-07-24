@@ -47,5 +47,6 @@
     "fs": false,
     "path": false,
     "os": false
-  }
+  },
+  "proxy": "http://127.0.0.1:8000"
 }

@@ -123,6 +123,7 @@ import PercentPlot from './component/PercentPlot';
 import {CsvToJSON} from './component/Example'
 import {Data1, Data2, Data3, Data4} from './data/Data'
 
+import {GetData} from './api/Api';
 const { Option } = Select;
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -184,7 +185,6 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 );
 
 
-const apiURL = "http://localhost:3000";
 
 const App: React.FC = () => { 
 
@@ -207,7 +207,8 @@ const App: React.FC = () => {
 
   },[]);
 
-
+  GetData()
+.then(res => console.log(res.q))
 
   const SomeCom = () => {
 
@@ -342,7 +343,7 @@ const App: React.FC = () => {
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
               <Card style={card_style} >
--                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+-               <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
               </Card>
             </Col>
           </Row>
