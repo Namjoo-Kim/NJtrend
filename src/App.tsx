@@ -197,6 +197,8 @@ const App: React.FC = () => {
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  const [q, setQ] = useState("") ;
+
   const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
   
@@ -208,7 +210,11 @@ const App: React.FC = () => {
   },[]);
 
   GetData()
-.then(res => console.log(res.q))
+.then(res => {
+  console.log(res.q)
+  setQ(res.q)
+  }
+  );
 
   const SomeCom = () => {
 
