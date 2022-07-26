@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import App from './config/routes'
 import Antd from './component/Antd'
 
 const root = ReactDOM.createRoot(

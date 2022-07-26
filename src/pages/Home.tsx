@@ -1,4 +1,29 @@
+// import React from 'react';
+// import logo from './logo.svg';
+// import './App.css';
 
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Edit <code>src/App.tsx</code> and save to reload.
+//         </p>
+//         <a
+//           className="App-link"
+//           href="https://reactjs.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//         >
+//           Learn React
+//         </a>
+//       </header>
+//     </div>
+//   );
+// }
+
+// export default App;
 
 
 ///////////////////////////////////////
@@ -92,13 +117,13 @@ import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect }  from 'react';
 
-import DemoBar from './component/DemoBar';
-import PercentPlot from './component/PercentPlot';
+import DemoBar from '../component/DemoBar';
+import PercentPlot from '../component/PercentPlot';
 
-import {CsvToJSON} from './component/Example'
-import {Data1, Data2, Data3, Data4} from './data/Data'
+import {CsvToJSON} from '../component/Example'
+import {Data1, Data2, Data3, Data4} from '../data/Data'
 
-import {GetData} from './api/Api';
+import {GetData} from '../api/Api';
 const { Option } = Select;
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -161,7 +186,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 
 
 
-const App: React.FC = () => { 
+const Home: React.FC = () => { 
 
   
   const [collapsed, setCollapsed] = useState(false);
@@ -339,4 +364,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Home;
