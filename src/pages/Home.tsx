@@ -326,7 +326,7 @@ const Home: React.FC = () => {
               <Card  style={card_style} >
               <Temp></Temp>
 
-              <Button icon={<SearchOutlined />} size="middle"  >
+              <Button icon={<SearchOutlined />} size="middle"  href='/'>
                 Search
               </Button>
               </Card>

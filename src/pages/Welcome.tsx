@@ -12,11 +12,11 @@ function Welcome() {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
+          href="/Home"
+          // target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          어서오세요!
         </a>
       </header>
     </div>
