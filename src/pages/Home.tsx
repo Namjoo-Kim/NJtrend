@@ -120,6 +120,9 @@ import React, { useState, useEffect }  from 'react';
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
+import {useRouter} from 'next/router';
+import {Link} from "react-router-dom";
+
 import {CsvToJSON} from '../component/Example'
 import {Data1, Data2, Data3, Data4} from '../data/Data'
 
@@ -187,7 +190,7 @@ const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOu
 
 
 const Home: React.FC = () => { 
-
+  const router = useRouter();
   
   const [collapsed, setCollapsed] = useState(false);
   const [text, setText] = useState("hello");
@@ -285,7 +288,19 @@ const Home: React.FC = () => {
   <Layout style={{ minHeight: '100vh' }}>
     <Header className="header">
       <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1} />
+      {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1}  /> */}
+      <Menu theme="dark" mode="horizontal" >
+        <Menu.Item key="login" >
+          <Link to="/">
+            <span >Home</span>
+          </Link>
+        </Menu.Item>
+
+        <Menu.Item key="register" >
+            <span className="nav-text">Register</span>
+        </Menu.Item>
+      </Menu>
+
     </Header>
     <Layout className="site-layout">
       <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={200} className="site-layout-background">
@@ -326,8 +341,9 @@ const Home: React.FC = () => {
               <Card  style={card_style} >
               <Temp></Temp>
 
-              <Button icon={<SearchOutlined />} size="middle"  href='/'>
-                Search
+              <Button icon={<SearchOutlined />} size="middle" >
+                {/* Search */}
+                {q}
               </Button>
               </Card>
             </Col>
