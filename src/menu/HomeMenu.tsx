@@ -149,7 +149,7 @@ const item3: MenuProps['items'] = [
     icon: <UserOutlined />,
     children: [{ 
       label: (
-        <Link to="/Home">
+        <Link to="/Home3">
            <span className="nav-text">매출3</span>
         </Link>
       ),
@@ -177,7 +177,7 @@ return (
       selectedKeys={[key]}
       openKeys={openKeys}
       // defaultOpenKeys={['sub1']}
-      items={menu_list[0]}
+      items={item3}
       onClick = {onClick}
       onOpenChange={onOpenChange}
   />

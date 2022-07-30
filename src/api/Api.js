@@ -42,4 +42,20 @@ export async function GetData() {
     }
 }
 
+export async function Data(param) {
+    try {
+       let res = await axios.get("/data",param);
+        if(res.status == 200){
+            // test for status you want, etc
+            // console.log(res.status)
+            // console.log(res.data)
+        }    
+        // Don't forget to return something   
+        return res.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+
 

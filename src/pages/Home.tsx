@@ -73,7 +73,7 @@
 import { Breadcrumb, Layout, Menu, Select, Button } from 'antd';
 import { Card, Col, Row } from 'antd';
 
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useCallback}  from 'react';
 
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
@@ -81,43 +81,93 @@ import PercentPlot from '../component/PercentPlot';
 import {useRouter} from 'next/router';
 
 import {CsvToJSON} from '../component/Example'
-import {Data1, Data2, Data3, Data4} from '../data/Data'
+import {Data1, Data2, DataTemps} from '../data/Data'
 
-import {GetData} from '../api/Api';
+import * as ApiData from '../api/Api';
 import HomeMenu from '../menu/HomeMenu';
 import TopMenu from '../menu/TopMenu';
 import SearchMenu from '../menu/SearchMenu';
+import axios from "axios";
 
 const { Footer, Content } = Layout;
 
 const Home: React.FC = () => { 
-  const [datetemp, setDatetemp] = useState(Data2);
+  // const [datetemp, setDatetemp] = useState({year: String ,value: Number });
+  const [datetemp, setDatetemp] = useState<any>();
+
+  useEffect(() => {
+    const Data2 = async () => {
+      try {
+        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+        if (result) {
+          setDatetemp(result)
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    Data2();
+  },[]);
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  const [data2, setDate2] = useState<any>();
+  const [data3, setDate3] = useState<any>();
+  const [data4, setDate4] = useState<any>();
+
   const [q, setQ] = useState("") ;
 
   const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
-
   
   useEffect(() => {
-    if (! datetemp) {
-      return ;
-    }
+    const Data2 = async () => {
+      try {
+        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+        setDate2(result)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const Data3 = async () => {
+      try {
+        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 3 } });
+        setDate3(result)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const Data4 = async () => {
+      try {
+        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 4 } });
+        setDate4(result)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    Data2();
+    Data3();
+    Data4();
+  }, []);
 
-  },[]);
+  // const fetchData = useCallback(async () => {
+  //       const result = await ApiData.Data({ params: { item_id: 2 } });
+  //       console.log(result)
+  //       setDatetemp(result)
+  // }, [datetemp])
+  // useEffect(() => {
+  //   fetchData()
+  //     // make sure to catch any error
+  //     // .catch(console.error);
+  // }, [fetchData]);
 
-  GetData()
-.then(res => {
-  // console.log(res.q)
-  setQ(res.q)
-  }
-  );
+
+
+
+
 
   const SomeCom = () => {
-
     const handleFile = (e: { target: { result: any; }; }) => {
       const content = e.target.result;
       // console.log('file content',  content)
@@ -148,20 +198,21 @@ const Home: React.FC = () => {
 
   const [values, setValues] = useState("year");
   const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setValues(value)
   };
 
   const onClick = () => {
-    console.log(`selected ${values}`);
+    // console.log(`selected ${values}`);
     if ( values === "year") {
-      setDatetemp(Data2)
+      setDatetemp(data2)
     } else if  ( values === "quarter") {
-      setDatetemp(Data3)
+      setDatetemp(data3)
     } else {
-      setDatetemp(Data4)
+      setDatetemp(data4)
     }
   };
+
 
   return (
   <Layout style={{ minHeight: '100vh'}}>
@@ -189,19 +240,19 @@ const Home: React.FC = () => {
             <Col span={12}>
               <Card style={card_style}  >
                 <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
--              </Card>
+             </Card>
             </Col>
             <Col span={12}>
               <Card style={card_style} >
                 <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
--              </Card>
+              </Card>
             </Col>
 
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
               <Card style={card_style} >
--               <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+               <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
               </Card>
             </Col>
           </Row>

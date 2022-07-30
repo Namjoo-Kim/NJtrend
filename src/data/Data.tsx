@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { DatePicker, message } from 'antd';
 import 'antd/dist/antd.css';
 import '../index.css';
+import * as ApiData from '../api/Api';
 
 export const Data1 =
 [
@@ -174,3 +175,11 @@ export const Data1 =
       value: 145,
     },
   ];
+
+  export const DataTemps = async() => {
+    let res  : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } })
+    console.log('ge')
+    console.log(res)
+    return res
+  }
+  
