@@ -7,7 +7,7 @@ export const Api = () => {
 
     axios.get(`/items/item?q=123`)
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         const temp = {
             'te' : res.data.item,
             'go' : res.data.q,
@@ -31,8 +31,8 @@ export async function GetData() {
        let res = await axios.get(`/items/item?q=123`);
         if(res.status == 200){
             // test for status you want, etc
-            console.log(res.status)
-            console.log(res.data)
+            // console.log(res.status)
+            // console.log(res.data)
         }    
         // Don't forget to return something   
         return res.data

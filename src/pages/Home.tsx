@@ -1,33 +1,3 @@
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.tsx</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-///////////////////////////////////////
-
 // import {
 //   DesktopOutlined,
 //   FileOutlined,
@@ -100,18 +70,6 @@
 
 //////////////
 
-import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  SearchOutlined ,
-} from '@ant-design/icons';
-
-import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, Select, Button } from 'antd';
 import { Card, Col, Row } from 'antd';
 
@@ -121,79 +79,18 @@ import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
 import {useRouter} from 'next/router';
-import {Link} from "react-router-dom";
 
 import {CsvToJSON} from '../component/Example'
 import {Data1, Data2, Data3, Data4} from '../data/Data'
 
 import {GetData} from '../api/Api';
-const { Option } = Select;
+import HomeMenu from '../menu/HomeMenu';
+import TopMenu from '../menu/TopMenu';
+import SearchMenu from '../menu/SearchMenu';
 
-const { Header, Content, Sider, Footer } = Layout;
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-const items: MenuItem[] = [
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [
-    getItem('Team 1', '6'), 
-    getItem('Team 2', '7')]),
-  getItem('Files', '8', <FileOutlined />),
-];
-
-const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
-  key,
-  label: `nav ${key}`,
-}));
-
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const key = String(index + 1);
-
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `subnav ${key}`,
-
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          label: `option${subKey}`,
-        };
-      }),
-    };
-  },
-);
-
-
+const { Footer, Content } = Layout;
 
 const Home: React.FC = () => { 
-  const router = useRouter();
-  
-  const [collapsed, setCollapsed] = useState(false);
-  const [text, setText] = useState("hello");
   const [datetemp, setDatetemp] = useState(Data2);
 
   const [xField, setXField] = useState("value");
@@ -214,7 +111,7 @@ const Home: React.FC = () => {
 
   GetData()
 .then(res => {
-  console.log(res.q)
+  // console.log(res.q)
   setQ(res.q)
   }
   );
@@ -228,7 +125,6 @@ const Home: React.FC = () => {
       const string_csv = content.toString();
       const arr_json = CsvToJSON(string_csv);
   
-      console.log(arr_json)
       // setDatetemp(arr_json)
       // setXField("kinds")
       // setYField("cnt")
@@ -250,84 +146,29 @@ const Home: React.FC = () => {
     )
   };
 
-  const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e.key);
-    setText(e.key)
-        // console.log(Data1)
+  const [values, setValues] = useState("year");
+  const onChange = (value: string) => {
+    console.log(`selected ${value}`);
+    setValues(value)
   };
 
-  const handleChange = (value: string) => {
-    // console.log(`selected ${value}`);
-    if ( value === "year") {
+  const onClick = () => {
+    console.log(`selected ${values}`);
+    if ( values === "year") {
       setDatetemp(Data2)
-    } else if  ( value === "quarter") {
+    } else if  ( values === "quarter") {
       setDatetemp(Data3)
     } else {
       setDatetemp(Data4)
     }
   };
 
-  const Temp = () => {
-
-    return(
-    <div className="form-group">
-      <p className="label">집계기준</p>
-      <div className="form">
-        <Select defaultValue="year" className="select-layout"  onChange={handleChange} >
-          <Option value="year">년</Option>
-          <Option value="quarter">분기</Option>
-          <Option value="week">주기</Option>
-        </Select>
-      </div>
-    </div>
-
-)
-}
-
   return (
-  <Layout style={{ minHeight: '100vh' }}>
-    <Header className="header">
-      <div className="logo" />
-      {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']} items={items1}  /> */}
-      <Menu theme="dark" mode="horizontal" >
-        <Menu.Item key="login" >
-          <Link to="/">
-            <span >Home</span>
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="register" >
-            <span className="nav-text">Register</span>
-        </Menu.Item>
-      </Menu>
-
-    </Header>
+  <Layout style={{ minHeight: '100vh'}}>
+    <TopMenu />
     <Layout className="site-layout">
-      <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={200} className="site-layout-background">
-      <Menu
-          mode="inline"
-          theme="dark" 
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-          items={items}
-          onClick = {onClick}
-        />
-      </Sider>
-
-
-
-      <Layout className="site-layout-background"  style={{ padding: '0 24px 24px' }}>
-
-      {/* <Content
-          className="site-layout-color-none"
-          style={{ overflow: 'scroll' }}
-          // style={{
-          //   padding: 24,
-          //   margin: 0,
-          //   minHeight: 280,
-          // }}
-        > */}
+      <HomeMenu />
+      <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
 
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -339,12 +180,7 @@ const Home: React.FC = () => {
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
               <Card  style={card_style} >
-              <Temp></Temp>
-
-              <Button icon={<SearchOutlined />} size="middle" >
-                {/* Search */}
-                {q}
-              </Button>
+              <SearchMenu onChange={onChange} onClick={onClick}/>
               </Card>
             </Col>
           </Row>
@@ -371,9 +207,7 @@ const Home: React.FC = () => {
           </Row>
         </div>
 
-        {/* </Content> */}
-
-      <Footer  className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+      <Footer  className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2022 Created by KNJ</Footer>
     </Layout>
   </Layout>
 </Layout>
