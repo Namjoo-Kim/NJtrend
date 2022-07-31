@@ -81,7 +81,7 @@ import PercentPlot from '../component/PercentPlot';
 import {useRouter} from 'next/router';
 
 import {CsvToJSON} from '../component/Example'
-import {Data1, Data2, DataTemps} from '../data/Data'
+import {Data1} from '../data/Data'
 
 import * as ApiData from '../api/Api';
 import HomeMenu from '../menu/HomeMenu';

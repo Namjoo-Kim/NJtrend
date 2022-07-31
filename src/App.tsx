@@ -96,7 +96,7 @@ import DemoBar from './component/DemoBar';
 import PercentPlot from './component/PercentPlot';
 
 import {CsvToJSON} from './component/Example'
-import {Data1, Data2, Data3, Data4} from './data/Data'
+import {Data1} from './data/Data'
 
 import {GetData} from './api/Api';
 const { Option } = Select;
@@ -166,7 +166,7 @@ const App: React.FC = () => {
   
   const [collapsed, setCollapsed] = useState(false);
   const [text, setText] = useState("hello");
-  const [datetemp, setDatetemp] = useState(Data2);
+  const [datetemp, setDatetemp] = useState(Data1);
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
@@ -231,11 +231,11 @@ const App: React.FC = () => {
   const handleChange = (value: string) => {
     // console.log(`selected ${value}`);
     if ( value === "year") {
-      setDatetemp(Data2)
+      setDatetemp(Data1)
     } else if  ( value === "quarter") {
-      setDatetemp(Data3)
+      setDatetemp(Data1)
     } else {
-      setDatetemp(Data4)
+      setDatetemp(Data1)
     }
   };
 
