@@ -95,45 +95,32 @@ const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208
 const Home: React.FC = () => { 
   
   // const [datetemp, setDatetemp] = useState({year: String ,value: Number });
-  // const [datetemp, setDatetemp] = useState({});
-  const [datetemp, setDatetemp] = useState({});
-  // const [datetemp, setDatetemp] = useState(Data2);
+  const [datetemp, setDatetemp] = useState<any>([]);
 
-  // useEffect(() => {
-  //   const Data2 = async() => {
-  //     try {
-  //       const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
-  //       if (result) {
-  //         console.log(result)
-  //         console.log('gg')
-  //         setDatetemp(result) 
-  //         // setDatetemp(() => result) 
-  //         // setDatetemp({...result})
-  //         console.log('final')
-  //         console.log(datetemp)
-
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   Data2();
-  // },[]);
-
-  // async function LoadData()  {
-    const LoadData = async() => { 
+  async function LoadData()  {
+  // const LoadData = async() => { 
     try {
       const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
       if (result) {
-        // return result
-        console.log('f')
-        console.log(result)
-        setDatetemp(result) 
+        return result
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  // const onCreate = useCallback(async () => {
+  //   try {
+  //     const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+  //     if (result) {
+  //       // setDatetemp(() => result) 
+        
+  //       return result
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, []);
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
@@ -166,15 +153,21 @@ const Home: React.FC = () => {
     )
   };
 
-  const [values, setValues] = useState("year");
-  const onChange = (value: string) => {
-    // console.log(`selected ${value}`);
-    setValues(value)
-  };
-
   useEffect(() => {
-    LoadData()
+    const promise = LoadData()
+    const GetData = () => {
+      promise.then((appData) => {
+        setDatetemp(appData)
+      });
+    };
+    
+    return () => {
+      GetData() ;
+    };
   },[]);
+
+
+  const [values, setValues] = useState("year");
 
   // useEffect(() => {
   //   let item : Number
@@ -196,6 +189,11 @@ const Home: React.FC = () => {
   //   Data();
   // }, [values);
 
+  const onChange = (value: string) => {
+    // console.log(`selected ${value}`);
+    setValues(value)
+  };
+
   const onClick = () => {
     let item_id : Number
     if ( values === "year") {
@@ -210,11 +208,11 @@ const Home: React.FC = () => {
       try {
         const result = await ApiData.Data({ params: { item_id: item_id } });
         setDatetemp(result)
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      Data();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    Data();
   };
 
   return (

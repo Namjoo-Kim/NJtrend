@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Bar } from '@ant-design/plots';
 
 const DemoBar = (props) => {
+  useEffect(() => {
+    if (props) {
+      if(props.data) {
+      } 
+    } 
+  },[props.data]);
 
   const config = {
     data: props.data,
