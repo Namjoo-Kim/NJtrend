@@ -106,25 +106,25 @@ const HomeMenu = () => {
   ];
 
 
-const item2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-  (icon, index) => {
-    const keys2 = String(index + 1);
+// const item2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
+//   (icon, index) => {
+//     const keys2 = String(index + 1);
 
-    return {
-      key: `sub${keys2}`,
-      icon: React.createElement(icon),
-      label: `subnav ${keys2}`,
+//     return {
+//       key: `sub${keys2}`,
+//       icon: React.createElement(icon),
+//       label: `subnav ${keys2}`,
 
-      children: new Array(4).fill(null).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: subKey,
-          label: `option${subKey}`,
-        };
-      }),
-    };
-  },
-);
+//       children: new Array(4).fill(null).map((_, j) => {
+//         const subKey = index * 4 + j + 1;
+//         return {
+//           key: subKey,
+//           label: `option${subKey}`,
+//         };
+//       }),
+//     };
+//   },
+// );
 
 const item3: MenuProps['items'] = [
   { label: (
@@ -158,9 +158,6 @@ const item3: MenuProps['items'] = [
     }],
   },
 ];
-
-
-
 
 return (
 <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={200} className="site-layout-background">
