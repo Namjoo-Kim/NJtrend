@@ -70,7 +70,7 @@
 
 //////////////
 
-import { Breadcrumb, Layout, Menu, Select, Button } from 'antd';
+import { Breadcrumb, Layout } from 'antd';
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
@@ -89,89 +89,59 @@ import TopMenu from '../menu/TopMenu';
 import SearchMenu from '../menu/SearchMenu';
 import axios from "axios";
 
-const { Footer, Content } = Layout;
+const { Footer } = Layout;
+const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home: React.FC = () => { 
+  
   // const [datetemp, setDatetemp] = useState({year: String ,value: Number });
-  const [datetemp, setDatetemp] = useState<any>();
+  // const [datetemp, setDatetemp] = useState({});
+  const [datetemp, setDatetemp] = useState({});
+  // const [datetemp, setDatetemp] = useState(Data2);
 
-  useEffect(() => {
-    const Data2 = async () => {
-      try {
-        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
-        if (result) {
-          setDatetemp(result)
-        }
-      } catch (error) {
-        console.log(error);
+  // useEffect(() => {
+  //   const Data2 = async() => {
+  //     try {
+  //       const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+  //       if (result) {
+  //         console.log(result)
+  //         console.log('gg')
+  //         setDatetemp(result) 
+  //         // setDatetemp(() => result) 
+  //         // setDatetemp({...result})
+  //         console.log('final')
+  //         console.log(datetemp)
+
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   Data2();
+  // },[]);
+
+  // async function LoadData()  {
+    const LoadData = async() => { 
+    try {
+      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+      if (result) {
+        // return result
+        console.log('f')
+        console.log(result)
+        setDatetemp(result) 
       }
+    } catch (error) {
+      console.log(error);
     }
-    Data2();
-  },[]);
+  }
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
-
-  const [data2, setDate2] = useState<any>();
-  const [data3, setDate3] = useState<any>();
-  const [data4, setDate4] = useState<any>();
-
   const [q, setQ] = useState("") ;
-
-  const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
-  
-  useEffect(() => {
-    const Data2 = async () => {
-      try {
-        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
-        setDate2(result)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const Data3 = async () => {
-      try {
-        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 3 } });
-        setDate3(result)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const Data4 = async () => {
-      try {
-        const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 4 } });
-        setDate4(result)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    Data2();
-    Data3();
-    Data4();
-  }, []);
-
-  // const fetchData = useCallback(async () => {
-  //       const result = await ApiData.Data({ params: { item_id: 2 } });
-  //       console.log(result)
-  //       setDatetemp(result)
-  // }, [datetemp])
-  // useEffect(() => {
-  //   fetchData()
-  //     // make sure to catch any error
-  //     // .catch(console.error);
-  // }, [fetchData]);
-
-
-
-
-
-
   const SomeCom = () => {
     const handleFile = (e: { target: { result: any; }; }) => {
-      const content = e.target.result;
-      // console.log('file content',  content)
-  
+      const content = e.target.result;  
       const string_csv = content.toString();
       const arr_json = CsvToJSON(string_csv);
   
@@ -191,7 +161,7 @@ const Home: React.FC = () => {
     return(
       <div>
           <input type="file" accept=".csv" onChange={e  => 
-              handleChangeFile(e.target.files![0])} /> 
+          handleChangeFile(e.target.files![0])} /> 
       </div>
     )
   };
@@ -202,17 +172,50 @@ const Home: React.FC = () => {
     setValues(value)
   };
 
-  const onClick = () => {
-    // console.log(`selected ${values}`);
-    if ( values === "year") {
-      setDatetemp(data2)
-    } else if  ( values === "quarter") {
-      setDatetemp(data3)
-    } else {
-      setDatetemp(data4)
-    }
-  };
+  useEffect(() => {
+    LoadData()
+  },[]);
 
+  // useEffect(() => {
+  //   let item : Number
+  //   if ( values === "year") {
+  //     item = 2
+  //   } else if ( values === "quarter") {
+  //     item = 3
+  //   } else {
+  //     item = 4
+  //   }
+  //   const Data = async () => {
+  //     try {
+  //       const result  = await ApiData.Data({ params: { item_id: item } });
+  //       setDatetemp(result)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   Data();
+  // }, [values);
+
+  const onClick = () => {
+    let item_id : Number
+    if ( values === "year") {
+      item_id = 2
+    } else if ( values === "quarter") {
+      item_id = 3
+    } else {
+      item_id = 4
+    }
+
+    const Data = async () => {
+      try {
+        const result = await ApiData.Data({ params: { item_id: item_id } });
+        setDatetemp(result)
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      Data();
+  };
 
   return (
   <Layout style={{ minHeight: '100vh'}}>
@@ -226,11 +229,10 @@ const Home: React.FC = () => {
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
         </Breadcrumb>      
-    
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
-              <Card  style={card_style} >
+              <Card style={card_style} >
               <SearchMenu onChange={onChange} onClick={onClick}/>
               </Card>
             </Col>
@@ -247,7 +249,6 @@ const Home: React.FC = () => {
                 <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
               </Card>
             </Col>
-
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
@@ -257,8 +258,7 @@ const Home: React.FC = () => {
             </Col>
           </Row>
         </div>
-
-      <Footer  className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2022 Created by KNJ</Footer>
+      <Footer className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2022 Created by KNJ</Footer>
     </Layout>
   </Layout>
 </Layout>
