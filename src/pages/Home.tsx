@@ -94,7 +94,6 @@ const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208
 
 const Home: React.FC = () => { 
   
-  // const [datetemp, setDatetemp] = useState({year: String ,value: Number });
   const [datetemp, setDatetemp] = useState<any>([]);
 
   async function LoadData()  {
@@ -108,19 +107,6 @@ const Home: React.FC = () => {
       console.log(error);
     }
   }
-
-  // const onCreate = useCallback(async () => {
-  //   try {
-  //     const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
-  //     if (result) {
-  //       // setDatetemp(() => result) 
-        
-  //       return result
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, []);
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
