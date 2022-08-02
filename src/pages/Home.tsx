@@ -78,7 +78,8 @@ import React, { useState, useEffect, useCallback}  from 'react';
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
-import {useRouter} from 'next/router';
+// import {useRouter} from 'next/router';
+// import axios from "axios";
 
 import {CsvToJSON} from '../component/Example'
 import {Data1} from '../data/Data'
@@ -87,7 +88,9 @@ import * as ApiData from '../api/Api';
 import HomeMenu from '../menu/HomeMenu';
 import TopMenu from '../menu/TopMenu';
 import SearchMenu from '../menu/SearchMenu';
-import axios from "axios";
+
+import BreadcrumbComp from '../component/BreadcrumbComp';
+import Copyright from '../config/Copyright';
 
 const { Footer } = Layout;
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
@@ -207,12 +210,7 @@ const Home: React.FC = () => {
     <Layout className="site-layout">
       <HomeMenu />
       <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
-
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>      
+        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','List','App' ]} />
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
@@ -242,7 +240,7 @@ const Home: React.FC = () => {
             </Col>
           </Row>
         </div>
-      <Footer className="site-layout-background"  style={{ textAlign: 'center' }}>Ant Design ©2022 Created by KNJ</Footer>
+      <Copyright />
     </Layout>
   </Layout>
 </Layout>

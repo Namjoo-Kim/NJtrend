@@ -3,14 +3,12 @@ import { Bar } from '@ant-design/plots';
 
 const PercentPlot = (props) => {
 
-  // useEffect(() => {
-  //   if (props) {
-  //     if (props.Field) {
-  //         console.log(props.Field['xField'])
-  //     }
-  //   }
-  // }, [props, props.Field]);
-
+  useEffect(() => {
+    if (props) {
+      if(props.data) {
+      } 
+    } 
+  },[props.data]);
   
   const config = {
     data: props.data,
