@@ -1,5 +1,5 @@
 # 0. 설치하기
-Node.js 등 기본 세팅을 설치한다. (NPM 등이 가능한 환경)
+Node.js 등 기본 세팅을 설치한다. (NPM 등이 가능한 환경)  
 (https://ssungkang.tistory.com/entry/React-React-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-create-react-app)
 
 # 1. 템플릿 설치
@@ -7,15 +7,22 @@ Node.js 등 기본 세팅을 설치한다. (NPM 등이 가능한 환경)
 npm install -g create-react-app
 
 ## 프로젝트 설치
-npx create-react-app 프로젝트명
-타입스크립트 버전을 원한다면
-npx create-react-app 프로젝트명  --template typescript
+npx create-react-app 프로젝트명  
+타입스크립트 버전을 원한다면  
+npx create-react-app 프로젝트명  --template typescript  
 
 # 2. ANTD(차트 템플릿) 설치
-npm install antd 
+npm install antd  
 
 
-# Getting Started with Create React App
+# 99. 실행
+npm install  
+npm start  
+
+수고하셨습니다. :)
+
+
+<!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -60,4 +67,4 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To learn React, check out the [React documentation](https://reactjs.org/). -->
