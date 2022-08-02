@@ -1,3 +1,20 @@
+# 0. 설치하기
+Node.js 등 기본 세팅을 설치한다. (NPM 등이 가능한 환경)
+(https://ssungkang.tistory.com/entry/React-React-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0-create-react-app)
+
+# 1. 템플릿 설치
+## 리액트 설치
+npm install -g create-react-app
+
+## 프로젝트 설치
+npx create-react-app 프로젝트명
+타입스크립트 버전을 원한다면
+npx create-react-app 프로젝트명  --template typescript
+
+# 2. ANTD(차트 템플릿) 설치
+npm install antd 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
