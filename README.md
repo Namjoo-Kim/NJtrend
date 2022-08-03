@@ -21,7 +21,6 @@ npm start
 
 수고하셨습니다. :)
 
-
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
