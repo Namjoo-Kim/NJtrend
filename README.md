@@ -19,7 +19,7 @@ npm install antd
 npm install  
 npm start  
 
-수고하셨습니다. :)
+수고하셨습니다. :))
 
 <!-- # Getting Started with Create React App
 
