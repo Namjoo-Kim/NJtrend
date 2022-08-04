@@ -22,9 +22,15 @@ npm start
 수고하셨습니다. :))
 
 # dockerfile
-docker build -t njtrend .   
-docker run -dp 3000:3000 njtrend
+프록시 설정 :  
+"proxy": "http://127.0.0.1:8000"  
+->  
+"proxy": "http://fastapi:8000"  
+로 설정 후 빌드
+docker build -t njtrend .    
 
+## 따로 빌드할 경우 사용
+docker run --name react -dp 3000:3000 njtrend
 
 <!-- # Getting Started with Create React App
 
