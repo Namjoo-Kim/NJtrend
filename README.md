@@ -21,6 +21,11 @@ npm start
 
 수고하셨습니다. :))
 
+# dockerfile
+docker build -t njtrend .   
+docker run -dp 3000:3000 njtrend
+
+
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
