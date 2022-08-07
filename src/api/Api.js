@@ -45,6 +45,7 @@ export async function GetData() {
 export async function Data(param) {
     try {
        let res = await axios.get("/data",param);
+    //    let res = await axios.get("http://129.154.53.151:8000/data",param);
         if(res.status == 200){
             // test for status you want, etc
             // console.log(res.status)

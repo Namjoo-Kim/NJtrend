@@ -57,6 +57,8 @@ docker exec -it react /bin/bash
 package.json 에서 다음을 추가
 "homepage": "http://namjoo-kim.github.io/NJtrend/",
 
+routes.tsx 다음을 추가
+basename={process.env.PUBLIC_URL}
 
 <!-- # Getting Started with Create React App
 
