@@ -5,8 +5,8 @@ import Found404 from '../pages/Found404';
 
 function App() {
     return (
-      // <BrowserRouter>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
+      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
         <Routes>
           <Route path='/' element={<Welcome />} />
           <Route path='/Home' element={<Home />} />
