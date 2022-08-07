@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/NJtrend/static/css/main.eb1083fd.css",
-    "main.js": "/NJtrend/static/js/main.6215b984.js",
+    "main.js": "/NJtrend/static/js/main.d48ca767.js",
     "static/js/787.4550e2a2.chunk.js": "/NJtrend/static/js/787.4550e2a2.chunk.js",
     "static/media/logo.svg": "/NJtrend/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/NJtrend/index.html",
     "main.eb1083fd.css.map": "/NJtrend/static/css/main.eb1083fd.css.map",
-    "main.6215b984.js.map": "/NJtrend/static/js/main.6215b984.js.map",
+    "main.d48ca767.js.map": "/NJtrend/static/js/main.d48ca767.js.map",
     "787.4550e2a2.chunk.js.map": "/NJtrend/static/js/787.4550e2a2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.eb1083fd.css",
-    "static/js/main.6215b984.js"
+    "static/js/main.d48ca767.js"
   ]
 }
