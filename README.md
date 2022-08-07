@@ -53,6 +53,9 @@ docker run --name react -dp 3000:3000 namjoo11/njtrend
 확인  
 docker exec -it react /bin/bash  
 
+# 4. github.io
+package.json 에서 다음을 추가
+"homepage": "http://namjoo-kim.github.io/NJtrend/",
 
 
 <!-- # Getting Started with Create React App
