@@ -60,6 +60,7 @@ package.json 에서 다음을 추가
 routes.tsx 다음을 추가
 basename={process.env.PUBLIC_URL}
 
+npm run deploy
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
