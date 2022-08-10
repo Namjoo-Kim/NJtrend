@@ -53,5 +53,5 @@
     "path": false,
     "os": false
   },
-  "proxy": "http://fastapi:8000"
+  "proxy": "http://129.154.53.151:8000"
 }
