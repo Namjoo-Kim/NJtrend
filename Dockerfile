@@ -10,6 +10,7 @@ RUN npm install --silent
 RUN npm install -g typescript
 
 RUN npm install antd  
+RUN npm install http-proxy-middleware
 
 EXPOSE 3000
 # 소스를 작업폴더로 복사하고 앱 실행

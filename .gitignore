@@ -24,4 +24,3 @@ yarn-error.log*
 
 .dockerignore
 .env
-package.json
