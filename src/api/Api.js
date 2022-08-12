@@ -44,8 +44,6 @@ export async function GetData() {
 
 export async function Data(param) {
     try {
-        // const instance = axios.create({baseURL: 'https://129.154.53.151:443'})
-        // let res = await axios.get("https://129.154.53.151:443/data",param);
         let res = await axios.get("/data",param); // axios <-> instance
 
         if(res.status == 200){

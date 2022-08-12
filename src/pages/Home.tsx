@@ -78,9 +78,6 @@ import React, { useState, useEffect, useCallback}  from 'react';
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
-// import {useRouter} from 'next/router';
-// import axios from "axios";
-
 import {CsvToJSON} from '../component/Example'
 import {Data1} from '../data/Data'
 
@@ -98,7 +95,13 @@ const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208
 const Home: React.FC = () => { 
   
   const [datetemp, setDatetemp] = useState<any>([]);
+  const [values, setValues] = useState("year");
 
+  const [xField, setXField] = useState("value");
+  const [yField, setYField] = useState("year");
+  const [seriesField, setSeriesField] = useState("year");
+
+  // 최초 로드
   async function LoadData()  {
   // const LoadData = async() => { 
     try {
@@ -111,9 +114,20 @@ const Home: React.FC = () => {
     }
   }
 
-  const [xField, setXField] = useState("value");
-  const [yField, setYField] = useState("year");
-  const [seriesField, setSeriesField] = useState("year");
+  useEffect(() => {
+    const promise = LoadData()
+    const GetData = () => {
+      promise.then((appData) => {
+        setDatetemp(appData)
+      });
+    };
+    
+    return () => {
+      GetData() ;
+    };
+  },[]);
+
+  // 업로드  기능 (나중에 사용)
   const [q, setQ] = useState("") ;
   const SomeCom = () => {
     const handleFile = (e: { target: { result: any; }; }) => {
@@ -125,7 +139,6 @@ const Home: React.FC = () => {
       // setXField("kinds")
       // setYField("cnt")
       // setSeriesField("cnt")
-      // You can set content in state and show it in render.
     };
   
     const handleChangeFile = (file: any) => {
@@ -142,48 +155,13 @@ const Home: React.FC = () => {
     )
   };
 
-  useEffect(() => {
-    const promise = LoadData()
-    const GetData = () => {
-      promise.then((appData) => {
-        setDatetemp(appData)
-      });
-    };
-    
-    return () => {
-      GetData() ;
-    };
-  },[]);
-
-
-  const [values, setValues] = useState("year");
-
-  // useEffect(() => {
-  //   let item : Number
-  //   if ( values === "year") {
-  //     item = 2
-  //   } else if ( values === "quarter") {
-  //     item = 3
-  //   } else {
-  //     item = 4
-  //   }
-  //   const Data = async () => {
-  //     try {
-  //       const result  = await ApiData.Data({ params: { item_id: item } });
-  //       setDatetemp(result)
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   Data();
-  // }, [values);
-
   const onChange = (value: string) => {
     // console.log(`selected ${value}`);
     setValues(value)
   };
 
   const onClick = () => {
+    // 파라미터 지정
     let item_id : Number
     if ( values === "year") {
       item_id = 2
@@ -193,6 +171,7 @@ const Home: React.FC = () => {
       item_id = 4
     }
 
+    // 파라미터로 값 불러오기
     const Data = async () => {
       try {
         const result = await ApiData.Data({ params: { item_id: item_id } });

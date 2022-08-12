@@ -61,6 +61,16 @@ routes.tsx 다음을 추가
 basename={process.env.PUBLIC_URL}
 
 npm run deploy
+
+# 5. 외부 호스트 설정
+./node_modules/react-scripts/config/webpackDevServer.config.js
+
+allowedHosts: [
+    'localhost',
+    'knjoo.duckdns.org',
+],
+
+을 추가
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
