@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from '../pages/Home';
 import Welcome from '../pages/Welcome';
 import Found404 from '../pages/Found404';
+import Oauth from '../pages/Oauth';
 
 function App() {
     return (
@@ -10,6 +11,7 @@ function App() {
       >
         <Routes>
           <Route path='/' element={<Welcome />} />
+          <Route path='/KaKaoLogin' element={<Oauth />} />
           <Route path='/Home' element={<Home />} />
           <Route path='/Home2' element={<Home />} />
           <Route path='/Home3' element={<Home />} />
