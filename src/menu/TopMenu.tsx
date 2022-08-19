@@ -1,6 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
-import { Layout, Menu } from 'antd';
+import { Descriptions, Layout, Menu, Modal} from 'antd';
 import React, { useState, useEffect}  from 'react';
+import { async } from "q";
 
 const { Header } = Layout;
 
@@ -15,14 +16,69 @@ const { Header } = Layout;
 const TopMenu = () => {
   const navigate = useNavigate() ;
   const [log, setLog] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
       setLog('Logout')
+
+      getPersonInfoFn()
+
+
     } else {
       setLog('Login')
     }
   },[]);
+
+  const getInfoFn = () => {
+    const ACCESS_TOKEN = localStorage.getItem('token')
+    const getInfo = async() => {
+        await fetch(`https://kapi.kakao.com/v1/user/access_token_info`, {
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`},
+        })
+        .then(res => res.json() )
+        .then(data  => {
+          if (data) {
+            return data
+          }
+        })
+      } ;
+    getInfo()
+  }
+
+  const getPersonInfoFn = () => {
+    const ACCESS_TOKEN = localStorage.getItem('token')
+    const getPersonInfo = async() => {
+        await fetch(`https://kapi.kakao.com/v2/user/me`, {
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`},
+        })
+        .then(res => res.json() )
+        .then(data  => {
+          if (data) {
+            setNickname(data.properties.nickname)
+            setThumbnail(data.properties.thumbnail_image)
+          }
+        })
+      } ;
+    getPersonInfo()
+  }
+
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   const onKaKaoLogout = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -49,9 +105,6 @@ const TopMenu = () => {
       const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`
       window.location.href = KAKAO_AUTH_URL;
     }
-
-
-    
   }
 
   return (
@@ -71,11 +124,23 @@ const TopMenu = () => {
           <span className="nav-text">Home</span>
         </Link>
       </Menu.Item>
-
-      <Menu.Item key="Log" onClick={onKaKaoLogout}>
+      <Menu.Item key="Log" style={{ display: nickname===''?'':'none' }} onClick={onKaKaoLogout}>
         <span className="nav-text">{log}</span>
       </Menu.Item>
+      <Menu.Item key="Info" style={{ display: nickname===''?'none':'' }} onClick={showModal}>
+        <span className="nav-text">{nickname}</span>
+        {/* <img  
+          src={thumbnail}
+          style={{width:50, height:50}}
+          alt="카카오 썸네일" 
+        /> */}
+      </Menu.Item>
     </Menu>
+    <Modal title='정보 보기' visible={isModalVisible} onOk={onKaKaoLogout} okText = {'로그아웃'} onCancel={handleCancel}  cancelText="닫기">
+      <Descriptions bordered>
+        <Descriptions.Item label="이름">{nickname}</Descriptions.Item>
+      </Descriptions>
+    </Modal>
     </Header>
 
   )

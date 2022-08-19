@@ -129,7 +129,7 @@ const HomeMenu = () => {
 const item3: MenuProps['items'] = [
   { label: (
     <Link to="/Home">
-       <span className="nav-text">매출</span>
+       <span className="nav-text">예제</span>
     </Link>
   ),
     key: '1' ,

@@ -117,7 +117,7 @@ const Home: React.FC = () => {
     <Layout className="site-layout">
       <HomeMenu />
       <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','List','App' ]} />
+        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','예제' ]} />
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
               </Card>
             </Col>
           </Row>
-          매출 Top5 카테고리
+          {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
             <Col span={12}>
               <Card style={card_style}  >
