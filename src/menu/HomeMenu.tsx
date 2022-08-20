@@ -12,7 +12,6 @@ import {Link, useLocation} from "react-router-dom";
 import {Layout, MenuProps, Menu} from 'antd';
 import React, { useState, useEffect }  from 'react';
 
-
 /////
 const { Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
@@ -30,7 +29,6 @@ function getItem(
     label,
   } as MenuItem;
 }
-
 
 const menus = [
   { name: "매출", key: 'sub1', path: "/Home", icon: <PieChartOutlined />, children : [{ 
@@ -71,11 +69,48 @@ const menu_list = [
 })
 ];
 
-const HomeMenu = () => {
+interface Iprops {
+  key: string;
+}
+const HomeMenu = (props: Iprops) => {
   const [collapsed, setCollapsed] = useState(false);
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
   const [key, setKey] = useState("1");
+  const [display,setDisplay] = useState("none");
+
+  useEffect(() => {
+    getInfoFn();
+
+    if (props) {
+      console.log(props)
+      if (props.key) {
+        setKey(props.key)
+      }
+    };
+
+  },[props.key, localStorage.getItem('token')]);
+
+  const getInfoFn = () => {
+    const ACCESS_TOKEN = localStorage.getItem('token')
+    const getInfo = async() => {
+        await fetch(`https://kapi.kakao.com/v1/user/access_token_info`, {
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`},
+        })
+        .then(res => res.json())
+        .then(data  => {
+          if (data.id) {
+            // 토큰값 활성화
+            setDisplay("")
+          } else {
+            localStorage.removeItem('token')
+            setDisplay("none")
+          }
+        })
+      } ;
+    getInfo()
+  }
 
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e.key);
@@ -128,7 +163,7 @@ const HomeMenu = () => {
 
 const item3: MenuProps['items'] = [
   { label: (
-    <Link to="/Home">
+    <Link to="/main/Home">
        <span className="nav-text">예제</span>
     </Link>
   ),
@@ -136,21 +171,23 @@ const item3: MenuProps['items'] = [
     icon: <PieChartOutlined />,
   }, // remember to pass the key prop
   { label: (
-    <Link to="/Home2">
-       <span className="nav-text">매출2</span>
+    <Link to="/main/Home2">
+       <span className="nav-text">매출</span>
     </Link>
   ),
     key: '2',
     icon: <DesktopOutlined />,
+    style : { display: display },
   }, // which is required
   {
     label: 'sub menu',
     key: 'submenu',
     icon: <UserOutlined />,
+    style : { display: display },
     children: [{ 
       label: (
-        <Link to="/Home3">
-           <span className="nav-text">매출3</span>
+        <Link to="/main/Home3">
+           <span className="nav-text">매출2</span>
         </Link>
       ),
       key: '3' 
@@ -171,11 +208,11 @@ return (
       }}
       mode="inline"
       theme="dark" 
-      selectedKeys={[key]}
+      selectedKeys={[props.key]}
       openKeys={openKeys}
       // defaultOpenKeys={['sub1']}
       items={item3}
-      onClick = {onClick}
+      onClick={onClick}
       onOpenChange={onOpenChange}
   />
 </Sider>

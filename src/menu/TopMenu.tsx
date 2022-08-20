@@ -15,23 +15,21 @@ const { Header } = Layout;
 
 const TopMenu = () => {
   const navigate = useNavigate() ;
-  const [log, setLog] = useState("");
   const [nickname, setNickname] = useState("");
   const [thumbnail, setThumbnail] = useState("");
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      setLog('Logout')
-
-      getPersonInfoFn()
-
-
-    } else {
-      setLog('Login')
-    }
-  },[]);
+    // if (localStorage.getItem('token')) {
+    //   setLog('Logout')
+    //   getPersonInfoFn()
+    // } else {
+    //   getInfoFn()
+    //   setLog('Login')
+    // }
+    getInfoFn()
+  },[localStorage.getItem('token')]);
 
   const getInfoFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -42,8 +40,11 @@ const TopMenu = () => {
         })
         .then(res => res.json() )
         .then(data  => {
-          if (data) {
-            return data
+          if (data.id) {
+            // 토큰값 활성화
+            getPersonInfoFn()
+          } else {
+            localStorage.removeItem('token')
           }
         })
       } ;
@@ -68,14 +69,10 @@ const TopMenu = () => {
     getPersonInfo()
   }
 
-
   const showModal = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -91,12 +88,10 @@ const TopMenu = () => {
         })
         .then(res => res.json() )
         .then(data  => {
-          if (data.id) {
+          if (data) {
             localStorage.removeItem('token')
             navigate('/')
-          } else {
-            console.log('fail remove token')
-          }
+          } 
         })
       };
 
@@ -125,7 +120,7 @@ const TopMenu = () => {
         </Link>
       </Menu.Item>
       <Menu.Item key="Log" style={{ display: nickname===''?'':'none' }} onClick={onKaKaoLogout}>
-        <span className="nav-text">{log}</span>
+        <span className="nav-text">Login</span>
       </Menu.Item>
       <Menu.Item key="Info" style={{ display: nickname===''?'none':'' }} onClick={showModal}>
         <span className="nav-text">{nickname}</span>
@@ -142,9 +137,7 @@ const TopMenu = () => {
       </Descriptions>
     </Modal>
     </Header>
-
   )
-
 };
 
 export default TopMenu ;

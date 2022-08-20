@@ -12,7 +12,7 @@ function Found404() {
         </p>
         <a
           className="App-link"
-          href="/Home"
+          href="/main/Home"
           // target="_blank"
           rel="noopener noreferrer"
         >

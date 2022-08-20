@@ -16,31 +16,31 @@ const Welcome = () => {
   const KaKaoComp = () => {
     if (localStorage.getItem('token'))  {
       setWelcome('어서오세요!')
-      return(
-        <></>
-      )
+      // return(
+      //   <></>
+      // )
     } else {
       setWelcome('체험하기')
-      return (
-        <>
-          <a id="custom-login-btn" href="javascript:loginWithKakao()">
-            <img onClick={onClick}
-              src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-              width="222"
-              alt="카카오 로그인 버튼" />
-          </a>
-          <p id="token-result"></p>
-        </>
-      )
-    }
-
+    };
+    return (
+      <>
+        <a id="custom-login-btn" href="javascript:loginWithKakao()">
+          <img onClick={onClick}
+            src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+            width="222"
+            alt="카카오 로그인 버튼" />
+        </a>
+        <p id="token-result"></p>
+      </>
+    )
   }
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <KaKaoComp />
-        <Link to="/Home">
+        <Link to="main/Home">
           <a>{welcome}</a>
         </Link>
         {/* <a

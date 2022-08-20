@@ -20,7 +20,7 @@ import Copyright from '../config/Copyright';
 const { Footer } = Layout;
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
-const Home: React.FC = () => { 
+const Home2: React.FC = () => { 
   const [datetemp, setDatetemp] = useState<any>([]);
   const [values, setValues] = useState("year");
 
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
   //     <HomeMenu key={'1'}  />
   //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
   <>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','예제' ]} />
+        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','매출' ]} />
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
@@ -155,4 +155,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Home2;
