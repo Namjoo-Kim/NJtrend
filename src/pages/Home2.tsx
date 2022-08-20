@@ -2,6 +2,7 @@ import { Breadcrumb, Layout } from 'antd';
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
+import {Link, useNavigate} from "react-router-dom";
 
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
@@ -21,6 +22,8 @@ const { Footer } = Layout;
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home2: React.FC = () => { 
+  const navigate = useNavigate() ;
+
   const [datetemp, setDatetemp] = useState<any>([]);
   const [values, setValues] = useState("year");
 
@@ -42,6 +45,7 @@ const Home2: React.FC = () => {
   }
 
   useEffect(() => {
+    checkTokenFn()
     const promise = LoadData()
     const GetData = () => {
       promise.then((appData) => {
@@ -53,7 +57,18 @@ const Home2: React.FC = () => {
       GetData() ;
     };
 
-  },[]);
+  },[localStorage.getItem('token')]);
+
+  const checkTokenFn = () => {
+    const ACCESS_TOKEN = localStorage.getItem('token')
+    const checkToken = () => {
+        if (! ACCESS_TOKEN) {
+          navigate('/main/example')
+        } 
+      } ;
+    checkToken()
+  }
+
 
   // 업로드  기능 (나중에 사용)
   const [q, setQ] = useState("") ;

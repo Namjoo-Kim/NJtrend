@@ -40,7 +40,7 @@ const Welcome = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <KaKaoComp />
-        <Link to="main/Home">
+        <Link to="main/example">
           <a>{welcome}</a>
         </Link>
         {/* <a

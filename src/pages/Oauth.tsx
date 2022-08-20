@@ -19,7 +19,7 @@ const Oauth = () => {
     .then(data  => {
       if (data.access_token) {
         localStorage.setItem('token',data.access_token)
-        navigate('/Home')
+        navigate('/main/example')
       } else {
         navigate('/')
       }
