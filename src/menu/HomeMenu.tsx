@@ -81,9 +81,8 @@ const HomeMenu = (props: Iprops) => {
 
   useEffect(() => {
     getInfoFn();
-
+    console.log(props)
     if (props) {
-      console.log(props)
       if (props.key) {
         setKey(props.key)
       }
@@ -163,7 +162,7 @@ const HomeMenu = (props: Iprops) => {
 
 const item3: MenuProps['items'] = [
   { label: (
-    <Link to="/main/Home">
+    <Link to="/main/example">
        <span className="nav-text">예제</span>
     </Link>
   ),
@@ -208,7 +207,7 @@ return (
       }}
       mode="inline"
       theme="dark" 
-      selectedKeys={[props.key]}
+      selectedKeys={[key]}
       openKeys={openKeys}
       // defaultOpenKeys={['sub1']}
       items={item3}

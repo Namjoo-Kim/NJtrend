@@ -13,11 +13,11 @@ export default function MenuAll() {
       <Layout style={{ minHeight: '100vh'}}>
       <TopMenu />
       <Layout className="site-layout">
-      <HomeMenu key={'1'}  />
+      <HomeMenu key={'1'} />
       <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}> 
   
       <Routes>
-        <Route path='/Home' element={<Home />} />
+        <Route path='/example' element={<Home />} />
         <Route path='/Home2' element={<Home2 />} />
         <Route path='/Home3' element={<Home3 />} />
       </Routes>
