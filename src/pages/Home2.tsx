@@ -112,11 +112,6 @@ const Home2: React.FC = () => {
   };
 
   return (
-  // <Layout style={{ minHeight: '100vh'}}>
-  //   <TopMenu />
-  //   <Layout className="site-layout">
-  //     <HomeMenu key={'1'}  />
-  //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
   <>
         <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','매출' ]} />
         <div className="site-card-wrapper">
@@ -149,9 +144,6 @@ const Home2: React.FC = () => {
           </Row>
         </div>
 </>
-//     </Layout>
-//   </Layout>
-// </Layout>
   );
 };
 

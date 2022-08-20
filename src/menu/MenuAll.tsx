@@ -8,7 +8,7 @@ import Home from '../pages/Home';
 import Home2 from '../pages/Home2';
 import Home3 from '../pages/Home3';
 
-export default function TopMenu_path() {
+export default function MenuAll() {
   return (
       <Layout style={{ minHeight: '100vh'}}>
       <TopMenu />

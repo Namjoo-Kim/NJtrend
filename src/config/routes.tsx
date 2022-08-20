@@ -7,7 +7,7 @@ import Welcome from '../pages/Welcome';
 import Found404 from '../pages/Found404';
 import Oauth from '../pages/Oauth';
 
-import TopMenu_path from '../menu/TopMenu_path';
+import MenuAll from '../menu/MenuAll';
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Welcome />} />
         <Route path='/KaKaoLogin' element={<Oauth />} />
-        <Route path='main/*' element={<TopMenu_path  />} />
+        <Route path='main/*' element={<MenuAll  />} />
         <Route path='*' element={<Found404 />} />
       </Routes>
     </BrowserRouter>
