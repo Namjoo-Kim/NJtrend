@@ -78,6 +78,7 @@ const HomeMenu = (props : any) => {
   const [display,setDisplay] = useState("none");
 
   useEffect(() => {
+    console.log('key_check')
     getInfoFn();
   },[localStorage.getItem('token')]);
 
