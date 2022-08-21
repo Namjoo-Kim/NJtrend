@@ -1,4 +1,3 @@
-import { Breadcrumb, Layout } from 'antd';
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
@@ -6,18 +5,14 @@ import React, { useState, useEffect, useCallback}  from 'react';
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
-import {CsvToJSON} from '../component/Example'
+import {CsvToJSON} from '../component/CsvToJSON'
 import {Data1} from '../data/Data'
 
 import * as ApiData from '../api/Api';
-import HomeMenu from '../menu/HomeMenu';
-import TopMenu from '../menu/TopMenu';
 import SearchMenu from '../menu/SearchMenu';
 
 import BreadcrumbComp from '../component/BreadcrumbComp';
-import Copyright from '../config/Copyright';
 
-const { Footer } = Layout;
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home3: React.FC = () => { 

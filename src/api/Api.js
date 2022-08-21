@@ -53,4 +53,21 @@ export async function Data(param) {
     }
 }
 
+export async function Insert(param) {
+    try {
+        let res = await axios.post("/data/insert",param); // axios <-> instance
+
+        if(res.status == 200){
+            // test for status you want, etc
+            // console.log(res.status)
+            // console.log(res.data)
+        }    
+        // Don't forget to return something   
+        return res.data
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+
 

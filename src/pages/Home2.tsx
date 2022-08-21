@@ -1,5 +1,4 @@
-import { Breadcrumb, Layout } from 'antd';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Table} from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -7,18 +6,14 @@ import {Link, useNavigate} from "react-router-dom";
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 
-import {CsvToJSON} from '../component/Example'
+import {CsvToJSON} from '../component/CsvToJSON'
 import {Data1} from '../data/Data'
 
 import * as ApiData from '../api/Api';
-import HomeMenu from '../menu/HomeMenu';
-import TopMenu from '../menu/TopMenu';
 import SearchMenu from '../menu/SearchMenu';
 
 import BreadcrumbComp from '../component/BreadcrumbComp';
-import Copyright from '../config/Copyright';
 
-const { Footer } = Layout;
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home2: React.FC = () => { 
@@ -31,9 +26,11 @@ const Home2: React.FC = () => {
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  const [datacols, setDatacols] = useState([]);
+  const [dataSource, setDataSource] = useState<any>([]);
+
   // 최초 로드
   async function LoadData()  {
-  // const LoadData = async() => { 
     try {
       const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
       if (result) {
@@ -69,19 +66,31 @@ const Home2: React.FC = () => {
     checkToken()
   }
 
-
   // 업로드  기능 (나중에 사용)
-  const [q, setQ] = useState("") ;
   const SomeCom = () => {
     const handleFile = (e: { target: { result: any; }; }) => {
       const content = e.target.result;  
       const string_csv = content.toString();
       const arr_json = CsvToJSON(string_csv);
   
-      // setDatetemp(arr_json)
-      // setXField("kinds")
-      // setYField("cnt")
-      // setSeriesField("cnt")
+      // console.log(arr_json)
+      if (arr_json.length > 0){ 
+        setDataSource(arr_json)
+        var columnsIn = arr_json[0]; 
+        const cols_all : any = [];
+        for(var key in columnsIn){
+          const cols : any =
+          {
+            title: key,
+            dataIndex: key,
+            key: key,
+          }
+          cols_all.push(cols)
+        } 
+        setDatacols(cols_all)
+      }else{
+          console.log("No columns");
+      }
     };
   
     const handleChangeFile = (file: any) => {
@@ -92,8 +101,7 @@ const Home2: React.FC = () => {
   
     return(
       <div>
-          <input type="file" accept=".csv" onChange={e  => 
-          handleChangeFile(e.target.files![0])} /> 
+          <input type="file" accept=".csv" onChange={e => handleChangeFile(e.target.files![0])} /> 
       </div>
     )
   };
@@ -137,6 +145,8 @@ const Home2: React.FC = () => {
               </Card>
             </Col>
           </Row>
+          <SomeCom />
+          <Table dataSource={dataSource} columns={datacols} />
           {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
             <Col span={12}>

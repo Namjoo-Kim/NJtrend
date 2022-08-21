@@ -95,7 +95,7 @@ import React, { useState, useEffect }  from 'react';
 import DemoBar from './component/DemoBar';
 import PercentPlot from './component/PercentPlot';
 
-import {CsvToJSON} from './component/Example'
+import {CsvToJSON} from './component/CsvToJSON'
 import {Data1} from './data/Data'
 
 import {GetData} from './api/Api';
