@@ -10,7 +10,6 @@ const SearchMenuFile = (props: any) => {
   useEffect(() => {
     if (props) {
       if (props.columns) {
-        console.log(props.columns)
         setDatacols(props.columns)
       }
     }

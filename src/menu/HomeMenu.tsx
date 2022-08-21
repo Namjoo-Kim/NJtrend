@@ -69,10 +69,8 @@ const menu_list = [
 })
 ];
 
-interface Iprops {
-  key: string;
-}
-const HomeMenu = (props: Iprops) => {
+
+const HomeMenu = (props : any) => {
   const [collapsed, setCollapsed] = useState(false);
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
@@ -81,14 +79,7 @@ const HomeMenu = (props: Iprops) => {
 
   useEffect(() => {
     getInfoFn();
-    console.log(props)
-    if (props) {
-      if (props.key) {
-        setKey(props.key)
-      }
-    };
-
-  },[props.key, localStorage.getItem('token')]);
+  },[localStorage.getItem('token')]);
 
   const getInfoFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')

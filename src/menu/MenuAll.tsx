@@ -13,7 +13,7 @@ export default function MenuAll() {
       <Layout style={{ minHeight: '100vh'}}>
       <TopMenu />
       <Layout className="site-layout">
-      <HomeMenu key={'1'} />
+      <HomeMenu />
       <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}> 
   
       <Routes>

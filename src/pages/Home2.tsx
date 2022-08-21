@@ -106,7 +106,7 @@ const Home2: React.FC = () => {
   
     return(
       <div>
-          <input type="file" accept=".csv" onChange={e => handleChangeFile(e.target.files![0])} /> 
+          <input type="file" accept=".csv, .txt" onChange={e => handleChangeFile(e.target.files![0])} />
       </div>
     )
   };
