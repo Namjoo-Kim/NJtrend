@@ -1,4 +1,4 @@
-import { Card, Col, Row, Table} from 'antd';
+import { Card, Col, Collapse, Row, Table} from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -18,6 +18,8 @@ import BreadcrumbComp from '../component/BreadcrumbComp';
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home2: React.FC = () => { 
+  const { Panel } = Collapse;
+
   const navigate = useNavigate() ;
 
   const [datetemp, setDatetemp] = useState<any>([]);
@@ -154,9 +156,11 @@ const Home2: React.FC = () => {
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
-              <Card style={card_style} >
-                <Table dataSource={dataSource} columns={datacols} />
-              </Card>
+              <Collapse defaultActiveKey={['1']}  style={card_style}>
+                <Panel header="데이터 확인하기" key="1">
+                  <Table dataSource={dataSource} columns={datacols} />
+                </Panel>
+              </Collapse>
             </Col>
           </Row>
           {/* 매출 Top5 카테고리 */}
