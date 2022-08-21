@@ -11,6 +11,7 @@ import {Data1} from '../data/Data'
 
 import * as ApiData from '../api/Api';
 import SearchMenu from '../menu/SearchMenu';
+import SearchMenuFile from '../menu/SearchMenuFile';
 
 import BreadcrumbComp from '../component/BreadcrumbComp';
 
@@ -26,6 +27,7 @@ const Home2: React.FC = () => {
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  const [filecols, setFilecols] = useState([]);
   const [datacols, setDatacols] = useState([]);
   const [dataSource, setDataSource] = useState<any>([]);
 
@@ -67,7 +69,7 @@ const Home2: React.FC = () => {
   }
 
   // 업로드  기능 (나중에 사용)
-  const SomeCom = () => {
+  const Attached = () => {
     const handleFile = (e: { target: { result: any; }; }) => {
       const content = e.target.result;  
       const string_csv = content.toString();
@@ -77,8 +79,10 @@ const Home2: React.FC = () => {
       if (arr_json.length > 0){ 
         setDataSource(arr_json)
         var columnsIn = arr_json[0]; 
+        const filecols_all : any = [];
         const cols_all : any = [];
         for(var key in columnsIn){
+          filecols_all.push(key)
           const cols : any =
           {
             title: key,
@@ -87,6 +91,7 @@ const Home2: React.FC = () => {
           }
           cols_all.push(cols)
         } 
+        setFilecols(filecols_all)
         setDatacols(cols_all)
       }else{
           console.log("No columns");
@@ -107,7 +112,7 @@ const Home2: React.FC = () => {
   };
 
   const onChange = (value: string) => {
-    // console.log(`selected ${value}`);
+    console.log(`selected ${value}`);
     setValues(value)
   };
 
@@ -141,12 +146,19 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
               <Card style={card_style} >
-              <SearchMenu onChange={onChange} onClick={onClick}/>
+                {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
+                <SearchMenuFile columns={filecols} onChange={onChange} onClick={onClick} />
+                <Attached />
               </Card>
             </Col>
           </Row>
-          <SomeCom />
-          <Table dataSource={dataSource} columns={datacols} />
+          <Row gutter={16} className="row-spacing">
+          <Col span={24}>
+              <Card style={card_style} >
+                <Table dataSource={dataSource} columns={datacols} />
+              </Card>
+            </Col>
+          </Row>
           {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
             <Col span={12}>
