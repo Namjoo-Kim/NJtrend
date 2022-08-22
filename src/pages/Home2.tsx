@@ -23,7 +23,7 @@ const Home2: React.FC = () => {
   const navigate = useNavigate() ;
 
   const [datetemp, setDatetemp] = useState<any>([]);
-  const [values, setValues] = useState("year");
+  const [values, setValues] = useState("");
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
@@ -114,8 +114,12 @@ const Home2: React.FC = () => {
   };
 
   const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-    setValues(value)
+    console.log(`selected ${value}`, value.length);
+    if (value.length >= 2) {
+      setValues(value.slice(0,2))
+    } else {
+      setValues(value)
+    }
   };
 
   const onClick = () => {
@@ -149,7 +153,7 @@ const Home2: React.FC = () => {
           <Col span={24}>
               <Card style={card_style} >
                 {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                <SearchMenuFile columns={filecols} onChange={onChange} onClick={onClick} />
+                <SearchMenuFile columns={filecols} onChange={onChange} onClick={onClick} value={values===""?[]:values} />
                 <Attached />
               </Card>
             </Col>

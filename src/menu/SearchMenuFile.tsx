@@ -19,7 +19,7 @@ const SearchMenuFile = (props: any) => {
   <div className="form-group">
     <p className="label">집계기준</p>
     <div className="form">
-      <Select  className="select-layout" onChange={props.onChange} placeholder="선택">
+      <Select mode='multiple' style={{width: 200}} allowClear value={props.value} className="select-layout" onChange={props.onChange} placeholder="선택해 주세요.">
         {datacols.map((key: any, index: any) => (
           <Option value={key}> {key} </Option>
         ))}
