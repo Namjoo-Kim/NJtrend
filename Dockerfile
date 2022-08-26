@@ -4,6 +4,7 @@ FROM node:16.16.0 as builder
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
+COPY . /usr/src/app
 
 RUN npm install --silent
 # RUN npm install react-scripts@2.1.3 -g --silent
@@ -12,8 +13,12 @@ RUN npm install -g typescript
 RUN npm install antd  
 RUN npm install http-proxy-middleware
 
+# RUN npm install -g serve 
+# RUN npm run build
+
 EXPOSE 3000
 # 소스를 작업폴더로 복사하고 앱 실행
-COPY . /usr/src/app
+
+# CMD ["npx", "serve","-l","3000","-s","build"]
 CMD ["npm", "start"]
 # CMD ["npm", "start","--host", "0.0.0.0", "--port", "3000"]
