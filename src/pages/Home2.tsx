@@ -34,31 +34,10 @@ const Home2: React.FC = () => {
   const [datacols, setDatacols] = useState([]);
   const [dataSource, setDataSource] = useState<any>([]);
 
-  // 최초 로드
-  async function LoadData()  {
-    try {
-      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
-      if (result) {
-        return result
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 
   useEffect(() => {
     checkTokenFn()
-    const promise = LoadData()
-    const GetData = () => {
-      promise.then((appData) => {
-        setDatetemp(appData)
-      });
-    };
-    
-    return () => {
-      GetData() ;
-    };
-
   },[localStorage.getItem('token')]);
 
   const checkTokenFn = () => {
