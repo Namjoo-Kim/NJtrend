@@ -194,18 +194,6 @@ const Home2: React.FC = () => {
           </Row>
           {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
-            <Col span={12}>
-              <Card style={card_style}  >
-                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
-             </Card>
-            </Col>
-            {/* <Col span={12}>
-              <Card style={card_style} >
-                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
-              </Card>
-            </Col> */}
-          </Row>
-          <Row gutter={16} className="row-spacing">
           <Col span={24}>
               <Card style={card_style} >
                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
