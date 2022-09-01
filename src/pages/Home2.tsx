@@ -116,6 +116,7 @@ const Home2: React.FC = () => {
 
   const onChange = (value: string) => {
     console.log(`selected ${value}`, value.length);
+    console.log(value[0])
     if (value.length >= 2) {
       setValues(value.slice(0,2))
     } else {
@@ -134,27 +135,35 @@ const Home2: React.FC = () => {
   const onClick = () => {
     if (dataSource.length === 0) {
       message.warning('파일을 선택하여 주세요.');
-    }
-    // 파라미터 지정
-    let item_id : Number
-    if ( values === "year") {
-      item_id = 2
-    } else if ( values === "quarter") {
-      item_id = 3
     } else {
-      item_id = 4
+      var result: any[] = [];
+      dataSource.reduce(function(res : any, value :any) {
+        if (!res[value[values[0]]]) {
+          res[value[values[0]]] = { year: value[values[0]], value: 0 };
+          result.push(res[value[values[0]]])
+        }
+        res[value[values[0]]].value += parseInt(value[values2[0]]);
+        return res;
+      }, {});
+  
+      // dataSource.reduce(function(res : any, value :any) {
+      //   if (!res[value.date]) {
+      //     res[value.date] = { year: value.W, value: 0 };
+      //     result.push(res[value.date])
+      //   }
+      //   res[value.date].value += parseInt(value.qt);
+      //   return res;
+      // }, {});
+  
+      // 오름차순
+      // result.sort((a, b) => a.year < b.year ? -1 : (a.year  > b.year ? 1 : 0))
+  
+      setDatetemp(result)
+      console.log(result)
     }
 
-    // 파라미터로 값 불러오기
-    const Data = async () => {
-      try {
-        const result = await ApiData.Data({ params: { item_id: item_id } });
-        setDatetemp(result)
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    Data();
+
+
   };
 
   return (
@@ -166,10 +175,10 @@ const Home2: React.FC = () => {
               <Card style={card_style} >
                 <Attached />
                 <div className="form-group">
-                <div className="form">
-                  {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                  <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2}  onClick={onClick} value={values===""?[]:values}   value2={values2===""?[]:values2} />
-                </div>
+                  <div className="form">
+                    {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
+                    <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2}  onClick={onClick} value={values===""?[]:values}   value2={values2===""?[]:values2} />
+                  </div>
                 </div>
               </Card>
             </Col>
