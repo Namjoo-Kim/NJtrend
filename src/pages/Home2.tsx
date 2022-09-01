@@ -1,4 +1,4 @@
-import { Card, Col, Collapse, Row, Table} from 'antd';
+import { Card, Col, Collapse, Row, Table, message} from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -24,6 +24,7 @@ const Home2: React.FC = () => {
 
   const [datetemp, setDatetemp] = useState<any>([]);
   const [values, setValues] = useState("");
+  const [values2, setValues2] = useState("");
 
   const [xField, setXField] = useState("value");
   const [yField, setYField] = useState("year");
@@ -121,8 +122,19 @@ const Home2: React.FC = () => {
       setValues(value)
     }
   };
+  const onChange2 = (value: string) => {
+    console.log(`selected ${value}`, value.length);
+    if (value.length >= 2) {
+      setValues2(value.slice(0,2))
+    } else {
+      setValues2(value)
+    }
+  };
 
   const onClick = () => {
+    if (dataSource.length === 0) {
+      message.warning('파일을 선택하여 주세요.');
+    }
     // 파라미터 지정
     let item_id : Number
     if ( values === "year") {
@@ -152,15 +164,19 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
               <Card style={card_style} >
-                {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                <SearchMenuFile columns={filecols} onChange={onChange} onClick={onClick} value={values===""?[]:values} />
                 <Attached />
+                <div className="form-group">
+                <div className="form">
+                  {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
+                  <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2}  onClick={onClick} value={values===""?[]:values}   value2={values2===""?[]:values2} />
+                </div>
+                </div>
               </Card>
             </Col>
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
-              <Collapse defaultActiveKey={['1']}  style={card_style}>
+              <Collapse defaultActiveKey={['1']} >
                 <Panel header="데이터 확인하기" key="1">
                   <Table dataSource={dataSource} columns={datacols} />
                 </Panel>
