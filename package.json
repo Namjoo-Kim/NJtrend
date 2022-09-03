@@ -1,5 +1,5 @@
 {
-  "homepage": "https://knjoo.duckdns.org",
+  "homepage": "http://localhost:3000",
   "name": "njtrend",
   "version": "0.1.0",
   "private": true,
@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm build/static/**/*.map",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
