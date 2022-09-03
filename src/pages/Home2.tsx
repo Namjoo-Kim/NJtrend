@@ -23,6 +23,8 @@ const Home2: React.FC = () => {
   const navigate = useNavigate() ;
 
   const [datetemp, setDatetemp] = useState<any>([]);
+  const [datetemp2, setDatetemp2] = useState<any>([]);
+
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
 
@@ -30,6 +32,7 @@ const Home2: React.FC = () => {
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  // 테이블
   const [filecols, setFilecols] = useState([]);
   const [datacols, setDatacols] = useState([]);
   const [dataSource, setDataSource] = useState<any>([]);
@@ -95,7 +98,6 @@ const Home2: React.FC = () => {
 
   const onChange = (value: string) => {
     console.log(`selected ${value}`, value.length);
-    console.log(value[0])
     if (value.length >= 2) {
       setValues(value.slice(0,2))
     } else {
@@ -104,8 +106,8 @@ const Home2: React.FC = () => {
   };
   const onChange2 = (value: string) => {
     console.log(`selected ${value}`, value.length);
-    if (value.length >= 2) {
-      setValues2(value.slice(0,2))
+    if (value.length >= 1) {
+      setValues2(value.slice(0,1))
     } else {
       setValues2(value)
     }
@@ -124,7 +126,30 @@ const Home2: React.FC = () => {
         res[value[values[0]]].value += parseInt(value[values2[0]]);
         return res;
       }, {});
-  
+      setDatetemp(result)
+
+
+
+
+
+      let temp : any = values
+      var result2 :any = []; 
+      // while(a.push([]) < 3);
+      temp.map((key: any, index: any) => (
+        result2.push([])
+      ))
+      temp.map((key: any, index: any) => (
+        dataSource.reduce(function(res : any, value :any) {
+          if (!res[value[key]]) {
+            res[value[key]] = { year: value[key], value: 0 };
+            result2[index].push(res[value[key]])
+          }
+          res[value[key]].value += parseInt(value[values2[0]]);
+          return res;
+        }, {})
+      ))
+      setDatetemp2(result2)
+
       // dataSource.reduce(function(res : any, value :any) {
       //   if (!res[value.date]) {
       //     res[value.date] = { year: value.W, value: 0 };
@@ -136,14 +161,20 @@ const Home2: React.FC = () => {
   
       // 오름차순
       // result.sort((a, b) => a.year < b.year ? -1 : (a.year  > b.year ? 1 : 0))
-  
-      setDatetemp(result)
-      console.log(result)
+
     }
-
-
-
   };
+
+  const ResultComponent = () => {
+    return datetemp2.map((key: any, index: any) => (
+      <Col span={12}>
+        <Card style={card_style} >
+          <DemoBar data={key} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+        </Card>            
+      </Col>
+    ))
+  }
+
 
   return (
   <>
@@ -172,12 +203,15 @@ const Home2: React.FC = () => {
             </Col>
           </Row>
           {/* 매출 Top5 카테고리 */}
-          <Row gutter={16} className="row-spacing">
-          <Col span={24}>
+          {/* <Row gutter={16} className="row-spacing">
+            <Col span={24}>
               <Card style={card_style} >
                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
               </Card>
             </Col>
+          </Row> */}
+          <Row gutter={16} className="row-spacing">
+            <ResultComponent />
           </Row>
         </div>
 </>
