@@ -12,13 +12,14 @@ RUN npm install -g typescript
 
 RUN npm install antd  
 RUN npm install http-proxy-middleware
+RUN npm install group-by-with-sum
 
-# RUN npm install -g serve 
-# RUN npm run build
+RUN npm install -g serve 
+RUN npm run build
 
 EXPOSE 3000
 # 소스를 작업폴더로 복사하고 앱 실행
 
-# CMD ["npx", "serve","-l","3000","-s","build"]
-CMD ["npm", "start"]
+CMD ["npx", "serve","-l","3000","-s","build"]
+# CMD ["npm", "start"]
 # CMD ["npm", "start","--host", "0.0.0.0", "--port", "3000"]
