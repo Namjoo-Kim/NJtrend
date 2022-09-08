@@ -220,7 +220,7 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing">
             <Col span={24}>
               <Card style={card_style}  >
-                <PercentPlot data={datetemp3} Field = {{xField :"qt", yField: "W", seriesField: 'mfr'}} />
+                <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
              </Card>
             </Col>
           </Row>
