@@ -38,7 +38,8 @@ export async function GetData() {
 
 export async function Data(param) {
     try {
-        let res = await axios.get("/data/grp",param); // axios <-> instance
+        // let res = await axios.get("/data/grp",param); // axios <-> instance
+        let res = await axios.get(process.env.REACT_APP_PROXY + "/data/grp",param); // axios <-> instance
 
         if(res.status == 200){
             // test for status you want, etc
