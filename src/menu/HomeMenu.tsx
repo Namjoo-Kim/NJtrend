@@ -173,9 +173,9 @@ const item3: MenuProps['items'] = [
   {
     label: 'sub menu',
     key: 'submenu',
-    icon: <UserOutlined />,
     style : { display: display },
     children: [{ 
+      icon: <UserOutlined />,
       label: (
         <Link to="/main/Home3">
            <span className="nav-text">매출2</span>

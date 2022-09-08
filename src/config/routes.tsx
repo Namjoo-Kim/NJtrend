@@ -1,13 +1,10 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import Home from '../pages/Home';
-import Home2 from '../pages/Home2';
-import Home3 from '../pages/Home3';
 
 import Welcome from '../pages/Welcome';
 import Found404 from '../pages/Found404';
 import Oauth from '../pages/Oauth';
 
-import MenuAll from '../menu/MenuAll';
+import MenuAll from './MenuAll';
 
 function App() {
   return (

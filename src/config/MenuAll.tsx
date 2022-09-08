@@ -1,7 +1,7 @@
 import { Layout} from 'antd';
-import TopMenu from './TopMenu';
-import HomeMenu from './HomeMenu';
-import Copyright from '../config/Copyright';
+import TopMenu from '../menu/TopMenu';
+import HomeMenu from '../menu/HomeMenu';
+import Copyright from './Copyright';
 
 import {Routes, Route} from 'react-router-dom'
 import Home from '../pages/Home';
