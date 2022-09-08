@@ -80,7 +80,7 @@ const HomeMenu = (props : any) => {
   useEffect(() => {
     console.log('key_check')
     getInfoFn();
-  },[localStorage.getItem('token')]);
+  },[localStorage.getItem('token'),key]);
 
   const getInfoFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')

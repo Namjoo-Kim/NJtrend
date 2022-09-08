@@ -24,6 +24,7 @@ const Home2: React.FC = () => {
 
   const [datetemp, setDatetemp] = useState<any>([]);
   const [datetemp2, setDatetemp2] = useState<any>([]);
+  const [datetemp3, setDatetemp3] = useState<any>([]);
 
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
@@ -115,7 +116,7 @@ const Home2: React.FC = () => {
 
   const onClick = () => {
     if (dataSource.length === 0) {
-      message.warning('파일을 선택하여 주세요.');
+      message.warning('파일을 선택해 주세요.');
     } else {
       var result: any[] = [];
       dataSource.reduce(function(res : any, value :any) {
@@ -127,9 +128,6 @@ const Home2: React.FC = () => {
         return res;
       }, {});
       setDatetemp(result)
-
-
-
 
 
       let temp : any = values
@@ -150,6 +148,12 @@ const Home2: React.FC = () => {
       ))
       setDatetemp2(result2)
 
+      const groupBy = require('group-by-with-sum');
+      console.log('groupBy',values.toString())
+      const result3 = groupBy(dataSource, values.toString(), values2.toString(),);
+      console.log('result3',result3)
+      setDatetemp3(result3)
+
       // dataSource.reduce(function(res : any, value :any) {
       //   if (!res[value.date]) {
       //     res[value.date] = { year: value.W, value: 0 };
@@ -167,7 +171,7 @@ const Home2: React.FC = () => {
 
   const ResultComponent = () => {
     return datetemp2.map((key: any, index: any) => (
-      <Col span={12}>
+      <Col span={24/datetemp2.length}>
         <Card style={card_style} >
           <DemoBar data={key} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
         </Card>            
@@ -187,7 +191,7 @@ const Home2: React.FC = () => {
                 <div className="form-group">
                   <div className="form">
                     {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                    <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2}  onClick={onClick} value={values===""?[]:values}   value2={values2===""?[]:values2} />
+                    <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
                   </div>
                 </div>
               </Card>
@@ -212,6 +216,13 @@ const Home2: React.FC = () => {
           </Row> */}
           <Row gutter={16} className="row-spacing">
             <ResultComponent />
+          </Row>
+          <Row gutter={16} className="row-spacing">
+            <Col span={24}>
+              <Card style={card_style}  >
+                <PercentPlot data={datetemp3} Field = {{xField :"qt", yField: "W", seriesField: 'mfr'}} />
+             </Card>
+            </Col>
           </Row>
         </div>
 </>

@@ -28,8 +28,8 @@ const SearchMenuFile = (props: any) => {
         </Select>
         </span>
         <span>
-        <p className="label">Y축</p>
-        <Select mode='multiple' style={{width: 200}} allowClear value={props.value2} className="select-layout" onChange={props.onChange2} placeholder="선택해 주세요.">
+        <p className="label">집계값</p>
+        <Select mode='multiple' style={{width: 100}} allowClear value={props.value2} className="select-layout" onChange={props.onChange2} placeholder="선택해 주세요.">
           {datacols.map((key: any, index: any) => (
             <Option value={key}> {key} </Option>
           ))}
