@@ -104,7 +104,7 @@ const Home2: React.FC = () => {
 
   const onSwitchClick = (e: any) => {
     console.log(`selected ${e}`);
-    setDisplay(e===false?"none":datetemp2.length===1?"none":"")
+    setDisplay(e===false?"none":datetemp2.length<=1?"none":"")
   };
 
   const onChange = (value: string) => {
