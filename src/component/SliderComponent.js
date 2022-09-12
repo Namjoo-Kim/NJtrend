@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { Slider } from 'antd';
 
 const SliderComponent = (props) => {
@@ -10,7 +11,12 @@ const SliderComponent = (props) => {
   //   } 
   // },[props.display]);
 
-  return <Slider style={{ display: props.display}} defaultValue={50} step={5} min={10} max={90} onChange={props.onChange} onAfterChange={props.onAfterChange} />
+  const marks = {
+    // 0: '왼쪽 차트 숨기기',
+    // 100: '오른쪽 차트 숨기기',
+  };
+
+  return <Slider style={{ display: props.display}}  marks={marks} defaultValue={50} step={5} min={10} max={90} onChange={props.onChange} onAfterChange={props.onAfterChange} />
   ;
 };
 

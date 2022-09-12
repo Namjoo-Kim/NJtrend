@@ -39,7 +39,7 @@ const Home2: React.FC = () => {
 
   useEffect(() => {
     checkTokenFn()
-  },[localStorage.getItem('token'), datetemp2]);
+  },[localStorage.getItem('token')]);
 
   const checkTokenFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -95,9 +95,8 @@ const Home2: React.FC = () => {
   };
 
   const onSliderChange = (name:string, value: number) => {
-    console.log(`selected ${value}`);
-    console.log({[name]:value})
-
+    // console.log(`selected ${value}`);
+    // console.log({[name]:value})
     setSliderValue(value)
     sliderValue2[name] = value
     setSliderValue2(sliderValue2)    
@@ -105,7 +104,7 @@ const Home2: React.FC = () => {
 
   const onSwitchClick = (e: any) => {
     console.log(`selected ${e}`);
-    setDisplay(e===false?"none":"")
+    setDisplay(e===false?"none":datetemp2.length===1?"none":"")
   };
 
   const onChange = (value: string) => {
@@ -181,9 +180,10 @@ const Home2: React.FC = () => {
   };
 
   const ResultComponent = () => {
-    const colsize = 24/datetemp2.length;
+    // const colsize = 24/datetemp2.length;
+    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100);
     return datetemp2.map((key: any, index: any) => (
-      <Col span={index===0?Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100):Math.round(24*(100-(sliderValue2["text1"]?sliderValue2["text1"]:50))/100)}>
+      <Col span={index===0?colsize:24-colsize}>
         <Card style={card_style} >
           <DemoBar data={key} Field = {{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
         </Card>            
