@@ -37,7 +37,7 @@ const SearchMenuFile = (props: any) => {
         </span>
         <span>
         <p className="label"> BI 설정하기 </p>
-        <Switch  onClick={props.SwitchClick} />
+        <Switch  onClick={props.onSwitchClick} />
         </span>
         <span>
         <p className="label"> 조회하기 </p>

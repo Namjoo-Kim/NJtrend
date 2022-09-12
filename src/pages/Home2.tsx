@@ -27,16 +27,19 @@ const Home2: React.FC = () => {
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
 
+  const [sliderValue, setSliderValue] = useState(50);
+  const [sliderValue2, setSliderValue2] = useState<any>([]);
+
+  const [display,setDisplay] = useState("none");
+
   // 테이블
   const [filecols, setFilecols] = useState([]);
   const [datacols, setDatacols] = useState([]);
   const [dataSource, setDataSource] = useState<any>([]);
 
-
-
   useEffect(() => {
     checkTokenFn()
-  },[localStorage.getItem('token')]);
+  },[localStorage.getItem('token'), datetemp2]);
 
   const checkTokenFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -89,6 +92,20 @@ const Home2: React.FC = () => {
           <input type="file" accept=".csv, .txt" onChange={e => handleChangeFile(e.target.files![0])} />
       </div>
     )
+  };
+
+  const onSliderChange = (name:string, value: number) => {
+    console.log(`selected ${value}`);
+    console.log({[name]:value})
+
+    setSliderValue(value)
+    sliderValue2[name] = value
+    setSliderValue2(sliderValue2)    
+  };
+
+  const onSwitchClick = (e: any) => {
+    console.log(`selected ${e}`);
+    setDisplay(e===false?"none":"")
   };
 
   const onChange = (value: string) => {
@@ -164,8 +181,9 @@ const Home2: React.FC = () => {
   };
 
   const ResultComponent = () => {
+    const colsize = 24/datetemp2.length;
     return datetemp2.map((key: any, index: any) => (
-      <Col span={24/datetemp2.length}>
+      <Col span={index===0?Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100):Math.round(24*(100-(sliderValue2["text1"]?sliderValue2["text1"]:50))/100)}>
         <Card style={card_style} >
           <DemoBar data={key} Field = {{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
         </Card>            
@@ -177,7 +195,7 @@ const Home2: React.FC = () => {
     return datetemp2.map((key: any, index: any) => (
       <Col span={24/datetemp2.length}>
         <Card style={card_style}  >
-          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
+          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {true} />
         </Card>
       </Col>
     ))
@@ -194,7 +212,7 @@ const Home2: React.FC = () => {
                 <div className="form-group">
                   <div className="form">
                     {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                    <SearchMenuFile columns={filecols} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
+                    <SearchMenuFile columns={filecols} onSwitchClick={onSwitchClick} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
                   </div>
                 </div>
               </Card>
@@ -217,17 +235,18 @@ const Home2: React.FC = () => {
               </Card>
             </Col>
           </Row> */}
+          <SliderComponent onChange={(e: any) => onSliderChange("text1", e)} display={display} />
           <Row gutter={16} className="row-spacing">
             <ResultComponent />
           </Row>
-          <Row gutter={16} className="row-spacing">
+          {/* <Row gutter={16} className="row-spacing">
             <Col span={24}>
-              <Card style={card_style}  >
-                <SliderComponent />
+              <Card style={card_style} >
                 <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
              </Card>
             </Col>
-          </Row>
+          </Row> */}
+          <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
           <Row gutter={16} className="row-spacing">
             <LinePlotComponent />
           </Row>
