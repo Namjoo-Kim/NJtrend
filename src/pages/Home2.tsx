@@ -6,13 +6,11 @@ import {Link, useNavigate} from "react-router-dom";
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 import LinePlot from '../component/LinePlot';
-import {CsvToJSON} from '../component/CsvToJSON'
-import {Data1} from '../data/Data'
+import {CsvToJSON} from '../component/CsvToJSON';
+import SliderComponent from '../component/SliderComponent';
 
-import * as ApiData from '../api/Api';
 import SearchMenu from '../menu/SearchMenu';
 import SearchMenuFile from '../menu/SearchMenuFile';
-
 import BreadcrumbComp from '../component/BreadcrumbComp';
 
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
@@ -225,6 +223,7 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing">
             <Col span={24}>
               <Card style={card_style}  >
+                <SliderComponent />
                 <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
              </Card>
             </Col>
