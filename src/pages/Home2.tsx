@@ -5,7 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
-
+import LinePlot from '../component/LinePlot';
 import {CsvToJSON} from '../component/CsvToJSON'
 import {Data1} from '../data/Data'
 
@@ -22,16 +22,12 @@ const Home2: React.FC = () => {
 
   const navigate = useNavigate() ;
 
-  const [datetemp, setDatetemp] = useState<any>([]);
+  // const [datetemp, setDatetemp] = useState<any>([]);
   const [datetemp2, setDatetemp2] = useState<any>([]);
   const [datetemp3, setDatetemp3] = useState<any>([]);
 
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
-
-  const [xField, setXField] = useState("value");
-  const [yField, setYField] = useState("year");
-  const [seriesField, setSeriesField] = useState("year");
 
   // 테이블
   const [filecols, setFilecols] = useState([]);
@@ -118,16 +114,16 @@ const Home2: React.FC = () => {
     if (dataSource.length === 0) {
       message.warning('파일을 선택해 주세요.');
     } else {
-      var result: any[] = [];
-      dataSource.reduce(function(res : any, value :any) {
-        if (!res[value[values[0]]]) {
-          res[value[values[0]]] = { year: value[values[0]], value: 0 };
-          result.push(res[value[values[0]]])
-        }
-        res[value[values[0]]].value += parseInt(value[values2[0]]);
-        return res;
-      }, {});
-      setDatetemp(result)
+      // var result: any[] = [];
+      // dataSource.reduce(function(res : any, value :any) {
+      //   if (!res[value[values[0]]]) {
+      //     res[value[values[0]]] = { axis: value[values[0]], value: 0 };
+      //     result.push(res[value[values[0]]])
+      //   }
+      //   res[value[values[0]]].value += parseInt(value[values2[0]]);
+      //   return res;
+      // }, {});
+      // setDatetemp(result)
 
 
       let temp : any = values
@@ -139,7 +135,7 @@ const Home2: React.FC = () => {
       temp.map((key: any, index: any) => (
         dataSource.reduce(function(res : any, value :any) {
           if (!res[value[key]]) {
-            res[value[key]] = { year: value[key], value: 0 };
+            res[value[key]] = { axis: value[key], value: 0 };
             result2[index].push(res[value[key]])
           }
           res[value[key]].value += parseInt(value[values2[0]]);
@@ -173,12 +169,21 @@ const Home2: React.FC = () => {
     return datetemp2.map((key: any, index: any) => (
       <Col span={24/datetemp2.length}>
         <Card style={card_style} >
-          <DemoBar data={key} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+          <DemoBar data={key} Field = {{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
         </Card>            
       </Col>
     ))
   }
 
+  const LinePlotComponent = () => {
+    return datetemp2.map((key: any, index: any) => (
+      <Col span={24/datetemp2.length}>
+        <Card style={card_style}  >
+          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
+        </Card>
+      </Col>
+    ))
+  }
 
   return (
   <>
@@ -223,6 +228,9 @@ const Home2: React.FC = () => {
                 <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
              </Card>
             </Col>
+          </Row>
+          <Row gutter={16} className="row-spacing">
+            <LinePlotComponent />
           </Row>
         </div>
 </>

@@ -1,4 +1,4 @@
-import {Select, Button} from 'antd';
+import {Select, Button, Switch} from 'antd';
 import { SearchOutlined ,} from '@ant-design/icons';
 import React, { useState, useEffect, useCallback}  from 'react';
 
@@ -34,6 +34,10 @@ const SearchMenuFile = (props: any) => {
             <Option value={key}> {key} </Option>
           ))}
         </Select>
+        </span>
+        <span>
+        <p className="label"> BI 설정하기 </p>
+        <Switch  onClick={props.SwitchClick} />
         </span>
         <span>
         <p className="label"> 조회하기 </p>
