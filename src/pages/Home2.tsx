@@ -57,8 +57,7 @@ const Home2: React.FC = () => {
       const content = e.target.result;  
       const string_csv = content.toString();
       const arr_json = CsvToJSON(string_csv);
-  
-      // console.log(arr_json)
+
       if (arr_json.length > 0){ 
         setDataSource(arr_json)
         var columnsIn = arr_json[0]; 
@@ -99,7 +98,7 @@ const Home2: React.FC = () => {
     // console.log({[name]:value})
     setSliderValue(value)
     sliderValue2[name] = value
-    setSliderValue2(sliderValue2)    
+    setSliderValue2(sliderValue2) 
   };
 
   const onSwitchClick = (e: any) => {
@@ -152,17 +151,17 @@ const Home2: React.FC = () => {
             res[value[key]] = { axis: value[key], value: 0 };
             result2[index].push(res[value[key]])
           }
-          res[value[key]].value += parseInt(value[values2[0]]);
+          res[value[key]].value += parseFloat(value[values2[0]]);
           return res;
         }, {})
       ))
-      setDatetemp2(result2)
+      setDatetemp2(result2);
 
-      const groupBy = require('group-by-with-sum');
-      console.log('groupBy',values.toString())
-      const result3 = groupBy(dataSource, values.toString(), values2.toString(),);
-      console.log('result3',result3)
-      setDatetemp3(result3)
+      // const groupBy = require('group-by-with-sum');
+      // console.log('groupBy',values.toString())
+      // const result3 = groupBy(dataSource, values.toString(), values2.toString());
+      // console.log('result3',result3)
+      // setDatetemp3(result3)
 
       // dataSource.reduce(function(res : any, value :any) {
       //   if (!res[value.date]) {
@@ -179,27 +178,28 @@ const Home2: React.FC = () => {
     }
   };
 
-  const ResultComponent = () => {
+  const ResultComponent = useCallback(() => {
     // const colsize = 24/datetemp2.length;
     const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100);
     return datetemp2.map((key: any, index: any) => (
       <Col span={index===0?colsize:24-colsize}>
         <Card style={card_style} >
-          <DemoBar data={key} Field = {{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
+          <DemoBar data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
         </Card>            
       </Col>
     ))
-  }
+  },[datetemp2]);
 
-  const LinePlotComponent = () => {
+  const LinePlotComponent = useCallback(() => {
+    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text2"]?sliderValue2["text2"]:50)/100);
     return datetemp2.map((key: any, index: any) => (
-      <Col span={24/datetemp2.length}>
+      <Col span={index===0?colsize:24-colsize}>
         <Card style={card_style}  >
-          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {true} />
+          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
         </Card>
       </Col>
     ))
-  }
+  },[datetemp2]);
 
   return (
   <>

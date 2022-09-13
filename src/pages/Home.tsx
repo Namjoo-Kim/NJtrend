@@ -112,14 +112,14 @@ const Home: React.FC = () => {
   //     <HomeMenu key={'1'}  />
   //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
   <>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','예제' ]} />
+        <BreadcrumbComp style={{ margin: '16px 0' }} data={['Home','예제']} />
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
-              <Card style={card_style} >
+            <Card style={card_style} >
               <SearchMenu onChange={onChange} onClick={onClick}/>
-              </Card>
-            </Col>
+            </Card>
+          </Col>
           </Row>
           {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
@@ -128,11 +128,11 @@ const Home: React.FC = () => {
                 <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
              </Card>
             </Col>
-            {/* <Col span={12}>
+            <Col span={12}>
               <Card style={card_style} >
-                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
+                CSV/TXT 파일을 통해 나만의 BI를 만들고 싶다면 로그인해 주세요.
               </Card>
-            </Col> */}
+            </Col>
           </Row>
           <Row gutter={16} className="row-spacing">
           <Col span={24}>
