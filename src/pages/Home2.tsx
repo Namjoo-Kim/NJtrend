@@ -236,14 +236,24 @@ const Home2: React.FC = () => {
         </Col>
     ))};
 
-    return (
+    const sliders : any = ['text3', 'text4'];
+    return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent onChange={(value: any) => onSliderChange("text3", value)} display={display} />
+        <SliderComponent onChange={(value: any) => onSliderChange(keys, value)} display={display} />
         <Row gutter={16} className="row-spacing">
           <Temp />
         </Row>
       </>
-    )
+    ));
+    
+    // return (
+    //   <>
+    //     <SliderComponent onChange={(value: any) => onSliderChange("text3", value)} display={display} />
+    //     <Row gutter={16} className="row-spacing">
+    //       <Temp />
+    //     </Row>
+    //   </>
+    // )
   },[datetemp2, display]);
 
 
