@@ -1,4 +1,4 @@
-import { Card, Col, Collapse, Row, Table, message} from 'antd';
+import { Card, Col, Collapse, Row, Table, message, Input} from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -56,10 +56,13 @@ const Home2: React.FC = () => {
     const handleFile = (e: { target: { result: any; }; }) => {
       const content = e.target.result;  
       const string_csv = content.toString();
-      const arr_json = CsvToJSON(string_csv);
+      const arr_json = CsvToJSON(string_csv, sep);
 
       if (arr_json.length > 0){ 
+        setValues("")
+        setValues2("")
         setDataSource(arr_json)
+
         var columnsIn = arr_json[0]; 
         const filecols_all : any = [];
         const cols_all : any = [];
@@ -75,8 +78,11 @@ const Home2: React.FC = () => {
         } 
         setFilecols(filecols_all)
         setDatacols(cols_all)
+
+        message.success('파일 읽기 완료');
       }else{
-          console.log("No columns");
+          message.warning('파일 혹은 구분자를 확인해 주세요.');
+          // console.log("No columns");
       }
     };
   
@@ -85,11 +91,28 @@ const Home2: React.FC = () => {
       fileData.onloadend = handleFile;
       fileData.readAsText(file);
     };
+    
+    let sep = ",";
+    const onChange = (e: any) => {
+      // console.log(`selected ${e.target.value}`);
+      sep = e.target.value;
+    };
+  
   
     return(
-      <div>
-          <input type="file" accept=".csv, .txt" onChange={e => handleChangeFile(e.target.files![0])} />
+      <div className="form-group">
+        <div className="form">
+          <span>
+            <p className="label"> 구분자 </p>
+            <Input style={{width: 100}} placeholder="쉼표(,)" onChange={onChange}/>
+          </span>
+          <span>
+            <p className="label"> 파일 선택 </p>
+            <input type="file" accept=".csv, .txt" onChange={e => handleChangeFile(e.target.files![0])} />
+          </span>
+        </div>
       </div>
+
     )
   };
 
@@ -102,12 +125,12 @@ const Home2: React.FC = () => {
   };
 
   const onSwitchClick = (e: any) => {
-    console.log(`selected ${e}`);
+    // console.log(`selected ${e}`);
     setDisplay(e===false?"none":datetemp2.length<=1?"none":"")
   };
 
   const onChange = (value: string) => {
-    console.log(`selected ${value}`, value.length);
+    // console.log(`selected ${value}`, value.length);
     if (value.length >= 2) {
       setValues(value.slice(0,2))
     } else {
@@ -115,7 +138,7 @@ const Home2: React.FC = () => {
     }
   };
   const onChange2 = (value: string) => {
-    console.log(`selected ${value}`, value.length);
+    // console.log(`selected ${value}`, value.length);
     if (value.length >= 1) {
       setValues2(value.slice(0,1))
     } else {
@@ -178,6 +201,7 @@ const Home2: React.FC = () => {
     }
   };
 
+
   const ResultComponent = useCallback(() => {
     // const colsize = 24/datetemp2.length;
     const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100);
@@ -200,6 +224,28 @@ const Home2: React.FC = () => {
       </Col>
     ))
   },[datetemp2]);
+
+  const LinePlotComponent2 = useCallback(() => {
+    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text3"]?sliderValue2["text3"]:50)/100);
+    const Temp = () => {
+      return datetemp2.map((key: any, index: any) => (
+        <Col span={index===0?colsize:24-colsize}>
+          <Card style={card_style}  >
+            <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
+          </Card>
+        </Col>
+    ))};
+
+    return (
+      <>
+        <SliderComponent onChange={(value: any) => onSliderChange("text3", value)} display={display} />
+        <Row gutter={16} className="row-spacing">
+          <Temp />
+        </Row>
+      </>
+    )
+  },[datetemp2, display]);
+
 
   return (
   <>
@@ -250,6 +296,7 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing">
             <LinePlotComponent />
           </Row>
+          <LinePlotComponent2 />
         </div>
 </>
   );
