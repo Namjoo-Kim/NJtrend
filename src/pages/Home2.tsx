@@ -1,4 +1,4 @@
-import { Card, Col, Collapse, Row, Table, message, Input} from 'antd';
+import { Card, Col, Collapse, Row, Table, message, Input, Select} from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -19,12 +19,13 @@ const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208
 
 const Home2: React.FC = () => { 
   const { Panel } = Collapse;
+  const { Option } = Select;
 
   const navigate = useNavigate() ;
 
   // const [datetemp, setDatetemp] = useState<any>([]);
   const [datetemp2, setDatetemp2] = useState<any>([]);
-  const [datetemp3, setDatetemp3] = useState<any>([]);
+  // const [datetemp3, setDatetemp3] = useState<any>([]);
 
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
@@ -33,6 +34,10 @@ const Home2: React.FC = () => {
   const [sliderValue2, setSliderValue2] = useState<any>([]);
 
   const [display,setDisplay] = useState("none");
+  const [display2,setDisplay2] = useState("none");
+
+  const SelectComp = ['Demo','Line'] ;
+  const [component, setComponent] = useState(['Demo','Demo']) ;
 
   // 테이블
   const [filecols, setFilecols] = useState([]);
@@ -118,6 +123,16 @@ const Home2: React.FC = () => {
     )
   };
 
+
+  const SelectChange = (num: number, value: string) => {
+    // console.log(`selected ${value}`);
+    component[num] = value
+    // console.log('component',component)
+    setComponent(component)
+    
+  };
+
+
   const onSliderChange = (name:string, value: number) => {
     // console.log(`selected ${value}`);
     // console.log({[name]:value})
@@ -128,8 +143,9 @@ const Home2: React.FC = () => {
   };
 
   const onSwitchClick = (e: any) => {
-    // console.log(`selected ${e}`);
+    console.log(`selected ${e}`);
     setDisplay(e===false?"none":datetemp2.length<=1?"none":"")
+    setDisplay2(e===false?"none":"")
   };
 
   const onChange = (value: string) => {
@@ -231,11 +247,11 @@ const Home2: React.FC = () => {
   const SelectMap = (props : any) => {
     const sliderindex = props.index
     const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliders[sliderindex]]?sliderValue2[sliders[sliderindex]]:50)/100);
-    
-    const component = ['Demo','Line'] ;
+  
     return datetemp2.map((key: any, index: any) => (
       <Col span={index===0?colsize:24-colsize}>
         <Card style={card_style} >
+          <SelectMap2 num = {index} />
           <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
         </Card>            
       </Col>
@@ -246,14 +262,33 @@ const Home2: React.FC = () => {
   const SelectPlot = useCallback(() => {
     return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent onChange={(value: any) => onSliderChange(sliders[index], value)} display={display} />
+        <SliderComponent defaultValue={sliderValue2[sliders[index]]?sliderValue2[sliders[index]]:50} onChange={(value: any) => onSliderChange(sliders[index], value)} display={display} />
         <Row gutter={16} className="row-spacing">
           <SelectMap index={index}/>
         </Row>
       </>
     ));
-  },[datetemp2, display]);
+  },[datetemp2, display, display2, component,  ]);
 
+
+  const SelectMap2 = (props : any) => {
+    const SelectNum = props.num ;
+
+    return (
+      <div className="form-group"  style={{ display: display2}}>
+        <div className="form">
+          <span>
+            <p className="label">Chart 선택</p>
+            <Select defaultValue={component[SelectNum]} onChange={(value: any) => SelectChange(SelectNum, value)} style={{width: 100}} className="select-layout" >
+              {SelectComp.map((key: any, index: any) => (
+                <Option value={key}> {key} </Option>
+              ))}
+            </Select>
+          </span>
+        </div>
+      </div>
+    )
+  };
 
   return (
   <>
@@ -289,10 +324,15 @@ const Home2: React.FC = () => {
               </Card>
             </Col>
           </Row> */}
-          <SliderComponent onChange={(e: any) => onSliderChange("text1", e)} display={display} />
+          {/* <SliderComponent onChange={(e: any) => onSliderChange("text1", e)} display={display} />
           <Row gutter={16} className="row-spacing">
             <ResultComponent />
-          </Row>
+          </Row> */}
+          {/* <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
+          <Row gutter={16} className="row-spacing">
+            <LinePlotComponent />
+          </Row> */}
+          <SelectPlot />
           {/* <Row gutter={16} className="row-spacing">
             <Col span={24}>
               <Card style={card_style} >
@@ -300,11 +340,6 @@ const Home2: React.FC = () => {
              </Card>
             </Col>
           </Row> */}
-          {/* <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
-          <Row gutter={16} className="row-spacing">
-            <LinePlotComponent />
-          </Row> */}
-          <SelectPlot />
         </div>
 </>
   );
