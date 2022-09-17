@@ -6,6 +6,8 @@ import {Link, useNavigate} from "react-router-dom";
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
 import LinePlot from '../component/LinePlot';
+import SelectComponent from '../component/SelectComponent';
+
 import {CsvToJSON} from '../component/CsvToJSON';
 import SliderComponent from '../component/SliderComponent';
 
@@ -122,6 +124,7 @@ const Home2: React.FC = () => {
     setSliderValue(value)
     sliderValue2[name] = value
     setSliderValue2(sliderValue2) 
+    console.log('sliderValue2',sliderValue2)
   };
 
   const onSwitchClick = (e: any) => {
@@ -201,7 +204,6 @@ const Home2: React.FC = () => {
     }
   };
 
-
   const ResultComponent = useCallback(() => {
     // const colsize = 24/datetemp2.length;
     const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100);
@@ -225,35 +227,31 @@ const Home2: React.FC = () => {
     ))
   },[datetemp2]);
 
-  const LinePlotComponent2 = useCallback(() => {
-    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text3"]?sliderValue2["text3"]:50)/100);
-    const Temp = () => {
-      return datetemp2.map((key: any, index: any) => (
-        <Col span={index===0?colsize:24-colsize}>
-          <Card style={card_style}  >
-            <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
-          </Card>
-        </Col>
-    ))};
 
-    const sliders : any = ['text3', 'text4'];
+  const SelectMap = (props : any) => {
+    const sliderindex = props.index
+    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliders[sliderindex]]?sliderValue2[sliders[sliderindex]]:50)/100);
+    
+    const component = ['Demo','Line'] ;
+    return datetemp2.map((key: any, index: any) => (
+      <Col span={index===0?colsize:24-colsize}>
+        <Card style={card_style} >
+          <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
+        </Card>            
+      </Col>
+      ))
+  };
+
+  const sliders : any = ['text3'];
+  const SelectPlot = useCallback(() => {
     return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent onChange={(value: any) => onSliderChange(keys, value)} display={display} />
+        <SliderComponent onChange={(value: any) => onSliderChange(sliders[index], value)} display={display} />
         <Row gutter={16} className="row-spacing">
-          <Temp />
+          <SelectMap index={index}/>
         </Row>
       </>
     ));
-    
-    // return (
-    //   <>
-    //     <SliderComponent onChange={(value: any) => onSliderChange("text3", value)} display={display} />
-    //     <Row gutter={16} className="row-spacing">
-    //       <Temp />
-    //     </Row>
-    //   </>
-    // )
   },[datetemp2, display]);
 
 
@@ -302,11 +300,11 @@ const Home2: React.FC = () => {
              </Card>
             </Col>
           </Row> */}
-          <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
+          {/* <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
           <Row gutter={16} className="row-spacing">
             <LinePlotComponent />
-          </Row>
-          <LinePlotComponent2 />
+          </Row> */}
+          <SelectPlot />
         </div>
 </>
   );
