@@ -38,6 +38,7 @@ const Home2: React.FC = () => {
 
   const SelectComp = ['Demo','Line'] ;
   const [component, setComponent] = useState(['Demo','Demo']) ;
+  const [sliders, setSliders] = useState<any>([]) ;
 
   // 테이블
   const [filecols, setFilecols] = useState([]);
@@ -111,7 +112,7 @@ const Home2: React.FC = () => {
         <div className="form">
           <span>
             <p className="label"> 구분자 </p>
-            <Input style={{width: 100}} placeholder="쉼표(,)" onChange={onChange}/>
+            <Input style={{width: 70}} placeholder="쉼표(,)" onChange={onChange}/>
           </span>
           <span>
             <p className="label"> 파일 선택 </p>
@@ -139,7 +140,7 @@ const Home2: React.FC = () => {
     setSliderValue(value)
     sliderValue2[name] = value
     setSliderValue2(sliderValue2) 
-    console.log('sliderValue2',sliderValue2)
+    // console.log('sliderValue2',sliderValue2)
   };
 
   const onSwitchClick = (e: any) => {
@@ -150,8 +151,8 @@ const Home2: React.FC = () => {
 
   const onChange = (value: string) => {
     // console.log(`selected ${value}`, value.length);
-    if (value.length >= 2) {
-      setValues(value.slice(0,2))
+    if (value.length >= 3) {
+      setValues(value.slice(0,3))
     } else {
       setValues(value)
     }
@@ -197,8 +198,16 @@ const Home2: React.FC = () => {
           return res;
         }, {})
       ))
+      console.log('result2',result2);
       setDatetemp2(result2);
 
+      const slider : any = [];
+      for (let i = 0; i < Math.ceil(values.length/2); i++) {
+        const nm = 'text' +(i+3) 
+        slider.push(nm)
+      };
+      console.log('slider',slider)
+      setSliders(slider)
       // const groupBy = require('group-by-with-sum');
       // console.log('groupBy',values.toString())
       // const result3 = groupBy(dataSource, values.toString(), values2.toString());
@@ -245,33 +254,70 @@ const Home2: React.FC = () => {
 
 
   const SelectMap = (props : any) => {
-    const sliderindex = props.index
-    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliders[sliderindex]]?sliderValue2[sliders[sliderindex]]:50)/100);
-  
+    const sliderkeys = props.keys
+    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
     return datetemp2.map((key: any, index: any) => (
       <Col span={index===0?colsize:24-colsize}>
         <Card style={card_style} >
-          <SelectMap2 num = {index} />
+          <SelectChart num = {index} />
           <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
         </Card>            
       </Col>
       ))
   };
 
-  const sliders : any = ['text3'];
+
+  // const sliders : any = ['text3', 'text4'];
   const SelectPlot = useCallback(() => {
     return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent defaultValue={sliderValue2[sliders[index]]?sliderValue2[sliders[index]]:50} onChange={(value: any) => onSliderChange(sliders[index], value)} display={display} />
+        <SliderComponent defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
         <Row gutter={16} className="row-spacing">
-          <SelectMap index={index}/>
+          <SelectMap keys={keys}/>
         </Row>
       </>
     ));
-  },[datetemp2, display, display2, component,  ]);
+  },[datetemp2, display, display2, component]);
 
 
   const SelectMap2 = (props : any) => {
+    const sliderindex = props.index
+    const sliderkeys = props.keys
+    // const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliders[sliderindex]]?sliderValue2[sliders[sliderindex]]:50)/100);
+    const colsize = (data : any ) => {return  data.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100)};
+
+    const ttt : any = [];
+    for (let i = 0; i < datetemp2.length; i++) {
+      if (i % 2 === 0) {
+        ttt.push(datetemp2.slice(i,2+i));
+      }
+    };
+
+    // console.log('ttt[sliderindex]', sliderindex, ttt[sliderindex], colsize(ttt[sliderindex]), ttt[sliderindex].length)
+    return ttt[sliderindex].map((key: any, index: any) => (
+      <Col span={index===0?colsize(ttt[sliderindex]):24-colsize(ttt[sliderindex])}>
+        <Card style={card_style} >
+          <SelectChart num = {index} />
+          <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
+        </Card>            
+      </Col>
+      ))
+  };
+
+  const SelectPlot2 = useCallback(() => {
+    return sliders.map((keys: any, index: any) => (
+      <>
+        <SliderComponent defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
+        <Row gutter={16} className="row-spacing">
+          <SelectMap2 index={index} keys={keys} />
+        </Row>
+      </>
+    ));
+  },[datetemp2, display, display2, component]);
+
+
+
+  const SelectChart = (props : any) => {
     const SelectNum = props.num ;
 
     return (
@@ -332,7 +378,8 @@ const Home2: React.FC = () => {
           <Row gutter={16} className="row-spacing">
             <LinePlotComponent />
           </Row> */}
-          <SelectPlot />
+          {/* <SelectPlot /> */}
+          <SelectPlot2 />
           {/* <Row gutter={16} className="row-spacing">
             <Col span={24}>
               <Card style={card_style} >

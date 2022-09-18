@@ -74,7 +74,7 @@ const HomeMenu = (props : any) => {
   const [collapsed, setCollapsed] = useState(false);
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
-  const [key, setKey] = useState("1");
+  const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
   const [display,setDisplay] = useState("none");
 
   useEffect(() => {
@@ -105,7 +105,11 @@ const HomeMenu = (props : any) => {
 
   const onClick: MenuProps['onClick'] = e => {
     console.log('click ', e.key);
-    setKey(e.key)
+    // setKey(e.key)
+
+    localStorage.setItem('HomePageNum', e.key)
+    const temp:any = localStorage.getItem('HomePageNum')
+    setKey(temp)
   };
 
   const onOpenChange: MenuProps['onOpenChange'] = keys => {

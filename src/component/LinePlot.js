@@ -12,8 +12,8 @@ const LinePlot = (props) => {
   const config = {
     data: props.data,
     padding: 'auto',
-    xField: props.Field.xField,
-    yField: props.Field.yField,
+    xField: props.Field.yField,
+    yField: props.Field.xField,
     xAxis: {
       // type: 'timeCat',
       tickCount: 5,
