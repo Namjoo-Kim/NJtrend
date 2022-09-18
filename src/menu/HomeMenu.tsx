@@ -96,6 +96,7 @@ const HomeMenu = (props : any) => {
             setDisplay("")
           } else {
             localStorage.removeItem('token')
+            localStorage.removeItem('HomePageNum')
             setDisplay("none")
           }
         })

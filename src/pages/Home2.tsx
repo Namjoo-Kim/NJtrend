@@ -37,7 +37,7 @@ const Home2: React.FC = () => {
   const [display2,setDisplay2] = useState("none");
 
   const SelectComp = ['Demo','Line'] ;
-  const [component, setComponent] = useState(['Demo','Demo']) ;
+  const [component, setComponent] = useState<any>([]) ;
   const [sliders, setSliders] = useState<any>([]) ;
 
   // 테이블
@@ -144,15 +144,15 @@ const Home2: React.FC = () => {
   };
 
   const onSwitchClick = (e: any) => {
-    console.log(`selected ${e}`);
+    // console.log(`selected ${e}`);
     setDisplay(e===false?"none":datetemp2.length<=1?"none":"")
     setDisplay2(e===false?"none":"")
   };
 
   const onChange = (value: string) => {
     // console.log(`selected ${value}`, value.length);
-    if (value.length >= 3) {
-      setValues(value.slice(0,3))
+    if (value.length >= 4) {
+      setValues(value.slice(0,4))
     } else {
       setValues(value)
     }
@@ -181,13 +181,21 @@ const Home2: React.FC = () => {
       // }, {});
       // setDatetemp(result)
 
+      // 오름차순
+      // result.sort((a, b) => a.year < b.year ? -1 : (a.year  > b.year ? 1 : 0))
 
-      let temp : any = values
-      var result2 :any = []; 
+      // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
+      let temp : any = values;
+      const temp2 : any = []; 
+      const result2 : any = []; 
+
       // while(a.push([]) < 3);
-      temp.map((key: any, index: any) => (
+      for (let i = 0; i < temp.length; i++) {
         result2.push([])
-      ))
+        temp2.push("Demo")
+      };
+      setComponent(temp2);
+
       temp.map((key: any, index: any) => (
         dataSource.reduce(function(res : any, value :any) {
           if (!res[value[key]]) {
@@ -198,16 +206,17 @@ const Home2: React.FC = () => {
           return res;
         }, {})
       ))
-      console.log('result2',result2);
+      // console.log('result2',result2);
       setDatetemp2(result2);
 
+      // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
       const slider : any = [];
       for (let i = 0; i < Math.ceil(values.length/2); i++) {
         const nm = 'text' +(i+3) 
         slider.push(nm)
       };
-      console.log('slider',slider)
       setSliders(slider)
+
       // const groupBy = require('group-by-with-sum');
       // console.log('groupBy',values.toString())
       // const result3 = groupBy(dataSource, values.toString(), values2.toString());
@@ -222,9 +231,6 @@ const Home2: React.FC = () => {
       //   res[value.date].value += parseInt(value.qt);
       //   return res;
       // }, {});
-  
-      // 오름차순
-      // result.sort((a, b) => a.year < b.year ? -1 : (a.year  > b.year ? 1 : 0))
 
     }
   };
@@ -252,7 +258,6 @@ const Home2: React.FC = () => {
     ))
   },[datetemp2]);
 
-
   const SelectMap = (props : any) => {
     const sliderkeys = props.keys
     const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
@@ -266,8 +271,6 @@ const Home2: React.FC = () => {
       ))
   };
 
-
-  // const sliders : any = ['text3', 'text4'];
   const SelectPlot = useCallback(() => {
     return sliders.map((keys: any, index: any) => (
       <>
@@ -279,12 +282,10 @@ const Home2: React.FC = () => {
     ));
   },[datetemp2, display, display2, component]);
 
-
   const SelectMap2 = (props : any) => {
     const sliderindex = props.index
     const sliderkeys = props.keys
-    // const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliders[sliderindex]]?sliderValue2[sliders[sliderindex]]:50)/100);
-    const colsize = (data : any ) => {return  data.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100)};
+    const colsize = (data : any ) => {return data.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100)};
 
     const ttt : any = [];
     for (let i = 0; i < datetemp2.length; i++) {
@@ -293,12 +294,11 @@ const Home2: React.FC = () => {
       }
     };
 
-    // console.log('ttt[sliderindex]', sliderindex, ttt[sliderindex], colsize(ttt[sliderindex]), ttt[sliderindex].length)
     return ttt[sliderindex].map((key: any, index: any) => (
       <Col span={index===0?colsize(ttt[sliderindex]):24-colsize(ttt[sliderindex])}>
         <Card style={card_style} >
-          <SelectChart num = {index} />
-          <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
+          <SelectChart num = {index+sliderindex*2} />
+          <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index+sliderindex*2]} />
         </Card>            
       </Col>
       ))
