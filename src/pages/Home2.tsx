@@ -1,6 +1,7 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select} from 'antd';
+import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip} from 'antd';
+import { CopyOutlined ,} from '@ant-design/icons';
 
-import React, { useState, useEffect, useCallback}  from 'react';
+import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
 
 import DemoBar from '../component/DemoBar';
@@ -47,7 +48,7 @@ const Home2: React.FC = () => {
 
   useEffect(() => {
     checkTokenFn()
-  },[localStorage.getItem('token')]);
+  },[localStorage.getItem('token'), datetemp2]);
 
   const checkTokenFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -106,7 +107,6 @@ const Home2: React.FC = () => {
       sep = e.target.value;
     };
   
-  
     return(
       <div className="form-group">
         <div className="form">
@@ -124,6 +124,10 @@ const Home2: React.FC = () => {
     )
   };
 
+  const oncopyclick = (num: number, value: string) => {
+    datetemp2.push(datetemp2[num])
+    console.log('datetemp2',datetemp2)
+  };
 
   const SelectChange = (num: number, value: string) => {
     // console.log(`selected ${value}`);
@@ -286,16 +290,14 @@ const Home2: React.FC = () => {
     const sliderindex = props.index
     const sliderkeys = props.keys
     const colsize = (data : any ) => {return data.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100)};
+    // const colsize = Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
 
-    const ttt : any = [];
-    for (let i = 0; i < datetemp2.length; i++) {
-      if (i % 2 === 0) {
-        ttt.push(datetemp2.slice(i,2+i));
-      }
-    };
+    const dataFinal = props.data
+    // const dataFinal : any = useMemo(() => props.data, [datetemp2,]);
 
-    return ttt[sliderindex].map((key: any, index: any) => (
-      <Col span={index===0?colsize(ttt[sliderindex]):24-colsize(ttt[sliderindex])}>
+    return dataFinal[sliderindex].map((key: any, index: any) => (
+      <Col span={index===0?colsize(dataFinal[sliderindex]):24-colsize(dataFinal[sliderindex])}>
+      {/* <Col span={index===0?colsize:24-colsize}> */}
         <Card style={card_style} >
           <SelectChart num = {index+sliderindex*2} />
           <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index+sliderindex*2]} />
@@ -305,21 +307,28 @@ const Home2: React.FC = () => {
   };
 
   const SelectPlot2 = useCallback(() => {
+    const dataFinal : any = [];
+    for (let i = 0; i < datetemp2.length; i++) {
+      if (i % 2 === 0) {
+        dataFinal.push(datetemp2.slice(i,2+i));
+      }
+    };
+    // max={dataFinal[index].length===1?100:90}
+    console.log('dataFinal', dataFinal)
+
     return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
+        <SliderComponent max={90} defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
         <Row gutter={16} className="row-spacing">
-          <SelectMap2 index={index} keys={keys} />
+          <SelectMap2 index={index} keys={keys} data={dataFinal}/>
         </Row>
       </>
     ));
-  },[datetemp2, display, display2, component]);
-
-
+  },[datetemp2, display, display2, component, ]);
 
   const SelectChart = (props : any) => {
     const SelectNum = props.num ;
-
+  
     return (
       <div className="form-group"  style={{ display: display2}}>
         <div className="form">
@@ -330,6 +339,12 @@ const Home2: React.FC = () => {
                 <Option value={key}> {key} </Option>
               ))}
             </Select>
+          </span>
+          <span>
+            <p className="label">Chart 복제</p>
+            <Tooltip title="확인">
+              <Button type="primary" shape="circle" icon={<CopyOutlined/>} onClick= {(value: any) => oncopyclick(SelectNum, value)}/>
+            </Tooltip>
           </span>
         </div>
       </div>

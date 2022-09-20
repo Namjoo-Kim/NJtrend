@@ -4,8 +4,6 @@ import {
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
   } from '@ant-design/icons';
 
 import {Link, useLocation} from "react-router-dom";
@@ -164,7 +162,7 @@ const item3: MenuProps['items'] = [
     </Link>
   ),
     key: '1' ,
-    icon: <PieChartOutlined />,
+    icon: <DesktopOutlined />,
   }, // remember to pass the key prop
   { label: (
     <Link to="/main/Home2">
@@ -172,7 +170,7 @@ const item3: MenuProps['items'] = [
     </Link>
   ),
     key: '2',
-    icon: <DesktopOutlined />,
+    icon: <PieChartOutlined />,
     style : { display: display },
   }, // which is required
   {
@@ -193,12 +191,12 @@ const item3: MenuProps['items'] = [
 ];
 
 return (
-<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={200} className="site-layout-background">
+<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={150} className="site-layout-background">
   <Menu
       style={{ 
         height: '100%', 
-        borderRight: 0 ,
-        top: '60px', 
+        borderRight: 0,
+        top: '60px',
         position:'fixed',
         zIndex: 0, 
       }}
