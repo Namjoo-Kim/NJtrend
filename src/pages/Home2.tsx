@@ -27,6 +27,7 @@ const Home2: React.FC = () => {
   // const [datetemp, setDatetemp] = useState<any>([]);
   const [datetemp2, setDatetemp2] = useState<any>([]);
   // const [datetemp3, setDatetemp3] = useState<any>([]);
+  const [datetempAdd, setDatetempAdd] = useState<any>([]);
 
   const [values, setValues] = useState("");
   const [values2, setValues2] = useState("");
@@ -125,8 +126,10 @@ const Home2: React.FC = () => {
   };
 
   const oncopyclick = (num: number, value: string) => {
-    datetemp2.push(datetemp2[num])
-    console.log('datetemp2',datetemp2)
+    datetempAdd.push(datetemp2[num])
+    console.log('datetempAdd',datetempAdd)
+    
+    onClick(1)
   };
 
   const SelectChange = (num: number, value: string) => {
@@ -170,10 +173,13 @@ const Home2: React.FC = () => {
     }
   };
 
-  const onClick = () => {
+  const onClick = (props : any) => {
     if (dataSource.length === 0) {
       message.warning('파일을 선택해 주세요.');
     } else {
+      if (props !== 1) {
+        setDatetempAdd([])
+      }
       // var result: any[] = [];
       // dataSource.reduce(function(res : any, value :any) {
       //   if (!res[value[values[0]]]) {
@@ -194,7 +200,7 @@ const Home2: React.FC = () => {
       const result2 : any = []; 
 
       // while(a.push([]) < 3);
-      for (let i = 0; i < temp.length; i++) {
+      for (let i = 0; i < temp.length + (props===1?datetempAdd.length:0); i++) {
         result2.push([])
         temp2.push("Demo")
       };
@@ -210,12 +216,19 @@ const Home2: React.FC = () => {
           return res;
         }, {})
       ))
-      // console.log('result2',result2);
+
+      if (datetempAdd.length !== 0) {
+        console.log('datetempAdd',datetempAdd)
+        console.log('length',result2.length)
+        datetempAdd.map((key: any, index: any) => (
+          result2[result2.length-datetempAdd.length+index] = key
+        ))
+      }
       setDatetemp2(result2);
 
       // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
       const slider : any = [];
-      for (let i = 0; i < Math.ceil(values.length/2); i++) {
+      for (let i = 0; i < Math.ceil(result2.length/2); i++) {
         const nm = 'text' +(i+3) 
         slider.push(nm)
       };
@@ -314,7 +327,7 @@ const Home2: React.FC = () => {
       }
     };
     // max={dataFinal[index].length===1?100:90}
-    console.log('dataFinal', dataFinal)
+    // console.log('dataFinal', dataFinal)
 
     return sliders.map((keys: any, index: any) => (
       <>
