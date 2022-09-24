@@ -173,21 +173,21 @@ const item3: MenuProps['items'] = [
     icon: <PieChartOutlined />,
     style : { display: display },
   }, // which is required
-  {
-    label: 'sub menu',
-    key: 'submenu',
-    style : { display: display },
-    children: [{ 
-      icon: <UserOutlined />,
-      label: (
-        <Link to="/main/Home3">
-           <span className="nav-text">매출2</span>
-        </Link>
-      ),
-      key: '3' 
+  // {
+  //   label: 'sub menu',
+  //   key: 'submenu',
+  //   style : { display: display },
+  //   children: [{ 
+  //     icon: <UserOutlined />,
+  //     label: (
+  //       <Link to="/main/Home3">
+  //          <span className="nav-text">매출2</span>
+  //       </Link>
+  //     ),
+  //     key: '3' 
     
-    }],
-  },
+  //   }],
+  // },
 ];
 
 return (

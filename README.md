@@ -20,27 +20,27 @@ npm start
 
 # 2. dockerfile
 ## 2.1 작성
-FROM node:16.16.0 as builder
+FROM node:16.16.0 as builder  
 
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json /usr/src/app/package.json
+WORKDIR /usr/src/app  
+ENV PATH /usr/src/app/node_modules/.bin:$PATH  
+COPY package.json /usr/src/app/package.json  
 
-RUN npm install --silent
-RUN npm install -g typescript
-RUN npm install antd  
-RUN npm install http-proxy-middleware
-RUN npm install group-by-with-sum
+RUN npm install --silent  
+RUN npm install -g typescript  
+RUN npm install antd   
+RUN npm install http-proxy-middleware  
+RUN npm install group-by-with-sum  
 
 
-EXPOSE 3000
-COPY . /usr/src/app
-CMD ["npm", "start"]
+EXPOSE 3000  
+COPY . /usr/src/app  
+CMD ["npm", "start"]  
 
-운영서버로 빌드하고 싶으면 밑을 추가 및 변경
-RUN npm install -g serve  
-RUN npm run build
-CMD ["npm", "start"] -> CMD ["npx", "serve","-l","3000","-s","build"]
+운영서버로 빌드하고 싶으면 밑을 추가 및 변경  
+RUN npm install -g serve    
+RUN npm run build  
+CMD ["npm", "start"] -> CMD ["npx", "serve","-l","3000","-s","build"]  
 
 ## 2.2 프록시 설정   
 "proxy": "http://127.0.0.1:8000"  
@@ -56,14 +56,14 @@ docker build -t namjoo11/njtrend .
 amd64 버전  
 docker build --platform linux/amd64 -t namjoo11/njtrend_amd64 . 
 ## 3.2 run
-docker run --name react -dp 3000:3000 namjoo11/njtrend
+docker run --name react -dp 3000:3000 namjoo11/njtrend  
 
-확인  
+확인   
 docker exec -it react /bin/bash  
 
 # 4. github.io
 package.json 에서 다음을 추가
-"homepage": "http://namjoo-kim.github.io/NJtrend/",
+"homepage": "http://namjoo-kim.github.io/NJtrend/",  
 
 routes.tsx 다음을 추가
 basename={process.env.PUBLIC_URL}
@@ -75,7 +75,7 @@ npm run deploy
 
 allowedHosts: [
     'localhost',
-    'knjoo.duckdns.org',
+    'njtrend.duckdns.org',
 ],
 
 을 추가

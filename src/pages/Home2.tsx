@@ -1,5 +1,5 @@
 import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip} from 'antd';
-import { CopyOutlined ,} from '@ant-design/icons';
+import { CopyOutlined , MinusOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -126,10 +126,21 @@ const Home2: React.FC = () => {
   };
 
   const oncopyclick = (num: number, value: string) => {
-    datetempAdd.push(datetemp2[num])
-    console.log('datetempAdd',datetempAdd)
-    
-    onClick(1)
+    // datetempAdd.push(datetemp2[num])    
+
+    component.push("Demo")
+    setComponent(component)
+
+    datetemp2.push(datetemp2[num])
+    setDatetemp2(datetemp2);
+
+    // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
+    const slider : any = [];
+    for (let i = 0; i < Math.ceil(datetemp2.length/2); i++) {
+      const nm = 'text' +(i+3) 
+      slider.push(nm)
+    };
+    setSliders(slider)
   };
 
   const SelectChange = (num: number, value: string) => {
@@ -137,9 +148,7 @@ const Home2: React.FC = () => {
     component[num] = value
     // console.log('component',component)
     setComponent(component)
-    
   };
-
 
   const onSliderChange = (name:string, value: number) => {
     // console.log(`selected ${value}`);
@@ -164,6 +173,7 @@ const Home2: React.FC = () => {
       setValues(value)
     }
   };
+
   const onChange2 = (value: string) => {
     // console.log(`selected ${value}`, value.length);
     if (value.length >= 1) {
@@ -173,13 +183,10 @@ const Home2: React.FC = () => {
     }
   };
 
-  const onClick = (props : any) => {
+  const onClick = () => {
     if (dataSource.length === 0) {
       message.warning('파일을 선택해 주세요.');
     } else {
-      if (props !== 1) {
-        setDatetempAdd([])
-      }
       // var result: any[] = [];
       // dataSource.reduce(function(res : any, value :any) {
       //   if (!res[value[values[0]]]) {
@@ -200,7 +207,7 @@ const Home2: React.FC = () => {
       const result2 : any = []; 
 
       // while(a.push([]) < 3);
-      for (let i = 0; i < temp.length + (props===1?datetempAdd.length:0); i++) {
+      for (let i = 0; i < temp.length ; i++) {
         result2.push([])
         temp2.push("Demo")
       };
@@ -216,14 +223,6 @@ const Home2: React.FC = () => {
           return res;
         }, {})
       ))
-
-      if (datetempAdd.length !== 0) {
-        console.log('datetempAdd',datetempAdd)
-        console.log('length',result2.length)
-        datetempAdd.map((key: any, index: any) => (
-          result2[result2.length-datetempAdd.length+index] = key
-        ))
-      }
       setDatetemp2(result2);
 
       // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
@@ -337,7 +336,7 @@ const Home2: React.FC = () => {
         </Row>
       </>
     ));
-  },[datetemp2, display, display2, component, ]);
+  },[datetemp2, display, display2, component, sliders]);
 
   const SelectChart = (props : any) => {
     const SelectNum = props.num ;
@@ -357,6 +356,12 @@ const Home2: React.FC = () => {
             <p className="label">Chart 복제</p>
             <Tooltip title="확인">
               <Button type="primary" shape="circle" icon={<CopyOutlined/>} onClick= {(value: any) => oncopyclick(SelectNum, value)}/>
+            </Tooltip>
+          </span>
+          <span>
+            <p className="label">Chart 삭제</p>
+            <Tooltip title="확인">
+              <Button type="primary" shape="circle" icon={<MinusOutlined/>} />
             </Tooltip>
           </span>
         </div>
