@@ -143,6 +143,25 @@ const Home2: React.FC = () => {
     setSliders(slider)
   };
 
+  const ondeleteclick = (num: number, value: string) => {
+    // datetempAdd.push(datetemp2[num])    
+
+    component.splice(num,1)
+    setComponent(component)
+
+    datetemp2.splice(num,1)
+    setDatetemp2(datetemp2);
+
+    // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
+    const slider : any = [];
+    for (let i = 0; i < Math.ceil(datetemp2.length/2); i++) {
+      const nm = 'text' + (i+3) 
+      slider.push(nm)
+    };
+    setSliders(slider)
+  };
+
+
   const SelectChange = (num: number, value: string) => {
     // console.log(`selected ${value}`);
     component[num] = value
@@ -336,7 +355,7 @@ const Home2: React.FC = () => {
         </Row>
       </>
     ));
-  },[datetemp2, display, display2, component, sliders]);
+  },[datetemp2, display, display2, component, sliders, ]);
 
   const SelectChart = (props : any) => {
     const SelectNum = props.num ;
@@ -361,7 +380,7 @@ const Home2: React.FC = () => {
           <span>
             <p className="label">Chart 삭제</p>
             <Tooltip title="확인">
-              <Button type="primary" shape="circle" icon={<MinusOutlined/>} />
+              <Button type="primary" shape="circle" icon={<MinusOutlined/>} onClick= {(value: any) => ondeleteclick(SelectNum, value)} />
             </Tooltip>
           </span>
         </div>
