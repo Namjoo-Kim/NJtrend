@@ -1,5 +1,5 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip} from 'antd';
-import { CopyOutlined , MinusOutlined } from '@ant-design/icons';
+import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu } from 'antd';
+import { CopyOutlined , MinusOutlined, DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
@@ -388,6 +388,24 @@ const Home2: React.FC = () => {
     )
   };
 
+  const DropdownMenu = () => {
+    let temp : any = values;
+    const Items :any = temp.map((key: any, index: any) => ({
+      label: (
+        <a >
+          {key}
+        </a>
+      ),
+      key: index,
+    }))
+
+    return (
+      <Menu 
+      items = {Items}
+      />    
+    )
+  };
+
   return (
   <>
         <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','매출' ]} />
@@ -414,6 +432,14 @@ const Home2: React.FC = () => {
               </Collapse>
             </Col>
           </Row>
+          <Dropdown overlay={DropdownMenu} trigger={['click']}>
+          <a onClick={e => e.preventDefault()}>
+            <Space>
+              집계 기준 Chart
+              <DownOutlined />
+            </Space>
+          </a>
+          </Dropdown>
           {/* 매출 Top5 카테고리 */}
           {/* <Row gutter={16} className="row-spacing">
             <Col span={24}>
