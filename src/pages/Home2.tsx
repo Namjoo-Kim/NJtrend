@@ -1,4 +1,4 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu } from 'antd';
+import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps } from 'antd';
 import { CopyOutlined , MinusOutlined, DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
@@ -49,7 +49,7 @@ const Home2: React.FC = () => {
 
   useEffect(() => {
     checkTokenFn()
-  },[localStorage.getItem('token'), datetemp2]);
+  },[localStorage.getItem('token'), ]);
 
   const checkTokenFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -126,8 +126,6 @@ const Home2: React.FC = () => {
   };
 
   const oncopyclick = (num: number, value: string) => {
-    // datetempAdd.push(datetemp2[num])    
-
     component.push("Demo")
     setComponent(component)
 
@@ -144,8 +142,6 @@ const Home2: React.FC = () => {
   };
 
   const ondeleteclick = (num: number, value: string) => {
-    // datetempAdd.push(datetemp2[num])    
-
     component.splice(num,1)
     setComponent(component)
 
@@ -171,11 +167,9 @@ const Home2: React.FC = () => {
 
   const onSliderChange = (name:string, value: number) => {
     // console.log(`selected ${value}`);
-    // console.log({[name]:value})
     setSliderValue(value)
     sliderValue2[name] = value
     setSliderValue2(sliderValue2) 
-    // console.log('sliderValue2',sliderValue2)
   };
 
   const onSwitchClick = (e: any) => {
@@ -201,7 +195,7 @@ const Home2: React.FC = () => {
       setValues2(value)
     }
   };
-
+  
   const onClick = () => {
     if (dataSource.length === 0) {
       message.warning('파일을 선택해 주세요.');
@@ -224,10 +218,10 @@ const Home2: React.FC = () => {
       let temp : any = values;
       const temp2 : any = []; 
       const result2 : any = []; 
-
-      // while(a.push([]) < 3);
+      const resultAdd : any = []; 
       for (let i = 0; i < temp.length ; i++) {
         result2.push([])
+        resultAdd.push([])
         temp2.push("Demo")
       };
       setComponent(temp2);
@@ -237,12 +231,19 @@ const Home2: React.FC = () => {
           if (!res[value[key]]) {
             res[value[key]] = { axis: value[key], value: 0 };
             result2[index].push(res[value[key]])
+            resultAdd[index].push(res[value[key]])
           }
           res[value[key]].value += parseFloat(value[values2[0]]);
           return res;
         }, {})
       ))
       setDatetemp2(result2);
+      setDatetempAdd(resultAdd);
+
+      // if (datetempAdd.length === 0) {
+      //   setDatetempAdd(result2);
+      //   console.log('setDatetempAdd',result2)
+      // }
 
       // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
       const slider : any = [];
@@ -270,52 +271,29 @@ const Home2: React.FC = () => {
     }
   };
 
-  const ResultComponent = useCallback(() => {
-    // const colsize = 24/datetemp2.length;
-    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text1"]?sliderValue2["text1"]:50)/100);
-    return datetemp2.map((key: any, index: any) => (
-      <Col span={index===0?colsize:24-colsize}>
-        <Card style={card_style} >
-          <DemoBar data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}}/>
-        </Card>            
-      </Col>
-    ))
-  },[datetemp2]);
+  // const SelectMap = (props : any) => {
+  //   const sliderkeys = props.keys
+  //   const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
+  //   return datetemp2.map((key: any, index: any) => (
+  //     <Col span={index===0?colsize:24-colsize}>
+  //       <Card style={card_style} >
+  //         <SelectChart num = {index} />
+  //         <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
+  //       </Card>            
+  //     </Col>
+  //     ))
+  // };
 
-  const LinePlotComponent = useCallback(() => {
-    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2["text2"]?sliderValue2["text2"]:50)/100);
-    return datetemp2.map((key: any, index: any) => (
-      <Col span={index===0?colsize:24-colsize}>
-        <Card style={card_style}  >
-          <LinePlot data={key} Field = {{xField : 'axis', yField: 'value'}} smooth = {false} />
-        </Card>
-      </Col>
-    ))
-  },[datetemp2]);
-
-  const SelectMap = (props : any) => {
-    const sliderkeys = props.keys
-    const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
-    return datetemp2.map((key: any, index: any) => (
-      <Col span={index===0?colsize:24-colsize}>
-        <Card style={card_style} >
-          <SelectChart num = {index} />
-          <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
-        </Card>            
-      </Col>
-      ))
-  };
-
-  const SelectPlot = useCallback(() => {
-    return sliders.map((keys: any, index: any) => (
-      <>
-        <SliderComponent defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
-        <Row gutter={16} className="row-spacing">
-          <SelectMap keys={keys}/>
-        </Row>
-      </>
-    ));
-  },[datetemp2, display, display2, component]);
+  // const SelectPlot = useCallback(() => {
+  //   return sliders.map((keys: any, index: any) => (
+  //     <>
+  //       <SliderComponent defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display2} />
+  //       <Row gutter={16} className="row-spacing">
+  //         <SelectMap keys={keys}/>
+  //       </Row>
+  //     </>
+  //   ));
+  // },[datetemp2, display, display2, component]);
 
   const SelectMap2 = (props : any) => {
     const sliderindex = props.index
@@ -324,7 +302,6 @@ const Home2: React.FC = () => {
     // const colsize = Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
 
     const dataFinal = props.data
-    // const dataFinal : any = useMemo(() => props.data, [datetemp2,]);
 
     return dataFinal[sliderindex].map((key: any, index: any) => (
       <Col span={index===0?colsize(dataFinal[sliderindex]):24-colsize(dataFinal[sliderindex])}>
@@ -345,7 +322,6 @@ const Home2: React.FC = () => {
       }
     };
     // max={dataFinal[index].length===1?100:90}
-    // console.log('dataFinal', dataFinal)
 
     return sliders.map((keys: any, index: any) => (
       <>
@@ -388,6 +364,22 @@ const Home2: React.FC = () => {
     )
   };
 
+  const handleMenuClick: MenuProps['onClick'] = (e : any) => {
+    component.push("Demo")
+    setComponent(component)
+    
+    datetemp2.push(datetempAdd[e.key])
+    setDatetemp2(datetemp2);
+
+    // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
+    const slider : any = [];
+    for (let i = 0; i < Math.ceil(datetemp2.length/2); i++) {
+      const nm = 'text' +(i+3) 
+      slider.push(nm)
+    };
+    setSliders(slider)
+  };
+  
   const DropdownMenu = () => {
     let temp : any = values;
     const Items :any = temp.map((key: any, index: any) => ({
@@ -400,7 +392,8 @@ const Home2: React.FC = () => {
     }))
 
     return (
-      <Menu 
+      <Menu  
+      onClick={handleMenuClick}
       items = {Items}
       />    
     )
@@ -432,9 +425,9 @@ const Home2: React.FC = () => {
               </Collapse>
             </Col>
           </Row>
-          <Dropdown overlay={DropdownMenu} trigger={['click']}>
+          <Dropdown overlay={DropdownMenu} trigger={['click']} disabled={datetempAdd.length!==0?false:true}  >
           <a onClick={e => e.preventDefault()}>
-            <Space>
+            <Space  style={{ display: display2}}  >
               집계 기준 Chart
               <DownOutlined />
             </Space>
@@ -447,14 +440,6 @@ const Home2: React.FC = () => {
                <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
               </Card>
             </Col>
-          </Row> */}
-          {/* <SliderComponent onChange={(e: any) => onSliderChange("text1", e)} display={display} />
-          <Row gutter={16} className="row-spacing">
-            <ResultComponent />
-          </Row> */}
-          {/* <SliderComponent onChange={(value: any) => onSliderChange("text2", value)} display={display} />
-          <Row gutter={16} className="row-spacing">
-            <LinePlotComponent />
           </Row> */}
           {/* <SelectPlot /> */}
           <SelectPlot2 />
