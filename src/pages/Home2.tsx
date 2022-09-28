@@ -125,29 +125,46 @@ const Home2: React.FC = () => {
     )
   };
 
-  const oncopyclick = (num: number, value: string) => {
-    component.push("Demo")
+  const oncopyclick = (num: number, value: any) => {
+    if (value.key === "0") {
+      component.push("Demo")
+      datetemp2.push(datetemp2[num])
+    } else {
+      component.splice(num,1)
+      datetemp2.splice(num,1)
+    }
     setComponent(component)
-
-    datetemp2.push(datetemp2[num])
     setDatetemp2(datetemp2);
 
     // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
     const slider : any = [];
     for (let i = 0; i < Math.ceil(datetemp2.length/2); i++) {
-      const nm = 'text' +(i+3) 
+      const nm = 'text' + (i+3) 
       slider.push(nm)
     };
     setSliders(slider)
+
   };
 
-  const ondeleteclick = (num: number, value: string) => {
-    component.splice(num,1)
+  const onMoveclick = (num: number, value: any) => {
+    const item = component.splice(num, 1) 
+    const item2 = datetemp2.splice(num, 1) 
+    if (value.key === "0") {
+      component.splice(0, 0, item[0])
+      datetemp2.splice(0, 0, item2[0])
+    } else if (value.key === "1") {
+      component.splice(component.length, 0, item[0])
+      datetemp2.splice(datetemp2.length, 0, item2[0])
+    } else  if (value.key === "2") {
+      component.splice(num===0?0:num-1, 0, item[0])
+      datetemp2.splice(num===0?0:num-1, 0, item2[0])
+    } else  if (value.key === "3") {
+      component.splice(num+1, 0, item[0])
+      datetemp2.splice(num+1, 0, item2[0])
+    }
+
     setComponent(component)
-
-    datetemp2.splice(num,1)
     setDatetemp2(datetemp2);
-
     // 임시변수로해야 조회 버튼 한번 더 누를때 에러 안뜸
     const slider : any = [];
     for (let i = 0; i < Math.ceil(datetemp2.length/2); i++) {
@@ -325,7 +342,7 @@ const Home2: React.FC = () => {
 
     return sliders.map((keys: any, index: any) => (
       <>
-        <SliderComponent max={90} defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display} />
+        <SliderComponent max={90} defaultValue={sliderValue2[keys]?sliderValue2[keys]:50} onChange={(value: any) => onSliderChange(keys, value)} display={display2} />
         <Row gutter={16} className="row-spacing">
           <SelectMap2 index={index} keys={keys} data={dataFinal}/>
         </Row>
@@ -336,6 +353,58 @@ const Home2: React.FC = () => {
   const SelectChart = (props : any) => {
     const SelectNum = props.num ;
   
+    const Overlay = () => {
+      const Items :any = [
+        {
+          label: "복제",
+          key: '0',
+        },
+        {
+          label: "삭제",
+          key: '1',
+        },
+      ]
+  
+      return (
+        <Menu  
+        onClick={(value: any) => oncopyclick(SelectNum, value)}
+        items = {Items}
+        />    
+      )
+    };
+
+    const Overlay2 = () => {
+      const Items :any = [
+        {
+          label: "가장 처음으로",
+          key: '0',
+        },
+        {
+          label: "가장 마지막으로",
+          key: '1',
+        },
+        {
+          type: 'divider',
+        },
+        {
+          label: "한 칸 뒤로",
+          key: '2',
+        },
+        {
+          label: "한 칸 앞으로",
+          key: '3',
+        },
+      ]
+  
+      return (
+        <Menu  
+        onClick={(value: any) => onMoveclick(SelectNum, value)}
+        items = {Items}
+        />    
+      )
+    };
+
+
     return (
       <div className="form-group"  style={{ display: display2}}>
         <div className="form">
@@ -348,16 +417,27 @@ const Home2: React.FC = () => {
             </Select>
           </span>
           <span>
-            <p className="label">Chart 복제</p>
-            <Tooltip title="확인">
+          <p className="label">Chart 복제/삭제</p>
+          <Dropdown overlay={Overlay}  >
+          <a onClick={e => e.preventDefault()}>
+            <Space   >
+              선택
+            </Space>
+          </a>
+          </Dropdown>
+            {/* <Tooltip title="확인">
               <Button type="primary" shape="circle" icon={<CopyOutlined/>} onClick= {(value: any) => oncopyclick(SelectNum, value)}/>
-            </Tooltip>
+            </Tooltip> */}
           </span>
           <span>
-            <p className="label">Chart 삭제</p>
-            <Tooltip title="확인">
-              <Button type="primary" shape="circle" icon={<MinusOutlined/>} onClick= {(value: any) => ondeleteclick(SelectNum, value)} />
-            </Tooltip>
+          <p className="label">Chart 위치</p>
+          <Dropdown overlay={Overlay2}  >
+          <a onClick={e => e.preventDefault()}>
+            <Space   >
+              선택
+            </Space>
+          </a>
+          </Dropdown>
           </span>
         </div>
       </div>
@@ -428,7 +508,7 @@ const Home2: React.FC = () => {
           <Dropdown overlay={DropdownMenu} trigger={['click']} disabled={datetempAdd.length!==0?false:true}  >
           <a onClick={e => e.preventDefault()}>
             <Space  style={{ display: display2}}  >
-              집계 기준 Chart
+              Chart 가져오기
               <DownOutlined />
             </Space>
           </a>

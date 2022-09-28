@@ -123,7 +123,7 @@ const TopMenu = () => {
         <span className="nav-text">Login</span>
       </Menu.Item>
       <Menu.Item key="Info" style={{ display: nickname===''?'none':'' }} onClick={showModal}>
-        <span className="nav-text">{nickname}</span>
+        <span className="nav-text">Info</span>
         {/* <img  
           src={thumbnail}
           style={{width:50, height:50}}
