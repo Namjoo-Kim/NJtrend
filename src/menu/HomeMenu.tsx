@@ -166,7 +166,7 @@ const item3: MenuProps['items'] = [
   }, // remember to pass the key prop
   { label: (
     <Link to="/main/Home2">
-       <span className="nav-text">BI</span>
+       <span className="nav-text">대쉬보드</span>
     </Link>
   ),
     key: '2',

@@ -123,14 +123,14 @@ const Home: React.FC = () => {
           </Row>
           {/* 매출 Top5 카테고리 */}
           <Row gutter={16} className="row-spacing">
-            <Col span={12}>
+            {/* <Col span={12}>
               <Card style={card_style}  >
                 <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
              </Card>
-            </Col>
-            <Col span={12}>
+            </Col> */}
+            <Col span={24}>
               <Card style={card_style} >
-                CSV/TXT 파일을 통해 나만의 BI를 만들고 싶다면 로그인해 주세요.
+                CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요.
               </Card>
             </Col>
           </Row>
