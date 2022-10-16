@@ -22,6 +22,8 @@ const Home: React.FC = () => {
   const [yField, setYField] = useState("year");
   const [seriesField, setSeriesField] = useState("year");
 
+  const [keyword, setKeyword] = useState("CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요.");
+
   // 최초 로드
   async function LoadData()  {
   // const LoadData = async() => { 
@@ -42,12 +44,25 @@ const Home: React.FC = () => {
         setDatetemp(appData)
       });
     };
-    
+    checkTokenFn()
     return () => {
       GetData() ;
     };
 
   },[]);
+
+  const checkTokenFn = () => {
+    const ACCESS_TOKEN = localStorage.getItem('token')
+    const checkToken = () => {
+        if (! ACCESS_TOKEN) {
+          setKeyword("CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요.")
+        }  else {
+          setKeyword("대쉬보드를 클릭해 보세요 :)")
+        }
+      } ;
+    checkToken()
+  }
+
 
   // 업로드  기능 (나중에 사용)
   const [q, setQ] = useState("") ;
@@ -130,7 +145,8 @@ const Home: React.FC = () => {
             </Col> */}
             <Col span={24}>
               <Card style={card_style} >
-                CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요.
+                {/* CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요. */}
+                {keyword}
               </Card>
             </Col>
           </Row>

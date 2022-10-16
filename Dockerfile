@@ -13,6 +13,7 @@ RUN npm install -g typescript
 RUN npm install antd  
 RUN npm install http-proxy-middleware
 RUN npm install group-by-with-sum
+RUN npm install aos
 
 RUN npm install -g serve 
 RUN npm run build
