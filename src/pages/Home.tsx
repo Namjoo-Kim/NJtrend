@@ -57,7 +57,7 @@ const Home: React.FC = () => {
         if (! ACCESS_TOKEN) {
           setKeyword("CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요.")
         }  else {
-          setKeyword("대쉬보드를 클릭해 보세요 :)")
+          setKeyword("대쉬보드 메뉴를 클릭해 보세요 :)")
         }
       } ;
     checkToken()
