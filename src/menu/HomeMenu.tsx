@@ -28,57 +28,57 @@ function getItem(
   } as MenuItem;
 }
 
-const menus = [
-  { name: "매출", key: 'sub1', path: "/Home", icon: <PieChartOutlined />, children : [{ 
-    label: (
-      <Link to="/Home">
-         <span className="nav-text">매출3</span>
-      </Link>
-    ),
-    key: '1' 
-  }]},
-  { name: "매출2",key: '2', path: "/Home2" ,icon: <DesktopOutlined />},
-  { name: "sub menu",key: 'sub2', path: "" ,icon: <UserOutlined />, children : [{ 
-    label: (
-      <Link to="/Home3">
-         <span className="nav-text">매출3</span>
-      </Link>
-    ),
-    key: '3' 
-  }]
-  } 
-];
+// const menus = [
+//   { name: "매출", key: 'sub1', path: "/Home", icon: <PieChartOutlined />, children : [{ 
+//     label: (
+//       <Link to="/Home">
+//          <span className="nav-text">매출3</span>
+//       </Link>
+//     ),
+//     key: '1' 
+//   }]},
+//   { name: "매출2",key: '2', path: "/Home2" ,icon: <DesktopOutlined />},
+//   { name: "sub menu",key: 'sub2', path: "" ,icon: <UserOutlined />, children : [{ 
+//     label: (
+//       <Link to="/Home3">
+//          <span className="nav-text">매출3</span>
+//       </Link>
+//     ),
+//     key: '3' 
+//   }]
+//   } 
+// ];
 
-const menu_list = [
-  menus.map((menu, index) => {
-  return (
-    {
-      label :
-      (
-      <Link to= {menu.path}>
-        <span className="nav-text">{menu.name}</span>
-      </Link>
-      ),
-      key : menu.key,
-      icon : menu.icon,
-      children : menu.children,
-    }
-  );
-})
-];
+// const menu_list = [
+//   menus.map((menu, index) => {
+//   return (
+//     {
+//       label :
+//       (
+//       <Link to= {menu.path}>
+//         <span className="nav-text">{menu.name}</span>
+//       </Link>
+//       ),
+//       key : menu.key,
+//       icon : menu.icon,
+//       children : menu.children,
+//     }
+//   );
+// })
+// ];
 
 
 const HomeMenu = (props : any) => {
   const [collapsed, setCollapsed] = useState(false);
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
-  const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
+  // const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
+  const [key, setKey] = useState<any>("1");
   const [display,setDisplay] = useState("none");
 
   useEffect(() => {
-    console.log('key_check')
     getInfoFn();
-  },[localStorage.getItem('token'),key]);
+  },[localStorage.getItem('token'), key]);
 
   const getInfoFn = () => {
     const ACCESS_TOKEN = localStorage.getItem('token')
@@ -103,12 +103,11 @@ const HomeMenu = (props : any) => {
   }
 
   const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e.key);
-    // setKey(e.key)
+    setKey(e.key)
 
-    localStorage.setItem('HomePageNum', e.key)
-    const temp:any = localStorage.getItem('HomePageNum')
-    setKey(temp)
+    // localStorage.setItem('HomePageNum', e.key)
+    // const temp:any = localStorage.getItem('HomePageNum')
+    // setKey(temp)
   };
 
   const onOpenChange: MenuProps['onOpenChange'] = keys => {
@@ -120,19 +119,19 @@ const HomeMenu = (props : any) => {
     }
   };
 
-  const item: MenuItem[] = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-      getItem('Tom', '3'),
-      getItem('Bill', '4'),
-      getItem('Alex', '5'),
-    ]),
-    getItem('Team', 'sub2', <TeamOutlined />, [
-      getItem('Team 1', '6'), 
-      getItem('Team 2', '7')]),
-    getItem('Files', '8', <FileOutlined />),
-  ];
+  // const item: MenuItem[] = [
+  //   getItem('Option 1', '1', <PieChartOutlined />),
+  //   getItem('Option 2', '2', <DesktopOutlined />),
+  //   getItem('User', 'sub1', <UserOutlined />, [
+  //     getItem('Tom', '3'),
+  //     getItem('Bill', '4'),
+  //     getItem('Alex', '5'),
+  //   ]),
+  //   getItem('Team', 'sub2', <TeamOutlined />, [
+  //     getItem('Team 1', '6'), 
+  //     getItem('Team 2', '7')]),
+  //   getItem('Files', '8', <FileOutlined />),
+  // ];
 
 
 // const item2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
@@ -165,14 +164,22 @@ const item3: MenuProps['items'] = [
     icon: <DesktopOutlined />,
   }, // remember to pass the key prop
   { label: (
-    <Link to="/main/Home2">
-       <span className="nav-text">대쉬보드</span>
+    <Link to="/main/dashboardFree">
+       <span className="nav-text">대쉬보드_무료</span>
     </Link>
   ),
     key: '2',
     icon: <PieChartOutlined />,
+  }, 
+  { label: (
+    <Link to="/main/dashboard">
+       <span className="nav-text">대쉬보드</span>
+    </Link>
+  ),
+    key: '3',
+    icon: <PieChartOutlined />,
     style : { display: display },
-  }, // which is required
+  }, 
   // {
   //   label: 'sub menu',
   //   key: 'submenu',
@@ -204,7 +211,7 @@ return (
       theme="dark" 
       selectedKeys={[key]}
       openKeys={openKeys}
-      // defaultOpenKeys={['sub1']}
+      defaultOpenKeys={['sub1']}
       items={item3}
       onClick={onClick}
       onOpenChange={onOpenChange}
