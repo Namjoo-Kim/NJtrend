@@ -6,6 +6,9 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app/package.json
 COPY . /usr/src/app
 
+RUN apt-get update && \
+    apt-get install -y nano
+
 RUN npm install --silent
 # RUN npm install react-scripts@2.1.3 -g --silent
 RUN npm install -g typescript
@@ -14,6 +17,8 @@ RUN npm install antd
 RUN npm install http-proxy-middleware
 RUN npm install group-by-with-sum
 RUN npm install aos
+
+RUN npx update-browserslist-db@latest
 
 RUN npm install -g serve 
 RUN npm run build

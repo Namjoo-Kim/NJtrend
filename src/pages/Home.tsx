@@ -28,7 +28,7 @@ const Home: React.FC = () => {
   async function LoadData()  {
   // const LoadData = async() => { 
     try {
-      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: "2" } });
       if (result) {
         return result
       }
@@ -99,13 +99,13 @@ const Home: React.FC = () => {
 
   const onClick = () => {
     // 파라미터 지정
-    let item_id : Number
+    let item_id : String
     if ( values === "year") {
-      item_id = 2
+      item_id = "2"
     } else if ( values === "quarter") {
-      item_id = 3
+      item_id = "3"
     } else {
-      item_id = 4
+      item_id = "4"
     }
 
     // 파라미터로 값 불러오기
