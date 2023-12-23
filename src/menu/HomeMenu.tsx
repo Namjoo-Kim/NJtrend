@@ -28,46 +28,6 @@ function getItem(
   } as MenuItem;
 }
 
-// const menus = [
-//   { name: "매출", key: 'sub1', path: "/Home", icon: <PieChartOutlined />, children : [{ 
-//     label: (
-//       <Link to="/Home">
-//          <span className="nav-text">매출3</span>
-//       </Link>
-//     ),
-//     key: '1' 
-//   }]},
-//   { name: "매출2",key: '2', path: "/Home2" ,icon: <DesktopOutlined />},
-//   { name: "sub menu",key: 'sub2', path: "" ,icon: <UserOutlined />, children : [{ 
-//     label: (
-//       <Link to="/Home3">
-//          <span className="nav-text">매출3</span>
-//       </Link>
-//     ),
-//     key: '3' 
-//   }]
-//   } 
-// ];
-
-// const menu_list = [
-//   menus.map((menu, index) => {
-//   return (
-//     {
-//       label :
-//       (
-//       <Link to= {menu.path}>
-//         <span className="nav-text">{menu.name}</span>
-//       </Link>
-//       ),
-//       key : menu.key,
-//       icon : menu.icon,
-//       children : menu.children,
-//     }
-//   );
-// })
-// ];
-
-
 const HomeMenu = (props : any) => {
   const [collapsed, setCollapsed] = useState(false);
   const rootSubmenuKeys = ['sub1', 'sub2'];
@@ -118,41 +78,6 @@ const HomeMenu = (props : any) => {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
   };
-
-  // const item: MenuItem[] = [
-  //   getItem('Option 1', '1', <PieChartOutlined />),
-  //   getItem('Option 2', '2', <DesktopOutlined />),
-  //   getItem('User', 'sub1', <UserOutlined />, [
-  //     getItem('Tom', '3'),
-  //     getItem('Bill', '4'),
-  //     getItem('Alex', '5'),
-  //   ]),
-  //   getItem('Team', 'sub2', <TeamOutlined />, [
-  //     getItem('Team 1', '6'), 
-  //     getItem('Team 2', '7')]),
-  //   getItem('Files', '8', <FileOutlined />),
-  // ];
-
-
-// const item2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-//   (icon, index) => {
-//     const keys2 = String(index + 1);
-
-//     return {
-//       key: `sub${keys2}`,
-//       icon: React.createElement(icon),
-//       label: `subnav ${keys2}`,
-
-//       children: new Array(4).fill(null).map((_, j) => {
-//         const subKey = index * 4 + j + 1;
-//         return {
-//           key: subKey,
-//           label: `option${subKey}`,
-//         };
-//       }),
-//     };
-//   },
-// );
 
 const item3: MenuProps['items'] = [
   { label: (
