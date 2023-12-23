@@ -1,6 +1,7 @@
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
@@ -128,6 +129,9 @@ const Home: React.FC = () => {
   //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
   <>
         <BreadcrumbComp style={{ margin: '16px 0' }} data={['Home','예제']} />
+        <Helmet>
+          <title> 예제 | Trend </title>
+        </Helmet>
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>

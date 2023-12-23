@@ -7,7 +7,7 @@ import Oauth from '../pages/Oauth';
 
 import MenuAll from './MenuAll';
 
-function App() {
+function Router() {
   return (
     <BrowserRouter 
     // basename={process.env.PUBLIC_URL}
@@ -22,4 +22,4 @@ function App() {
   );
 }
   
-  export default App;
+  export default Router;

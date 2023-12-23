@@ -3,6 +3,7 @@ import { CopyOutlined , MinusOutlined, DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 import SelectComponent from '../component/SelectComponent';
 
@@ -396,8 +397,11 @@ const Home2free: React.FC = () => {
 
   return (
   <>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','매출' ]} />
+        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','대쉬보드_무료' ]} />
         <div className="site-card-wrapper">
+        <Helmet>
+          <title> 대쉬보드_무료 | Trend </title>
+        </Helmet>
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>
               <Card style={card_style} >
