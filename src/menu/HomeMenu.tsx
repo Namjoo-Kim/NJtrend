@@ -10,31 +10,27 @@ import {Link, useLocation} from "react-router-dom";
 import {Layout, MenuProps, Menu} from 'antd';
 import React, { useState, useEffect }  from 'react';
 
-/////
-const { Sider } = Layout;
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
 
 const HomeMenu = (props : any) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
   // const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
-  const [key, setKey] = useState<any>("1");
+  const [key, setKey] = useState<any>();
   const [display,setDisplay] = useState("none");
+
+  useEffect(() => {
+    const key = linkList.findIndex(x => x === location.pathname).toString()
+    setKey(key)
+
+  },[]);
+
+  const link1 : string = process.env.REACT_APP_DOMAIN_EXAMPLE as string;
+  const link2 : string = process.env.REACT_APP_DOMAIN_DASHFREE as string;
+  const link3 : string = process.env.REACT_APP_DOMAIN_DASHBOARD as string;
+
+  const linkList : Array<string> = [link1, link2, link3]
 
   useEffect(() => {
     getInfoFn();
@@ -85,7 +81,7 @@ const item3: MenuProps['items'] = [
        <span className="nav-text">예제</span>
     </Link>
   ),
-    key: '1' ,
+    key: '0' ,
     icon: <DesktopOutlined />,
   }, // remember to pass the key prop
   { label: (
@@ -93,7 +89,7 @@ const item3: MenuProps['items'] = [
        <span className="nav-text">대쉬보드_무료</span>
     </Link>
   ),
-    key: '2',
+    key: '1',
     icon: <PieChartOutlined />,
   }, 
   { label: (
@@ -101,7 +97,7 @@ const item3: MenuProps['items'] = [
        <span className="nav-text">대쉬보드</span>
     </Link>
   ),
-    key: '3',
+    key: '2',
     icon: <PieChartOutlined />,
     style : { display: display },
   }, 
@@ -123,14 +119,14 @@ const item3: MenuProps['items'] = [
 ];
 
 return (
-<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={150} className="site-layout-background">
   <Menu
-      style={{ 
+      style={ props.windowSize ? {} : { 
         height: '100%', 
         borderRight: 0,
-        top: '60px',
+        // top: '60px',
         position:'fixed',
         zIndex: 0, 
+        marginTop: '-17px',
       }}
       mode="inline"
       theme="dark" 
@@ -141,7 +137,6 @@ return (
       onClick={onClick}
       onOpenChange={onOpenChange}
   />
-</Sider>
   )
 };
 
