@@ -11,12 +11,12 @@ RUN apt-get update && \
 
 RUN npm install --silent
 # RUN npm install react-scripts@2.1.3 -g --silent
-RUN npm install -g typescript
+# RUN npm install -g typescript
 
-RUN npm install antd  
-RUN npm install http-proxy-middleware
+# RUN npm install antd  
+# RUN npm install http-proxy-middleware
 RUN npm install group-by-with-sum
-RUN npm install aos
+# RUN npm install aos
 
 RUN npx update-browserslist-db@latest
 
