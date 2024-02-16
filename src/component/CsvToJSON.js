@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import { DatePicker, message } from 'antd';
-import 'antd/dist/antd.css';
-import '../index.css';
+// import 'antd/dist/antd.css';
+// import '../index.css';
 
 
 export function CsvToJSON(csv_string, sep){

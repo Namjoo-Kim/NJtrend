@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { HelmetProvider } from 'react-helmet-async';
 
-import App from './config/routes'
+import Router from './config/routes'
 import Antd from './component/Antd'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <HelmetProvider>
+    <React.StrictMode>
+      <Router />
+    </React.StrictMode>
+  </HelmetProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

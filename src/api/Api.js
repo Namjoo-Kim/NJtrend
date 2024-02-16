@@ -37,21 +37,48 @@ export async function GetData() {
 }
 
 export async function Data(param) {
-    try {
-        // let res = await axios.get("/data/grp",param); // axios <-> instance
-        let res = await axios.get(process.env.REACT_APP_PROXY + "/data/grp",param); // axios <-> instance
 
-        if(res.status == 200){
-            // test for status you want, etc
-            // console.log(res.status)
-            // console.log(res.data)
-        }    
-        // Don't forget to return something   
-        return res.data
-    }
-    catch (err) {
-        console.error(err);
-    }
+    const headers = {
+        'Content-Type': 'application/json',
+        withCredentials: true
+      }
+
+    axios.defaults.withCredentials = true;
+    const promise = axios.post(process.env.REACT_APP_PROXY + "/data/grp", param["params"], {headers})
+    //   .then(res => { // headers: {…} 로 들어감.
+    //     console.log('send ok', res.data)
+
+    // })
+    //   .catch(error => {
+    //     console.log(error.response)    
+    // });
+
+    const dataPromise = promise.then((response) => response.data)
+    return dataPromise
+      
+
+    // try {
+    //     // axios.defaults.withCredentials = true;
+    //     // let res = await axios.get("/data/grp",param); // axios <-> instance
+
+    //     let res = await axios.post(process.env.REACT_APP_PROXY + "/data/grp", param, { 
+    //         headers: {
+    //         'Content-Type': 'application/json'    
+    //         }
+    //     }
+    //     ); // axios <-> instance
+
+    //     if(res.status == 200){
+    //         // test for status you want, etc
+    //         // console.log(res.status)
+    //         // console.log(res.data)
+    //     }    
+    //     // Don't forget to return something   
+    //     return res.data
+    // }
+    // catch (err) {
+    //     console.error(err);
+    // }
 }
 
 export async function Insert(param) {

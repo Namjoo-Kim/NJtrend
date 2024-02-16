@@ -1,6 +1,7 @@
 import { Card, Col, Row } from 'antd';
 
 import React, { useState, useEffect, useCallback}  from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import DemoBar from '../component/DemoBar';
 import PercentPlot from '../component/PercentPlot';
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
   async function LoadData()  {
   // const LoadData = async() => { 
     try {
-      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: 2 } });
+      const result : {year: String, value: number} = await ApiData.Data({ params: { item_id: "2" } });
       if (result) {
         return result
       }
@@ -99,13 +100,13 @@ const Home: React.FC = () => {
 
   const onClick = () => {
     // 파라미터 지정
-    let item_id : Number
+    let item_id : String
     if ( values === "year") {
-      item_id = 2
+      item_id = "2"
     } else if ( values === "quarter") {
-      item_id = 3
+      item_id = "3"
     } else {
-      item_id = 4
+      item_id = "4"
     }
 
     // 파라미터로 값 불러오기
@@ -128,6 +129,9 @@ const Home: React.FC = () => {
   //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
   <>
         <BreadcrumbComp style={{ margin: '16px 0' }} data={['Home','예제']} />
+        <Helmet>
+          <title> 예제 | Trend </title>
+        </Helmet>
         <div className="site-card-wrapper">
           <Row gutter={16} className="row-spacing"  >
           <Col span={24}>

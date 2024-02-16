@@ -10,71 +10,27 @@ import {Link, useLocation} from "react-router-dom";
 import {Layout, MenuProps, Menu} from 'antd';
 import React, { useState, useEffect }  from 'react';
 
-/////
-const { Sider } = Layout;
-type MenuItem = Required<MenuProps>['items'][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
-// const menus = [
-//   { name: "매출", key: 'sub1', path: "/Home", icon: <PieChartOutlined />, children : [{ 
-//     label: (
-//       <Link to="/Home">
-//          <span className="nav-text">매출3</span>
-//       </Link>
-//     ),
-//     key: '1' 
-//   }]},
-//   { name: "매출2",key: '2', path: "/Home2" ,icon: <DesktopOutlined />},
-//   { name: "sub menu",key: 'sub2', path: "" ,icon: <UserOutlined />, children : [{ 
-//     label: (
-//       <Link to="/Home3">
-//          <span className="nav-text">매출3</span>
-//       </Link>
-//     ),
-//     key: '3' 
-//   }]
-//   } 
-// ];
-
-// const menu_list = [
-//   menus.map((menu, index) => {
-//   return (
-//     {
-//       label :
-//       (
-//       <Link to= {menu.path}>
-//         <span className="nav-text">{menu.name}</span>
-//       </Link>
-//       ),
-//       key : menu.key,
-//       icon : menu.icon,
-//       children : menu.children,
-//     }
-//   );
-// })
-// ];
-
 
 const HomeMenu = (props : any) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+
   const rootSubmenuKeys = ['sub1', 'sub2'];
   const [openKeys, setOpenKeys] = useState(['sub1']);
   // const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
-  const [key, setKey] = useState<any>("1");
+  const [key, setKey] = useState<any>();
   const [display,setDisplay] = useState("none");
+
+  useEffect(() => {
+    const key = linkList.findIndex(x => x === location.pathname).toString()
+    setKey(key)
+
+  },[]);
+
+  const link1 : string = process.env.REACT_APP_DOMAIN_EXAMPLE as string;
+  const link2 : string = process.env.REACT_APP_DOMAIN_DASHFREE as string;
+  const link3 : string = process.env.REACT_APP_DOMAIN_DASHBOARD as string;
+
+  const linkList : Array<string> = [link1, link2, link3]
 
   useEffect(() => {
     getInfoFn();
@@ -119,48 +75,13 @@ const HomeMenu = (props : any) => {
     }
   };
 
-  // const item: MenuItem[] = [
-  //   getItem('Option 1', '1', <PieChartOutlined />),
-  //   getItem('Option 2', '2', <DesktopOutlined />),
-  //   getItem('User', 'sub1', <UserOutlined />, [
-  //     getItem('Tom', '3'),
-  //     getItem('Bill', '4'),
-  //     getItem('Alex', '5'),
-  //   ]),
-  //   getItem('Team', 'sub2', <TeamOutlined />, [
-  //     getItem('Team 1', '6'), 
-  //     getItem('Team 2', '7')]),
-  //   getItem('Files', '8', <FileOutlined />),
-  // ];
-
-
-// const item2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-//   (icon, index) => {
-//     const keys2 = String(index + 1);
-
-//     return {
-//       key: `sub${keys2}`,
-//       icon: React.createElement(icon),
-//       label: `subnav ${keys2}`,
-
-//       children: new Array(4).fill(null).map((_, j) => {
-//         const subKey = index * 4 + j + 1;
-//         return {
-//           key: subKey,
-//           label: `option${subKey}`,
-//         };
-//       }),
-//     };
-//   },
-// );
-
 const item3: MenuProps['items'] = [
   { label: (
     <Link to="/main/example">
        <span className="nav-text">예제</span>
     </Link>
   ),
-    key: '1' ,
+    key: '0' ,
     icon: <DesktopOutlined />,
   }, // remember to pass the key prop
   { label: (
@@ -168,7 +89,7 @@ const item3: MenuProps['items'] = [
        <span className="nav-text">대쉬보드_무료</span>
     </Link>
   ),
-    key: '2',
+    key: '1',
     icon: <PieChartOutlined />,
   }, 
   { label: (
@@ -176,7 +97,7 @@ const item3: MenuProps['items'] = [
        <span className="nav-text">대쉬보드</span>
     </Link>
   ),
-    key: '3',
+    key: '2',
     icon: <PieChartOutlined />,
     style : { display: display },
   }, 
@@ -198,14 +119,14 @@ const item3: MenuProps['items'] = [
 ];
 
 return (
-<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={150} className="site-layout-background">
   <Menu
-      style={{ 
+      style={ props.windowSize ? {} : { 
         height: '100%', 
         borderRight: 0,
-        top: '60px',
+        // top: '60px',
         position:'fixed',
         zIndex: 0, 
+        marginTop: '-17px',
       }}
       mode="inline"
       theme="dark" 
@@ -216,7 +137,6 @@ return (
       onClick={onClick}
       onOpenChange={onOpenChange}
   />
-</Sider>
   )
 };
 

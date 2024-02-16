@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import React, { useState, useEffect}  from 'react';
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Helmet } from 'react-helmet-async';
 
 
 const Welcome2 = () => {
@@ -58,6 +59,9 @@ useEffect(() => {
   return (
     <>
     <div className="App">
+      <Helmet>
+        <title> 초기화면 | Trend </title>
+      </Helmet>
       <div style ={{padding: '10px 10px 24px', position:'fixed'}}>
         <KaKaoComp />
         <Link to="main/example">

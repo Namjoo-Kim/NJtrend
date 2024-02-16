@@ -22,7 +22,7 @@ code {
   z-index: 1000;
 } */
 
-@import '~antd/dist/antd.css';
+/* @import '~antd/dist/antd.css'; */
 
 .logo {
   float: left;
