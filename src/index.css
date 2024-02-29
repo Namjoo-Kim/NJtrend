@@ -13,16 +13,14 @@ code {
 }
 
 
-/* #header {
+#header {
   position:fixed;
   width:100%;
   left:0;
   top:0;
   right: 0;
   z-index: 1000;
-} */
-
-/* @import '~antd/dist/antd.css'; */
+}
 
 .logo {
   float: left;
@@ -32,9 +30,9 @@ code {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.site-layout .site-layout-background {
+/* .site-layout .site-layout-background {
   background: #fff;
-}
+} */
 
 .site-layout-color-none {
   background: transparent;

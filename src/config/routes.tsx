@@ -1,6 +1,6 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import Welcome from '../pages/Welcome';
+// import Welcome from '../pages/Welcome';
 import Welcome2 from '../pages/Welcome2';
 import Found404 from '../pages/Found404';
 import Oauth from '../pages/Oauth';

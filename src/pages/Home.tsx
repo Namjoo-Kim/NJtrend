@@ -122,50 +122,41 @@ const Home: React.FC = () => {
   };
 
   return (
-  // <Layout style={{ minHeight: '100vh'}}>
-  //   <TopMenu />
-  //   <Layout className="site-layout">
-  //     <HomeMenu key={'1'}  />
-  //     <Layout className="site-layout-background"  style={{ padding: '60px 24px 24px' , zIndex : 0}}>
-  <>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data={['Home','예제']} />
-        <Helmet>
-          <title> 예제 | Trend </title>
-        </Helmet>
-        <div className="site-card-wrapper">
-          <Row gutter={16} className="row-spacing"  >
-          <Col span={24}>
-            <Card style={card_style} >
-              <SearchMenu onChange={onChange} onClick={onClick}/>
-            </Card>
-          </Col>
-          </Row>
-          {/* 매출 Top5 카테고리 */}
-          <Row gutter={16} className="row-spacing">
-            {/* <Col span={12}>
-              <Card style={card_style}  >
-                <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
-             </Card>
-            </Col> */}
-            <Col span={24}>
-              <Card style={card_style} >
-                {/* CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요. */}
-                {keyword}
-              </Card>
-            </Col>
-          </Row>
-          <Row gutter={16} className="row-spacing">
-          <Col span={24}>
-              <Card style={card_style} >
-               <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-</>
-//     </Layout>
-//   </Layout>
-// </Layout>
+    <div className="site-card-wrapper">
+    <Helmet>
+      <title> 예제 | Trend </title>
+    </Helmet>
+    <BreadcrumbComp style={{ margin: '16px 0' }} data={['Home','예제']} />
+  
+      <Row gutter={16} className="row-spacing"  >
+      <Col span={24}>
+        <Card style={card_style} >
+          <SearchMenu onChange={onChange} onClick={onClick}/>
+        </Card>
+      </Col>
+      </Row>
+      {/* 매출 Top5 카테고리 */}
+      <Row gutter={16} className="row-spacing">
+        {/* <Col span={12}>
+          <Card style={card_style}  >
+            <PercentPlot data={Data1} Field = {{xField :"value", yField: "year", seriesField: 'country'}} />
+         </Card>
+        </Col> */}
+        <Col span={24}>
+          <Card style={card_style} >
+            {/* CSV/TXT 파일을 통해 나만의 대쉬보드를 만들고 싶다면 로그인해 주세요. */}
+            {keyword}
+          </Card>
+        </Col>
+      </Row>
+      <Row gutter={16} className="row-spacing">
+      <Col span={24}>
+          <Card style={card_style} >
+           <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+          </Card>
+        </Col>
+      </Row>
+    </div>
   );
 };
 

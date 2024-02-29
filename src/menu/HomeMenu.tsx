@@ -7,7 +7,7 @@ import {
   } from '@ant-design/icons';
 
 import {Link, useLocation} from "react-router-dom";
-import {Layout, MenuProps, Menu} from 'antd';
+import {MenuProps, Menu} from 'antd';
 import React, { useState, useEffect }  from 'react';
 
 
@@ -75,9 +75,9 @@ const HomeMenu = (props : any) => {
     }
   };
 
-const item3: MenuProps['items'] = [
+const item: MenuProps['items'] = [
   { label: (
-    <Link to="/main/example">
+    <Link to={link1}>
        <span className="nav-text">예제</span>
     </Link>
   ),
@@ -85,7 +85,7 @@ const item3: MenuProps['items'] = [
     icon: <DesktopOutlined />,
   }, // remember to pass the key prop
   { label: (
-    <Link to="/main/dashboardFree">
+    <Link to={link2}>
        <span className="nav-text">대쉬보드_무료</span>
     </Link>
   ),
@@ -93,7 +93,7 @@ const item3: MenuProps['items'] = [
     icon: <PieChartOutlined />,
   }, 
   { label: (
-    <Link to="/main/dashboard">
+    <Link to={link3}>
        <span className="nav-text">대쉬보드</span>
     </Link>
   ),
@@ -101,39 +101,27 @@ const item3: MenuProps['items'] = [
     icon: <PieChartOutlined />,
     style : { display: display },
   }, 
-  // {
-  //   label: 'sub menu',
-  //   key: 'submenu',
-  //   style : { display: display },
-  //   children: [{ 
-  //     icon: <UserOutlined />,
-  //     label: (
-  //       <Link to="/main/Home3">
-  //          <span className="nav-text">매출2</span>
-  //       </Link>
-  //     ),
-  //     key: '3' 
-    
-  //   }],
-  // },
 ];
 
 return (
   <Menu
-      style={ props.windowSize ? {} : { 
-        height: '100%', 
-        borderRight: 0,
-        // top: '60px',
-        position:'fixed',
-        zIndex: 0, 
-        marginTop: '-17px',
-      }}
+  style={ props.windowSize ? 
+    {} :
+    { 
+      // width: '200vh',
+      // fontSize : '15px',
+      // borderRight:0,
+      // top: '60px',
+      position:'fixed',
+      // zIndex: 0, 
+    }
+  }
       mode="inline"
       theme="dark" 
       selectedKeys={[key]}
       openKeys={openKeys}
       defaultOpenKeys={['sub1']}
-      items={item3}
+      items={item}
       onClick={onClick}
       onOpenChange={onOpenChange}
   />
