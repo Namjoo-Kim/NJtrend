@@ -1,3 +1,6 @@
+# 0. 운영 주소
+https://trendata.duckdns.org/
+
 # 1. 설치
 ## 1.1 세팅
 Node.js 등 기본 세팅을 설치한다. (NPM 등이 가능한 환경)  
