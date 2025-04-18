@@ -20,13 +20,14 @@ const [data, setData] = useState([]);
   },[props.data]);
 
 
-  const Item = () => {
-  return (
-    data.map(label => 
-      <Breadcrumb.Item>{label}</Breadcrumb.Item>
-    )
-  )
-};
+
+  const Item = data.map(label => {
+    return {
+        title: label
+    };
+});
+
+
 
   const config = {
     data: props.data,
@@ -34,9 +35,7 @@ const [data, setData] = useState([]);
   };
 
   return(
-    <Breadcrumb  {...config} >
-      <Item />
-    </Breadcrumb>    
+    <Breadcrumb  {...config} items={Item} />  
     );
 };
 

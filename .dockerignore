@@ -6,3 +6,4 @@ Dockerfile*
 *.md
 LICENSE
 .vscode
+build/

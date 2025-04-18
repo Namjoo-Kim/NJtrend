@@ -10,7 +10,6 @@ const Welcome = () => {
 
   const onClick = () => {
     window.location.href = KAKAO_AUTH_URL;
-    console.log(KAKAO_AUTH_URL)
   }
 
   const KaKaoComp = () => {
@@ -41,7 +40,7 @@ const Welcome = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <KaKaoComp />
         <Link to="main/example">
-          <a>{welcome}</a>
+          {welcome}
         </Link>
         {/* <a
           className="App-link"

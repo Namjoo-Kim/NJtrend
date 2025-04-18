@@ -44,7 +44,7 @@ export async function Data(param) {
       }
 
     axios.defaults.withCredentials = true;
-    const promise = axios.post(process.env.REACT_APP_PROXY + "/data/grp", param["params"], {headers})
+    const promise = axios.post(process.env.REACT_APP_PROXY + "/api/v1/data/grp", param["params"], {headers})
     //   .then(res => { // headers: {…} 로 들어감.
     //     console.log('send ok', res.data)
 

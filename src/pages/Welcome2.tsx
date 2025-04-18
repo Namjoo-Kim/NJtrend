@@ -14,7 +14,9 @@ const Welcome2 = () => {
 
   const onClick = () => {
     window.location.href = KAKAO_AUTH_URL;
-    console.log(KAKAO_AUTH_URL)
+  }
+  const loginWithKakao = () => {
+    window.location.href = "javascript:loginWithKakao()";
   }
 
   const KaKaoComp = () => {
@@ -28,7 +30,7 @@ const Welcome2 = () => {
     };
     return (
       <>
-        <a id="custom-login-btn" href="javascript:loginWithKakao()">
+        <a id="custom-login-btn" onClick={loginWithKakao} style={{cursor:"pointer"}}>
           <img onClick={onClick}
             src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
             width="222"
@@ -65,7 +67,7 @@ useEffect(() => {
       <div style ={{padding: '10px 10px 24px', position:'fixed'}}>
         <KaKaoComp />
         <Link to="main/example">
-          <a>{welcome}</a>
+        {welcome}
         </Link>
       </div>
     <header className="App-header">

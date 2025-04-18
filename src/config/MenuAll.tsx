@@ -45,7 +45,6 @@ export default function MenuAll() {
     style={{
       backgroundColor : "#001529", 
     }}
-    bodyStyle={{ padding:'12px' }}
     placement={"left"}
     width={200}
     onClose={onClose}
@@ -66,16 +65,16 @@ export default function MenuAll() {
     <Layout className="site-layout" style={{ minHeight: '100vh'}}>
     {windowSize[0] <= 800 ? <></> : <NavigationMenu /> }
       <Layout className="site-layout-background"  style={{zIndex : 0}}>
-      <TopMenu />
-      <Content style={{marginLeft : '30px', marginTop: '100px', marginRight: '30px'}}>
-        <Routes>
-          <Route path='/example' element={<Home />} />
-          <Route path='/dashboard' element={<Home2 />} />
-          <Route path='/dashboardFree' element={<Home2free />} />
-          {/* <Route path='/Home3' element={<Home3 />} /> */}
-        </Routes>
-      </Content>
-      <Copyright />
+        <TopMenu />
+        <Content style={{marginLeft : '30px', marginTop: '100px', marginRight: '30px'}}>
+          <Routes>
+            <Route path='/example' element={<Home />} />
+            <Route path='/dashboard' element={<Home2 />} />
+            <Route path='/dashboardFree' element={<Home2free />} />
+            {/* <Route path='/Home3' element={<Home3 />} /> */}
+          </Routes>
+        </Content>
+        <Copyright />
       </ Layout>
       {windowSize[0] <= 800 ? <FloatButton onClick={showDrawer} /> : <></> }
       </ Layout>

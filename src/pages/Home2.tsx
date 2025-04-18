@@ -1,26 +1,23 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps } from 'antd';
+import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps,  } from 'antd';
+import type { CollapseProps } from 'antd';
+
 import { CopyOutlined , MinusOutlined, DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
-import DemoBar from '../component/DemoBar';
-import PercentPlot from '../component/PercentPlot';
-import LinePlot from '../component/LinePlot';
 import SelectComponent from '../component/SelectComponent';
 
 import {CsvToJSON} from '../component/CsvToJSON';
 import SliderComponent from '../component/SliderComponent';
 
-import SearchMenu from '../menu/SearchMenu';
 import SearchMenuFile from '../menu/SearchMenuFile';
 import BreadcrumbComp from '../component/BreadcrumbComp';
 
 const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
 
 const Home2: React.FC = () => { 
-  const { Panel } = Collapse;
   const { Option } = Select;
 
   const navigate = useNavigate() ;
@@ -445,6 +442,14 @@ const Home2: React.FC = () => {
     )
   };
 
+  const items: CollapseProps['items'] = [
+    {
+      key: '1',
+      label: '데이터 확인하기',
+      children: <Table dataSource={dataSource} columns={datacols} />,
+    },
+  ];
+  
   const handleMenuClick: MenuProps['onClick'] = (e : any) => {
     component.push("Demo")
     setComponent(component)
@@ -481,61 +486,52 @@ const Home2: React.FC = () => {
   };
 
   return (
-  <>
-        <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','대쉬보드' ]} />
-        <div className="site-card-wrapper">
-          <Helmet>
-            <title> 대쉬보드 | Trend </title>
-          </Helmet>
-          <Row gutter={16} className="row-spacing"  >
-          <Col span={24}>
-              <Card style={card_style} >
-                <Attached />
-                <div className="form-group">
-                  <div className="form">
-                    {/* <SearchMenu onChange={onChange} onClick={onClick}/> */}
-                    <SearchMenuFile columns={filecols} onSwitchClick={onSwitchClick} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
-                  </div>
-                </div>
-              </Card>
-            </Col>
-          </Row>
-          <Row gutter={16} className="row-spacing">
-          <Col span={24}>
-              <Collapse defaultActiveKey={['1']} >
-                <Panel header="데이터 확인하기" key="1">
-                  <Table dataSource={dataSource} columns={datacols} />
-                </Panel>
-              </Collapse>
-            </Col>
-          </Row>
-          <Dropdown overlay={DropdownMenu} trigger={['click']} disabled={datetempAdd.length!==0?false:true}  >
-          <a onClick={e => e.preventDefault()}>
-            <Space  style={{ display: display2}}  >
-              Chart 가져오기
-              <DownOutlined />
-            </Space>
-          </a>
-          </Dropdown>
-          {/* 매출 Top5 카테고리 */}
-          {/* <Row gutter={16} className="row-spacing">
-            <Col span={24}>
-              <Card style={card_style} >
-               <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
-              </Card>
-            </Col>
-          </Row> */}
-          {/* <SelectPlot /> */}
-          <SelectPlot2 />
-          {/* <Row gutter={16} className="row-spacing">
-            <Col span={24}>
-              <Card style={card_style} >
-                <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
-             </Card>
-            </Col>
-          </Row> */}
-        </div>
-</>
+    <div className="site-card-wrapper">
+    <Helmet>
+      <title> 대쉬보드 | Trend </title>
+    </Helmet>
+    <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','대쉬보드' ]} />
+    <Row gutter={16} className="row-spacing"  >
+    <Col span={24}>
+        <Card style={card_style} >
+          <Attached />
+          <div className="form-group">
+            <SearchMenuFile columns={filecols} onSwitchClick={onSwitchClick} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
+          </div>
+        </Card>
+      </Col>
+    </Row>
+    <Row gutter={16} className="row-spacing">
+      <Col span={24}>
+        <Collapse defaultActiveKey={['1']} items={items}  />
+      </Col>
+    </Row>
+    <Dropdown overlay={DropdownMenu} trigger={['click']} disabled={datetempAdd.length!==0?false:true}  >
+    <a onClick={e => e.preventDefault()}>
+      <Space  style={{ display: display2}}  >
+        Chart 가져오기
+        <DownOutlined />
+      </Space>
+    </a>
+    </Dropdown>
+    {/* 매출 Top5 카테고리 */}
+    {/* <Row gutter={16} className="row-spacing">
+      <Col span={24}>
+        <Card style={card_style} >
+         <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
+        </Card>
+      </Col>
+    </Row> */}
+    {/* <SelectPlot /> */}
+    <SelectPlot2 />
+    {/* <Row gutter={16} className="row-spacing">
+      <Col span={24}>
+        <Card style={card_style} >
+          <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
+       </Card>
+      </Col>
+    </Row> */}
+  </div>
   );
 };
 
