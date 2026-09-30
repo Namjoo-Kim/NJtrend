@@ -6,7 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import { HelmetProvider } from 'react-helmet-async';
 
 import Router from './config/routes'
-import Antd from './component/Antd'
+import { ConfigProvider } from 'antd';
+import { theme } from './config/theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <HelmetProvider>
     <React.StrictMode>
-      <Router />
+      <ConfigProvider theme={theme}>
+        <Router />
+      </ConfigProvider>
     </React.StrictMode>
   </HelmetProvider>
 );

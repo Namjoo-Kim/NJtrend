@@ -78,7 +78,7 @@ const HomeMenu = (props : any) => {
 const item: MenuProps['items'] = [
   { label: (
     <Link to={link1}>
-       <span className="nav-text">예제</span>
+       <span className="nav-text">샘플 대시보드</span>
     </Link>
   ),
     key: '0' ,
@@ -86,7 +86,7 @@ const item: MenuProps['items'] = [
   }, // remember to pass the key prop
   { label: (
     <Link to={link2}>
-       <span className="nav-text">대쉬보드_무료</span>
+       <span className="nav-text">내 데이터 분석</span>
     </Link>
   ),
     key: '1',
@@ -94,7 +94,7 @@ const item: MenuProps['items'] = [
   }, 
   { label: (
     <Link to={link3}>
-       <span className="nav-text">대쉬보드</span>
+       <span className="nav-text">내 데이터 분석 (로그인)</span>
     </Link>
   ),
     key: '2',
@@ -112,7 +112,7 @@ return (
       // fontSize : '15px',
       // borderRight:0,
       // top: '60px',
-      position:'fixed',
+      position: "static",
       // zIndex: 0, 
     }
   }

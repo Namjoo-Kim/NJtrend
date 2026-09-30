@@ -1,11 +1,10 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps } from 'antd';
+import { Empty, Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps } from 'antd';
 import type { CollapseProps } from 'antd';
 
 import { DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import { Helmet } from 'react-helmet-async';
 
 import SelectComponent from '../component/SelectComponent';
 
@@ -14,8 +13,9 @@ import SliderComponent from '../component/SliderComponent';
 
 import SearchMenuFile from '../menu/SearchMenuFile';
 import BreadcrumbComp from '../component/BreadcrumbComp';
+import PageHeader from '../component/PageHeader';
 
-const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
+
 
 const Home2free: React.FC = () => { 
   const { Option } = Select;
@@ -242,7 +242,7 @@ const Home2free: React.FC = () => {
 
     return dataFinal[sliderindex].map((key: any, index: any) => (
       <Col span={index===0?colsize(dataFinal[sliderindex]):24-colsize(dataFinal[sliderindex])}>
-        <Card style={card_style} >
+        <Card className="surface-card">
           <SelectChart num = {index+sliderindex*2} />
           <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index+sliderindex*2]} />
         </Card>            
@@ -404,14 +404,11 @@ const Home2free: React.FC = () => {
 
   return (
     <div className="site-card-wrapper">
-    <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','대쉬보드_무료' ]} />
-
-    <Helmet>
-      <title> 대쉬보드_무료 | Trend </title>
-    </Helmet>
+    <BreadcrumbComp style={{ margin: '0 0 12px' }} data={['Home', '내 데이터 분석']} />
+    <PageHeader title="내 데이터 분석" desc="CSV/TXT 파일을 올리고 집계 기준을 선택하면 차트가 만들어집니다." />
       <Row gutter={16} className="row-spacing"  >
       <Col span={24}>
-          <Card style={card_style} >
+          <Card className="surface-card">
             <Attached />
             <div className="form-group">
               <SearchMenuFile columns={filecols} onSwitchClick={onSwitchClick} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
@@ -432,7 +429,12 @@ const Home2free: React.FC = () => {
         </Space>
       </a>
       </Dropdown>
-      <SelectPlot2 />
+      {datetemp2.length === 0 && (
+      <Card className="surface-card">
+        <Empty description="파일을 선택하고 집계 기준을 고른 뒤 조회를 눌러 주세요." />
+      </Card>
+    )}
+    <SelectPlot2 />
     </div>
   );
 };

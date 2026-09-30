@@ -1,16 +1,9 @@
 import {Link, useNavigate} from "react-router-dom";
-import { Descriptions, Layout, Menu, Modal, MenuProps} from 'antd';
+import { Descriptions, Layout, Modal, Button, Space } from 'antd';
+import { BarChartOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
 import React, { useState, useEffect}  from 'react';
-import { async } from "q";
 
 const { Header } = Layout;
-const css = `
-.menu-bar {
-    display: inline-block;
-    white-space: nowrap;
-    width: 100%;
-}
-`
 // import type { MenuProps } from 'antd';
 // const items1: MenuProps['items'] = ['1', '2', '3'].map(key => ({
 //   key,
@@ -109,61 +102,29 @@ const TopMenu = () => {
   }
 
 
-const item: MenuProps['items'] = [
-  { label: (
-    <Link to="/">
-       <span className="nav-text">Home</span>
-    </Link>
-  ),
-    key: 'home' ,
-  }, // remember to pass the key prop
-
-  { label: (
-    <span className="nav-text">Login</span>
-  ),
-    key: "Log",
-    onClick: onKaKaoLogout,
-    style: { display: nickname===''?'':'none' }
-  }, 
-  { label: (
-    <>
-    <span className="nav-text">Info</span>
-    {/* <img  
-      src={thumbnail}
-      style={{width:50, height:50}}
-      alt="카카오 썸네일" 
-    /> */}
-    </>
-  ),
-    key: "Info",
-    onClick: showModal,
-    style: { display: nickname===''?'none':'' }
-  }, 
-];
+  const loggedIn = nickname !== '';
 
   return (
-    <Header 
-    style={{   
-      position:'fixed',
-      width:'100%',  
-      zIndex: 1, 
-      top: 0, 
-      // padding: 0,
-    }} >
-      <style>
-            {css}
-        </style>
-      <div className="menu-bar" >
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" items={item}/>
-      </div>
-    <Modal title='정보 보기' open={isModalVisible} onOk={onKaKaoLogout} okText = {'로그아웃'} onCancel={handleCancel}  cancelText="닫기">
-      <Descriptions bordered>
-        <Descriptions.Item label="이름">{nickname}</Descriptions.Item>
-      </Descriptions>
-    </Modal>
+    <Header className="app-header" style={{ left: 0 }}>
+      <Link to="/" className="brand">
+        <span className="brand-mark"><BarChartOutlined /></span>
+        NJ Trend
+      </Link>
+      <Space>
+        <Button type="text" icon={<HomeOutlined />} onClick={() => navigate('/')}>Home</Button>
+        {loggedIn ? (
+          <Button type="primary" icon={<UserOutlined />} onClick={showModal}>{nickname}</Button>
+        ) : (
+          <Button type="primary" onClick={onKaKaoLogout}>카카오 로그인</Button>
+        )}
+      </Space>
+      <Modal title="정보 보기" open={isModalVisible} onOk={onKaKaoLogout} okText="로그아웃" onCancel={handleCancel} cancelText="닫기">
+        <Descriptions bordered>
+          <Descriptions.Item label="이름">{nickname}</Descriptions.Item>
+        </Descriptions>
+      </Modal>
     </Header>
-  )
+  );
 };
 
-export default TopMenu ;
+export default TopMenu;

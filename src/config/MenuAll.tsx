@@ -10,7 +10,6 @@ import {Routes, Route} from 'react-router-dom'
 import Home from '../pages/Home';
 import Home2 from '../pages/Home2';
 import Home2free from '../pages/Home2_free';
-import Home3 from '../pages/Home3';
 
 const { Content } = Layout;
 
@@ -42,9 +41,7 @@ export default function MenuAll() {
     <>
     <Drawer
     // title="Drawer with extra actions"
-    style={{
-      backgroundColor : "#001529", 
-    }}
+    styles={{ body: { backgroundColor: '#0f172a', padding: 0 } }}
     placement={"left"}
     width={200}
     onClose={onClose}
@@ -64,14 +61,13 @@ export default function MenuAll() {
 
     <Layout className="site-layout" style={{ minHeight: '100vh'}}>
     {windowSize[0] <= 800 ? <></> : <NavigationMenu /> }
-      <Layout className="site-layout-background"  style={{zIndex : 0}}>
+      <Layout style={{ background: 'transparent' }}>
         <TopMenu />
-        <Content style={{marginLeft : '30px', marginTop: '100px', marginRight: '30px'}}>
+        <Content className="app-content">
           <Routes>
             <Route path='/example' element={<Home />} />
             <Route path='/dashboard' element={<Home2 />} />
             <Route path='/dashboardFree' element={<Home2free />} />
-            {/* <Route path='/Home3' element={<Home3 />} /> */}
           </Routes>
         </Content>
         <Copyright />

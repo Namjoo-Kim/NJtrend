@@ -1,20 +1,13 @@
-
-import {Layout, MenuProps, Menu} from 'antd';
-import React, { useState, useEffect }  from 'react';
+import { Layout } from 'antd';
 import HomeMenu from './HomeMenu';
 
 const { Sider } = Layout;
 
-const NavigationMenu = (props : any) => {
-const [collapsed, setCollapsed] = useState(false);
+const NavigationMenu = () => (
+  <Sider collapsible width={210} style={{ position: 'sticky', top: 0, height: '100vh', zIndex: 9, paddingTop: 64 }}>
+    <div className="app-sider-title">MENU</div>
+    <HomeMenu />
+  </Sider>
+);
 
-
-return (
-<Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)} width={150}  className="site-layout-background">
-  <br/>
-  <HomeMenu />
-</Sider>
-  )
-};
-
-export default NavigationMenu ;
+export default NavigationMenu;

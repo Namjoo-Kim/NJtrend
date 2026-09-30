@@ -1,11 +1,10 @@
-import { Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps,  } from 'antd';
+import { Empty, Card, Col, Collapse, Row, Table, message, Input, Select, Button, Tooltip, Dropdown, Space, Menu, MenuProps,  } from 'antd';
 import type { CollapseProps } from 'antd';
 
 import { CopyOutlined , MinusOutlined, DownOutlined } from '@ant-design/icons';
 
 import React, { useState, useEffect, useCallback, useMemo}  from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import { Helmet } from 'react-helmet-async';
 
 import SelectComponent from '../component/SelectComponent';
 
@@ -14,8 +13,9 @@ import SliderComponent from '../component/SliderComponent';
 
 import SearchMenuFile from '../menu/SearchMenuFile';
 import BreadcrumbComp from '../component/BreadcrumbComp';
+import PageHeader from '../component/PageHeader';
 
-const card_style = { borderRadius: '10px', boxShadow: "5px 8px 24px 5px rgba(208, 216, 243, 0.6)", }
+
 
 const Home2: React.FC = () => { 
   const { Option } = Select;
@@ -291,7 +291,7 @@ const Home2: React.FC = () => {
   //   const colsize = datetemp2.length===1?24:Math.round(24*(sliderValue2[sliderkeys]?sliderValue2[sliderkeys]:50)/100);
   //   return datetemp2.map((key: any, index: any) => (
   //     <Col span={index===0?colsize:24-colsize}>
-  //       <Card style={card_style} >
+  //       <Card className="surface-card">
   //         <SelectChart num = {index} />
   //         <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index]} />
   //       </Card>            
@@ -321,7 +321,7 @@ const Home2: React.FC = () => {
     return dataFinal[sliderindex].map((key: any, index: any) => (
       <Col span={index===0?colsize(dataFinal[sliderindex]):24-colsize(dataFinal[sliderindex])}>
       {/* <Col span={index===0?colsize:24-colsize}> */}
-        <Card style={card_style} >
+        <Card className="surface-card">
           <SelectChart num = {index+sliderindex*2} />
           <SelectComponent data={key} Field={{xField : 'value', yField: 'axis', seriesField: 'axis'}} select={component[index+sliderindex*2]} />
         </Card>            
@@ -487,13 +487,11 @@ const Home2: React.FC = () => {
 
   return (
     <div className="site-card-wrapper">
-    <Helmet>
-      <title> 대쉬보드 | Trend </title>
-    </Helmet>
-    <BreadcrumbComp style={{ margin: '16px 0' }} data = {['Home','대쉬보드' ]} />
+    <BreadcrumbComp style={{ margin: '0 0 12px' }} data={['Home', '내 데이터 분석 (로그인)']} />
+    <PageHeader title="내 데이터 분석 (로그인)" desc="CSV/TXT 파일을 올리고 집계 기준을 선택하면 차트가 만들어집니다." />
     <Row gutter={16} className="row-spacing"  >
     <Col span={24}>
-        <Card style={card_style} >
+        <Card className="surface-card">
           <Attached />
           <div className="form-group">
             <SearchMenuFile columns={filecols} onSwitchClick={onSwitchClick} onChange={onChange} onChange2={onChange2} onClick={onClick} value={values===""?[]:values} value2={values2===""?[]:values2} />
@@ -517,16 +515,21 @@ const Home2: React.FC = () => {
     {/* 매출 Top5 카테고리 */}
     {/* <Row gutter={16} className="row-spacing">
       <Col span={24}>
-        <Card style={card_style} >
+        <Card className="surface-card">
          <DemoBar data={datetemp} Field = {{xField : xField, yField: yField, seriesField: seriesField}}/>
         </Card>
       </Col>
     </Row> */}
     {/* <SelectPlot /> */}
+    {datetemp2.length === 0 && (
+      <Card className="surface-card">
+        <Empty description="파일을 선택하고 집계 기준을 고른 뒤 조회를 눌러 주세요." />
+      </Card>
+    )}
     <SelectPlot2 />
     {/* <Row gutter={16} className="row-spacing">
       <Col span={24}>
-        <Card style={card_style} >
+        <Card className="surface-card">
           <PercentPlot data={datetemp3} Field = {{xField :values2[0], yField: values[0], seriesField: 'mfr'}} />
        </Card>
       </Col>

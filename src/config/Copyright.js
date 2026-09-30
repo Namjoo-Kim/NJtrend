@@ -1,11 +1,8 @@
-import {  Layout } from 'antd';
+import { Layout } from 'antd';
 const { Footer } = Layout;
 
-const Copyright = () => {
+const Copyright = () => (
+  <Footer className="app-footer">© 2022 NJ Trend · Created by KNJ</Footer>
+);
 
-  return(
-    <Footer className="site-layout-background"  style={{ textAlign: 'center' }}>App Design ©2022 Created by KNJ</Footer>
-    );
-};
-
-export default Copyright ;
+export default Copyright;
