@@ -6,6 +6,7 @@ import LinePlot from '../component/LinePlot';
 import PageHeader from '../component/PageHeader';
 import BreadcrumbComp from '../component/BreadcrumbComp';
 import * as ApiData from '../api/Api';
+import { useAuth } from '../auth/AuthContext';
 
 type Point = { year: string; value: number };
 type Unit = 'year' | 'quarter' | 'week';
@@ -33,7 +34,7 @@ const Home: React.FC = () => {
   const [data, setData] = useState<Point[]>([]);
   const [isSample, setIsSample] = useState(false);
   const [loading, setLoading] = useState(true);
-  const loggedIn = !!localStorage.getItem('token');
+  const { loggedIn } = useAuth();
 
   useEffect(() => {
     let alive = true;

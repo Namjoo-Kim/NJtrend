@@ -9,6 +9,7 @@ import {
   MailOutlined,
 } from '@ant-design/icons';
 import { Helmet } from 'react-helmet-async';
+import { useAuth } from '../auth/AuthContext';
 
 // TODO: 본인 정보로 교체
 const PROFILE = {
@@ -28,13 +29,11 @@ const FEATURES = [
 
 const STACK = ['React 18', 'TypeScript', 'Ant Design 5', '@ant-design/plots', 'React Router 6', 'Axios', 'FastAPI', 'Docker'];
 
-const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
-
 const bars = [46, 72, 58, 90, 66, 82, 100];
 
 const Welcome2 = () => {
   const navigate = useNavigate();
-  const loggedIn = !!localStorage.getItem('token');
+  const { loggedIn, login } = useAuth();
 
   return (
     <div className="landing">
@@ -49,7 +48,7 @@ const Welcome2 = () => {
         </Link>
         <Space>
           <Button type="text" href={PROFILE.repo} target="_blank" icon={<GithubOutlined />}>GitHub</Button>
-          {!loggedIn && <Button onClick={() => (window.location.href = KAKAO_AUTH_URL)}>카카오 로그인</Button>}
+          {!loggedIn && <Button onClick={login}>카카오 로그인</Button>}
         </Space>
       </header>
 
@@ -69,7 +68,7 @@ const Welcome2 = () => {
               {loggedIn ? '대시보드 열기' : '체험하기'}
             </Button>
             {!loggedIn && (
-              <Button size="large" className="kakao-btn" onClick={() => (window.location.href = KAKAO_AUTH_URL)}>
+              <Button size="large" className="kakao-btn" onClick={login}>
                 카카오로 시작하기
               </Button>
             )}

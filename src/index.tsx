@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Router from './config/routes'
 import { ConfigProvider } from 'antd';
 import { theme } from './config/theme';
+import { AuthProvider } from './auth/AuthContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,9 @@ root.render(
   <HelmetProvider>
     <React.StrictMode>
       <ConfigProvider theme={theme}>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </ConfigProvider>
     </React.StrictMode>
   </HelmetProvider>

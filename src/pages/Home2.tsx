@@ -20,8 +20,6 @@ import PageHeader from '../component/PageHeader';
 const Home2: React.FC = () => { 
   const { Option } = Select;
 
-  const navigate = useNavigate() ;
-
   // const [datetemp, setDatetemp] = useState<any>([]);
   const [datetemp2, setDatetemp2] = useState<any>([]);
   // const [datetemp3, setDatetemp3] = useState<any>([]);
@@ -44,20 +42,6 @@ const Home2: React.FC = () => {
   const [filecols, setFilecols] = useState([]);
   const [datacols, setDatacols] = useState([]);
   const [dataSource, setDataSource] = useState<any>([]);
-
-  useEffect(() => {
-    checkTokenFn()
-  },[localStorage.getItem('token'), ]);
-
-  const checkTokenFn = () => {
-    const ACCESS_TOKEN = localStorage.getItem('token')
-    const checkToken = () => {
-        if (! ACCESS_TOKEN) {
-          navigate('/main/example')
-        } 
-      } ;
-    checkToken()
-  }
 
   // 업로드  기능 (나중에 사용)
   const Attached = () => {

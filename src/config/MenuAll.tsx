@@ -7,6 +7,7 @@ import NavigationMenu from '../menu/NavigationMenu';
 import Copyright from './Copyright';
 
 import {Routes, Route} from 'react-router-dom'
+import ProtectedRoute from '../auth/ProtectedRoute';
 import Home from '../pages/Home';
 import Home2 from '../pages/Home2';
 import Home2free from '../pages/Home2_free';
@@ -66,7 +67,7 @@ export default function MenuAll() {
         <Content className="app-content">
           <Routes>
             <Route path='/example' element={<Home />} />
-            <Route path='/dashboard' element={<Home2 />} />
+            <Route path='/dashboard' element={<ProtectedRoute><Home2 /></ProtectedRoute>} />
             <Route path='/dashboardFree' element={<Home2free />} />
           </Routes>
         </Content>

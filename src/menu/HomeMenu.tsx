@@ -9,6 +9,7 @@ import {
 import {Link, useLocation} from "react-router-dom";
 import {MenuProps, Menu} from 'antd';
 import React, { useState, useEffect }  from 'react';
+import { useAuth } from '../auth/AuthContext';
 
 
 const HomeMenu = (props : any) => {
@@ -18,7 +19,7 @@ const HomeMenu = (props : any) => {
   const [openKeys, setOpenKeys] = useState(['sub1']);
   // const [key, setKey] = useState<any>( localStorage.getItem('HomePageNum')?localStorage.getItem('HomePageNum'):"1");
   const [key, setKey] = useState<any>();
-  const [display,setDisplay] = useState("none");
+  const { loggedIn } = useAuth();
 
   useEffect(() => {
     const key = linkList.findIndex(x => x === location.pathname).toString()
@@ -31,32 +32,6 @@ const HomeMenu = (props : any) => {
   const link3 : string = process.env.REACT_APP_DOMAIN_DASHBOARD as string;
 
   const linkList : Array<string> = [link1, link2, link3]
-
-  useEffect(() => {
-    getInfoFn();
-  },[localStorage.getItem('token'), key]);
-
-  const getInfoFn = () => {
-    const ACCESS_TOKEN = localStorage.getItem('token')
-    const getInfo = async() => {
-        await fetch(`https://kapi.kakao.com/v1/user/access_token_info`, {
-          method: 'GET',
-          headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`},
-        })
-        .then(res => res.json())
-        .then(data  => {
-          if (data.id) {
-            // 토큰값 활성화
-            setDisplay("")
-          } else {
-            localStorage.removeItem('token')
-            localStorage.removeItem('HomePageNum')
-            setDisplay("none")
-          }
-        })
-      } ;
-    getInfo()
-  }
 
   const onClick: MenuProps['onClick'] = e => {
     setKey(e.key)
@@ -99,7 +74,7 @@ const item: MenuProps['items'] = [
   ),
     key: '2',
     icon: <PieChartOutlined />,
-    style : { display: display },
+    style : { display: loggedIn ? '' : 'none' },
   }, 
 ];
 
